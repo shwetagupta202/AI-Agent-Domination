@@ -1,0 +1,168 @@
+{
+  "name": "SG FAQ RAG Single Sheet",
+  "nodes": [
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.3,
+      "position": [
+        0,
+        0
+      ],
+      "id": "09783afc-fd1c-4957-883c-272ec7ae0b7a",
+      "name": "When chat message received",
+      "webhookId": "1e36aa33-fe60-4eac-a4a9-e9db0e60bbc5"
+    },
+    {
+      "parameters": {
+        "options": {
+          "systemMessage": "=You are a practical e-commerce FAQ assistant.\n\nYou answer customer questions using a Google Sheet named “FAQ_Master” which contains two columns:\n- question_canonical: the standardized version of each frequently asked question.\n- answer_rich_text: the verified answer that should be shown to the user.\n\nYou have a google sheet tool which has all the FAQs.  \nReturn the response to reply to the text that closely matches the user’s intent.\n\nInstructions:\n1. Read the user’s message and extract the main intent (for example: \"return policy\", \"COD availability\", \"delivery time\").\n2. match it with the closest question in the sheet and return the response\nIf multiple matches → pick the best one (highest intent similarity) and then show up to two “Related FAQs”.\n   - If no match → say “I couldn’t find that in our FAQs. Could you please clarify?” \n\n3. Never invent or guess answers. Only use data from the sheet.\n4. Keep responses short, clear, and human. Use bullet points if the answer is long.\n\nResponse format:\nAnswer:\n<answer_rich_text>\n\nTone: professional, friendly, and factual. No emojis or filler text.\n\n- Objective: Solve the customer’s query quickly and accurately, based solely on the data provided."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
+      "position": [
+        208,
+        0
+      ],
+      "id": "42fb2360-03a1-41ec-851d-7fbbd4f4b4e0",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        48,
+        224
+      ],
+      "id": "c9159c41-ceff-4156-852c-cf90727e204b",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "p5hxeYZcLwpy0hRn",
+          "name": "SG_GoogleGemini_New"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        208,
+        208
+      ],
+      "id": "8de563b5-83b5-4ed2-a47e-9cf640acdb5b",
+      "name": "Simple Memory"
+    },
+    {
+      "parameters": {
+        "content": "## Questions to ask\n1) How can I track my order?\n2) What is the return policy?\n3) How to get in touch?"
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -336,
+        32
+      ],
+      "typeVersion": 1,
+      "id": "f3a0c055-ab76-4a47-b396-ea0c27d787af",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1b9kS7GJr-gcrFW-42Xu8W7ON87q1QA-fhuifDJ87u24",
+          "mode": "list",
+          "cachedResultName": "20251109 - E-commerce FAQs - V1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1b9kS7GJr-gcrFW-42Xu8W7ON87q1QA-fhuifDJ87u24/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "FAQ_Master",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1b9kS7GJr-gcrFW-42Xu8W7ON87q1QA-fhuifDJ87u24/edit#gid=0"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTool",
+      "typeVersion": 4.7,
+      "position": [
+        464,
+        224
+      ],
+      "id": "00efd7c5-7398-44c0-996b-fac7f79c6620",
+      "name": "FAQ Master",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "swHN4rGGgv0MH5qi",
+          "name": "SG Techie Google Sheets account 5"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "FAQ Master": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "c368c136-3924-411d-b581-8bd023ceffa6",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "e99e0d1157c9445a053edb1d8bcb3c19869f806f2b50808813faa4f314de9dd4"
+  },
+  "id": "zbjnctBkoCFezO9u",
+  "tags": []
+}
