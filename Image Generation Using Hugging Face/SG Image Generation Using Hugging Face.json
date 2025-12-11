@@ -1,0 +1,204 @@
+{
+  "name": "SG Image Generation Using Hugging Face",
+  "nodes": [
+    {
+      "parameters": {
+        "hasOutputParser": true,
+        "options": {
+          "systemMessage": "=You are a LinkedIn post writer trained to match a crisp, no-fluff, systems-driven, slightly provocative style.\n\nTASK:\nCreate a LinkedIn post that:\n- Starts with a strong, thought-provoking hook.\n- Has EXACTLY 4 paragraphs. Each paragraph has 3–4 sentences. Separate paragraphs with literal \\n\\n (two backslash+n sequences).\n- Ends with a sharp question to drive serious discussion.\n- Includes 4–6 relevant hashtags on the final line after the question.\n- Matches the title\n\nAlso create an image_prompt (under 30 words) that visually represents the main problem or insight.\n\nSTYLE RULES:\n- Favor logic over fluff; challenge flawed systems; never seek validation.\n- Avoid double quotes inside content; use single quotes if needed. Do not include backticks or markdown.\n- Keep total characters under 3000.\n\nOUTPUT CONTRACT:\nReturn ONE JSON object only, no extra fields, exactly in this shape:\n{\"post\": \"...\", \"image_prompt\": \"...\"}\n\nSELF-CHECK BEFORE RESPONDING:\n- post has exactly 3 occurrences of \\n\\n (4 paragraphs).\n- Each paragraph has 3–4 sentences.\n- Last paragraph ends with a question mark.\n- Final line contains 4–6 hashtags.\n- No double quotes inside post or image_prompt.\n- Total length < 3000 chars.\n\nNow generate the JSON.\n"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.8,
+      "position": [
+        224,
+        0
+      ],
+      "id": "026bdb87-1f87-48a7-ae19-060cd67de31c",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $input.all();\n\nfunction tryParseWithHeals(s) {\n  // Strip code fences\n  let str = String(s).replace(/```json|```/g, '').trim();\n\n  // Isolate JSON-ish slice\n  const start = str.indexOf('{');\n  const end = str.lastIndexOf('}');\n  if (start === -1 || end === -1 || end <= start) return null;\n  str = str.slice(start, end + 1);\n\n  // First parse attempt\n  try { return JSON.parse(str); } catch {}\n\n  // Heal #1: remove stray closing brace before another key (your case)\n  // e.g. {\"post\":\"...\"},\"image_prompt\":\"...\"}  ->  {\"post\":\"...\",\"image_prompt\":\"...\"}\n  let healed = str.replace(/}\\s*,\\s*(?=\"[^\"]+\"\\s*:)/, ',');\n\n  try { return JSON.parse(healed); } catch {}\n\n  // Heal #2: remove trailing commas before closing braces\n  healed = healed.replace(/,(\\s*})/g, '$1');\n  try { return JSON.parse(healed); } catch {}\n\n  // Last-ditch: extract just \"post\" and optional prompt via regex so we still return something useful\n  const postMatch = str.match(/\"post\"\\s*:\\s*\"([\\s\\S]*?)\"/);\n  const promptMatch = str.match(/\"image_prompt\"\\s*:\\s*\"([\\s\\S]*?)\"/) || str.match(/\"prompt\"\\s*:\\s*\"([\\s\\S]*?)\"/);\n  if (postMatch) {\n    return {\n      post: postMatch[1],\n      image_prompt: promptMatch ? promptMatch[1] : '',\n    };\n  }\n  return null;\n}\n\nreturn items.map((item) => {\n  // Accept either {json: {output: \"...\"} } or {json: {output: {...}}}\n  const out = item.json?.output;\n  if (out == null) {\n    return { json: { post: '⚠️ No valid JSON found in AI output.', prompt: '' } };\n  }\n\n  let obj = (typeof out === 'object') ? out : tryParseWithHeals(out);\n  if (!obj) {\n    return { json: { post: '⚠️ Error parsing AI output.', prompt: '' } };\n  }\n\n  // Extract fields\n  let post = obj.post || '';\n  let prompt = obj.image_prompt || obj.prompt || '';\n\n  if (!post) {\n    return { json: { post: '⚠️ Post missing from AI output.', prompt } };\n  }\n\n  // Normalize escaped newlines → real newlines\n  post = String(post).replace(/\\\\n/g, '\\n').trim();\n\n  return { json: { post, prompt } };\n});\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        576,
+        0
+      ],
+      "id": "c0ddc77f-1359-4e90-9ab3-3f8af9e30b93",
+      "name": "Code"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.3,
+      "position": [
+        0,
+        0
+      ],
+      "id": "b22edcc3-2c27-4bad-8ce4-de4887f45b41",
+      "name": "When chat message received",
+      "webhookId": "0f0a4726-ad0c-4961-af45-0387191b68fc"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        208,
+        208
+      ],
+      "id": "4e10ac29-8bf7-4eaa-8c3a-6a1e1092e7db",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "p5hxeYZcLwpy0hRn",
+          "name": "SG_GoogleGemini_New"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://router.huggingface.co/hf-inference/models/black-forest-labs/FLUX.1-schnell",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Bearer <token>"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "name": "Accept",
+              "value": "image/png"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"inputs\": \"{{ $json.prompt }}\" \n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        784,
+        0
+      ],
+      "id": "7b9b21de-2624-43f0-9443-16cf92d6068f",
+      "name": "Image generation by Hugging Face"
+    },
+    {
+      "parameters": {
+        "driveId": {
+          "__rl": true,
+          "value": "My Drive",
+          "mode": "list",
+          "cachedResultName": "My Drive",
+          "cachedResultUrl": "https://drive.google.com/drive/my-drive"
+        },
+        "folderId": {
+          "__rl": true,
+          "value": "1xFEd9NtOuaf5vdQeZ8Tz2boNIFJA9OG2",
+          "mode": "list",
+          "cachedResultName": "AI AGENT DOMINATION PROGRAM",
+          "cachedResultUrl": "https://drive.google.com/drive/folders/1xFEd9NtOuaf5vdQeZ8Tz2boNIFJA9OG2"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        1024,
+        240
+      ],
+      "id": "c6f3a5e9-0eac-4af4-90b5-3b9ecb4ac85b",
+      "name": "Upload file",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "BgbeHwrXaNKyzbvh",
+          "name": "SG_Techie_Drive"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Code",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code": {
+      "main": [
+        [
+          {
+            "node": "Image generation by Hugging Face",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Image generation by Hugging Face": {
+      "main": [
+        [
+          {
+            "node": "Upload file",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "6f3a9820-8061-4069-a857-66c41e31896d",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "e99e0d1157c9445a053edb1d8bcb3c19869f806f2b50808813faa4f314de9dd4"
+  },
+  "id": "W26ZiynnrWqxGuBE",
+  "tags": []
+}
