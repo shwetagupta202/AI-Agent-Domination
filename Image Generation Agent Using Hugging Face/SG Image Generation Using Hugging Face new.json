@@ -1,0 +1,123 @@
+{
+  "name": "SG Image Generation Using Hugging Face new",
+  "nodes": [
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.3,
+      "position": [
+        0,
+        0
+      ],
+      "id": "7f7401fe-92f5-488b-bc8f-db2f1a9ca7e4",
+      "name": "When chat message received",
+      "webhookId": "52c83473-4f95-4521-85b5-574dcdf68073"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://router.huggingface.co/hf-inference/models/black-forest-labs/FLUX.1-schnell",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Bearer <token>"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "name": "Accept",
+              "value": "image/png"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"inputs\": \"{{ $json.chatInput }}\" \n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        320,
+        0
+      ],
+      "id": "32b26713-bdc7-45e3-b37a-d8d3e236b60e",
+      "name": "Image generation by Hugging Face"
+    },
+    {
+      "parameters": {
+        "driveId": {
+          "__rl": true,
+          "value": "My Drive",
+          "mode": "list",
+          "cachedResultName": "My Drive",
+          "cachedResultUrl": "https://drive.google.com/drive/my-drive"
+        },
+        "folderId": {
+          "__rl": true,
+          "value": "1xFEd9NtOuaf5vdQeZ8Tz2boNIFJA9OG2",
+          "mode": "list",
+          "cachedResultName": "AI AGENT DOMINATION PROGRAM",
+          "cachedResultUrl": "https://drive.google.com/drive/folders/1xFEd9NtOuaf5vdQeZ8Tz2boNIFJA9OG2"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        624,
+        0
+      ],
+      "id": "d93d0a80-9106-40a4-a639-c7c2ed3ea3c0",
+      "name": "Upload file",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "BgbeHwrXaNKyzbvh",
+          "name": "SG_Techie_Drive"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "Image generation by Hugging Face",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Image generation by Hugging Face": {
+      "main": [
+        [
+          {
+            "node": "Upload file",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "3c8155e3-111c-4274-beb7-41a99b7ae26d",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "e99e0d1157c9445a053edb1d8bcb3c19869f806f2b50808813faa4f314de9dd4"
+  },
+  "id": "KVMAHVzmHBpnGdWV",
+  "tags": []
+}
