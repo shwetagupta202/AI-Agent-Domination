@@ -1,0 +1,466 @@
+{
+  "name": "[Template] Telegram Lead Qualification Agent v1",
+  "nodes": [
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=You are a friendly sales assistant collecting lead information via Telegram and qualifying leads using BANT criteria.\n\nCURRENT USER MESSAGE: {{ $('Telegram Trigger').item.json.message.text }}\nUSER ID: {{ $('Telegram Trigger').item.json.message.chat.id }}\nUSER NAME: {{ $('Telegram Trigger').item.json.message.from.first_name }}\n\nANALYZE MEMORY:\nCheck if you already have: name, email, budget, timeline, authority from previous messages.\n\nCONVERSATION FLOW:\n1. If no name in memory → Ask: \"Hi {{ $('Telegram Trigger').item.json.message.from.first_name }}! I'm here to help you learn about our AI services. What's your email address?\"\n\n2. If have name but no email → Ask: \"What's your email address?\"\n\n3. If have email but no budget → Ask: \"What's your budget range for AI automation?\n   A) Under $1,000/month\n   B) $1,000-$5,000/month  \n   C) $5,000+/month\n   D) Not sure yet\"\n\n4. If have budget but no timeline → Ask: \"When are you looking to get started?\n   A) This month\n   B) Next 2-3 months\n   C) Later this year\n   D) Just exploring\"\n\n5. If have timeline but no authority → Ask: \"Can you make the buying decision for your company?\n   A) Yes, I decide\n   B) I decide with others\n   C) I need approval\n   D) Just gathering info\"\n\n6. If have ALL info → \"Thanks! We've got everything. Someone will reach out soon.\"\n\nEXTRACT FULL RESPONSES (not just letters):\n- Budget: Convert A→\"Under $1,000/month\", B→\"$1,000-$5,000/month\", C→\"$5,000+/month\", D→\"Not sure yet\"\n- Timeline: Convert A→\"This month\", B→\"Next 2-3 months\", C→\"Later this year\", D→\"Just exploring\"  \n- Authority: Convert A→\"Yes, I decide\", B→\"I decide with others\", C→\"I need approval\", D→\"Just gathering info\"\n\nRESPONSE FORMAT:\nIf missing any info:\n{\n  \"message\": \"your next question\",\n  \"conversation_status\": \"ongoing\",\n  \"name\": \"{{ $('Telegram Trigger').item.json.message.from.first_name }}\",\n  \"email\": \"extracted email or empty\",\n  \"budget\": \"full budget text or empty\", \n  \"timeline\": \"full timeline text or empty\",\n  \"authority\": \"full authority text or empty\"\n}\n\nIf have ALL 5 fields:\n{\n  \"message\": \"Thanks! We've got everything. Someone will reach out soon.\",\n  \"conversation_status\": \"complete\",\n  \"name\": \"{{ $('Telegram Trigger').item.json.message.from.first_name }}\",\n  \"email\": \"email address\",\n  \"budget\": \"Under $1,000/month\",\n  \"timeline\": \"This month\",\n  \"authority\": \"Yes, I decide\", \n  \"lead_type\": \"HOT LEAD\",\n  \"score\": 23,\n  \"reasoning\": \"High urgency timeline (this month) and full decision authority make this a hot lead despite smaller budget. Ready to move fast with clear buying authority.\",\n  \"next_steps\": \"Contact within 24 hours with budget-appropriate solution. Focus on quick wins and ROI for smaller budget segment.\"\n}\n\nResponse:",
+        "hasOutputParser": true,
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
+      "position": [
+        368,
+        144
+      ],
+      "id": "6dd91d8b-e565-4a83-92d5-b821961aa571",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "a8ac031f-73bd-4e49-b6d3-c7182e89c9b7",
+              "leftValue": "={{ $json.output.conversation_status }}",
+              "rightValue": "complete",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1056,
+        432
+      ],
+      "id": "94b4d3e8-c2d8-4222-bdec-0ef96e067523",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "updates": [
+          "message"
+        ],
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        80,
+        144
+      ],
+      "id": "a942224b-b7d7-402b-8a96-8af89f630fa8",
+      "name": "Telegram Trigger",
+      "webhookId": "6ee44498-0351-43e2-a485-bbb6d231119d",
+      "credentials": {
+        "telegramApi": {
+          "id": "9BYicdY8dOc1tLKW",
+          "name": "SG Telegram Lead Qual"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsonSchemaExample": "{\n  \"message\": \"Hi there! What's your name?\",\n  \"conversation_status\": \"ongoing\",\n  \"name\": \"John Doe\",\n  \"email\": \"john@example.com\",\n  \"budget\": \"B) $1K-$5K\",\n  \"timeline\": \"A) This month\",\n  \"authority\": \"A) Yes, I decide\",\n  \"lead_type\": \"HOT LEAD\",\n  \"score\": 8,\n  \"reasoning\": \"Good budget and timeline\",\n  \"next_steps\": \"Call within 24 hours\"\n}",
+        "autoFix": true
+      },
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1.3,
+      "position": [
+        560,
+        368
+      ],
+      "id": "7d6edc41-d054-466b-9a00-b28a001e503a",
+      "name": "Structured Output Parser"
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
+        "contextWindowLength": 20
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        320,
+        368
+      ],
+      "id": "2a36965c-07c1-42a6-91e3-c072b2c87117",
+      "name": "Simple Memory"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1TaaLfezJ62eiJ9cvWR2tXTjeG-NgxXiez2n6zpPbsMM",
+          "mode": "list",
+          "cachedResultName": "Telegram Lead Qualification Agent",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1TaaLfezJ62eiJ9cvWR2tXTjeG-NgxXiez2n6zpPbsMM/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1ZRzL3BlYS_oxWerBhlJgngZFQicCq4f5N3tzN2lY1N4/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Name": "={{ $json.output.name }}",
+            "Email": "={{ $json.output.email }}",
+            "Budget": "={{ $json.output.budget }}",
+            "Timeline": "={{ $json.output.timeline }}",
+            "Decision Maker": "={{ $json.output.authority }}",
+            "Lead type": "={{ $json.output.lead_type }}",
+            "Score": "={{ $json.output.score }}",
+            "Reasoning": "={{ $json.output.reasoning }}",
+            "Next Steps": "={{ $json.output.next_steps }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Name",
+              "displayName": "Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Email",
+              "displayName": "Email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Budget",
+              "displayName": "Budget",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Timeline",
+              "displayName": "Timeline",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Decision Maker",
+              "displayName": "Decision Maker",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Lead type",
+              "displayName": "Lead type",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Score",
+              "displayName": "Score",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Reasoning",
+              "displayName": "Reasoning",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Next Steps",
+              "displayName": "Next Steps",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        1280,
+        336
+      ],
+      "id": "0f511b02-43fe-49ee-86a7-247d3a14961f",
+      "name": "Append Leads in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "swHN4rGGgv0MH5qi",
+          "name": "SG Techie Google Sheets account 5"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "## System 1 - Capture Lead Details",
+        "height": 784,
+        "width": 880
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        0,
+        0
+      ],
+      "typeVersion": 1,
+      "id": "098fcef5-60e7-4dc7-a004-f50e9191b930",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "content": "## System 2 - Store & Score Leads",
+        "height": 784,
+        "width": 880
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        896,
+        0
+      ],
+      "typeVersion": 1,
+      "id": "653c2694-f41d-498a-96eb-1a51f630abc7",
+      "name": "Sticky Note1"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        640,
+        576
+      ],
+      "id": "1f522471-81d9-45c2-ae02-bd40a473c6fd",
+      "name": "gemini-2.5-flah",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "IoVvt7ALdmLDpvgd",
+          "name": "YS Gemini"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        160,
+        368
+      ],
+      "id": "75bdac44-5130-4220-83b3-17f44c605319",
+      "name": "gemini-2.5-flah1",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "p5hxeYZcLwpy0hRn",
+          "name": "SG_GoogleGemini_New"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
+        "text": "=Thank you for providing your details. Our team will reach for an appoitment under 72 hours. ",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        1504,
+        336
+      ],
+      "id": "b4518604-f7ba-4d6e-8aec-64a3688296ed",
+      "name": "Send Completion Message",
+      "webhookId": "3d40857b-72ce-4bdd-b317-c6cb01ccd754",
+      "credentials": {
+        "telegramApi": {
+          "id": "9BYicdY8dOc1tLKW",
+          "name": "SG Telegram Lead Qual"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
+        "text": "={{ $json.output.message }}",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        1280,
+        528
+      ],
+      "id": "fd13da52-631d-42ee-a274-adb1e25150d5",
+      "name": "Respond to answers",
+      "webhookId": "a7be8512-9ea1-4a45-9938-81d5de3993a8",
+      "credentials": {
+        "telegramApi": {
+          "id": "9BYicdY8dOc1tLKW",
+          "name": "SG Telegram Lead Qual"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Append Leads in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Respond to answers",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Telegram Trigger": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Structured Output Parser": {
+      "ai_outputParser": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_outputParser",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append Leads in sheet": {
+      "main": [
+        [
+          {
+            "node": "Send Completion Message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "gemini-2.5-flah": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Structured Output Parser",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "gemini-2.5-flah1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "a9404c8b-5ff5-426f-a193-59a8ddcc3b42",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "e99e0d1157c9445a053edb1d8bcb3c19869f806f2b50808813faa4f314de9dd4"
+  },
+  "id": "waOXZGuBcX4J6Pmn",
+  "tags": []
+}
