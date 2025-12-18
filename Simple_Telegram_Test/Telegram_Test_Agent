@@ -1,0 +1,133 @@
+{
+  "name": "SG Telegram Test 17Dec",
+  "nodes": [
+    {
+      "parameters": {
+        "updates": [
+          "message"
+        ],
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        0,
+        0
+      ],
+      "id": "83b30ffd-30b5-4f90-85cd-c10870ea2e80",
+      "name": "Telegram Trigger",
+      "webhookId": "a05f6d8b-8409-4671-b523-56b5a974d157",
+      "credentials": {
+        "telegramApi": {
+          "id": "9BYicdY8dOc1tLKW",
+          "name": "SG Telegram Lead Qual"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.message.text }}",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3,
+      "position": [
+        208,
+        0
+      ],
+      "id": "63606715-b7e5-4ea1-a032-230fbdcfc5fe",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        80,
+        208
+      ],
+      "id": "0f473dbb-7988-43d2-899c-d0e38d02e08c",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "p5hxeYZcLwpy0hRn",
+          "name": "SG_GoogleGemini_New"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
+        "text": "={{ $json.output }}",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        560,
+        0
+      ],
+      "id": "4b6bc692-8b7c-4aae-8dc2-d105fbd9e2e8",
+      "name": "Send a text message",
+      "webhookId": "21d6de1f-f1f7-442b-9a06-5338e5ed5bcc",
+      "credentials": {
+        "telegramApi": {
+          "id": "9BYicdY8dOc1tLKW",
+          "name": "SG Telegram Lead Qual"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Telegram Trigger": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Send a text message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "4eeb1014-0f1d-47a3-a2ca-02120dd8c7e6",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "e99e0d1157c9445a053edb1d8bcb3c19869f806f2b50808813faa4f314de9dd4"
+  },
+  "id": "ew6m2erqZo8h8C4F",
+  "tags": []
+}
