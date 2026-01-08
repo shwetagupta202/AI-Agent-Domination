@@ -1,0 +1,415 @@
+{
+  "name": "SG Multi Agent Researcher",
+  "nodes": [
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.3,
+      "position": [
+        -704,
+        -288
+      ],
+      "id": "d4f2ed31-2304-47fc-a245-76113a8103c1",
+      "name": "When chat message received",
+      "webhookId": "0219dd88-2f76-4b93-aae0-d5845bd00392"
+    },
+    {
+      "parameters": {
+        "options": {
+          "systemMessage": "You are a Newsletter Orchestrator AI. The user will provide only a topic.\n\nYour job is to automatically run the full pipeline in order:\n\nResearch Topics → expand and refine the user’s topic into 3–5 relevant angles.\n\nCreate Titles → generate 5 catchy titles for the newsletter.\n\nCreate Description → write a short, compelling intro (2–3 sentences).\n\nCreate Script → expand into a full newsletter draft (250–400 words) with intro, main insight, and closing.\n\nAlways pass outputs step-by-step to the next specialist until the full newsletter is ready."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
+      "position": [
+        -352,
+        -320
+      ],
+      "id": "422d0042-ac50-4c09-95f5-537c26392d21",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "content": "## Orchestrator\n",
+        "height": 400,
+        "width": 848,
+        "color": 2
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -768,
+        -368
+      ],
+      "typeVersion": 1,
+      "id": "e8eaeeba-36ff-4feb-8ef1-d2288d988fe6",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "content": "## Research Agent\n",
+        "height": 432,
+        "width": 272
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -896,
+        64
+      ],
+      "typeVersion": 1,
+      "id": "fae8c376-4db6-421d-817d-a01ae1c259bc",
+      "name": "Sticky Note1"
+    },
+    {
+      "parameters": {
+        "content": "## Titles Agent\n",
+        "height": 432,
+        "width": 272
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -608,
+        64
+      ],
+      "typeVersion": 1,
+      "id": "74d930af-0ab1-4214-9355-770fddea556f",
+      "name": "Sticky Note2"
+    },
+    {
+      "parameters": {
+        "content": "## Description Agent",
+        "height": 432,
+        "width": 272
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -320,
+        64
+      ],
+      "typeVersion": 1,
+      "id": "55b22eee-06da-4fbb-86ef-d93d818aeab4",
+      "name": "Sticky Note3"
+    },
+    {
+      "parameters": {
+        "content": "## Script Agent\n",
+        "height": 432,
+        "width": 272
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -32,
+        64
+      ],
+      "typeVersion": 1,
+      "id": "8b51a048-3ee4-4804-aede-6f2a4dddd3dc",
+      "name": "Sticky Note4"
+    },
+    {
+      "parameters": {
+        "toolDescription": "Use this tool to research topics",
+        "text": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Prompt__User_Message_', ``, 'string') }}",
+        "options": {
+          "systemMessage": "Research and suggest 3–5 trending, relevant newsletter topics for the given input. Keep them short and clear."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agentTool",
+      "typeVersion": 2.2,
+      "position": [
+        -880,
+        144
+      ],
+      "id": "9678fc13-0863-433d-b8cc-e0a2628d10a6",
+      "name": "Research Topics"
+    },
+    {
+      "parameters": {
+        "toolDescription": "Use this tool to create titles",
+        "text": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Prompt__User_Message_', ``, 'string') }}",
+        "options": {
+          "systemMessage": "Generate 5 catchy newsletter titles based on the given topic(s). Keep them short, engaging, and professional."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agentTool",
+      "typeVersion": 2.2,
+      "position": [
+        -592,
+        144
+      ],
+      "id": "30a0f57c-735e-441b-bdc3-370baee75ade",
+      "name": "Create Titles"
+    },
+    {
+      "parameters": {
+        "toolDescription": "Use this tool to create description",
+        "text": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Prompt__User_Message_', ``, 'string') }}",
+        "options": {
+          "systemMessage": "Write a short, compelling description (2–3 sentences) for the newsletter based on the chosen title/topic. Make it clear and inviting."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agentTool",
+      "typeVersion": 2.2,
+      "position": [
+        -304,
+        144
+      ],
+      "id": "0e096482-d2d7-47d0-bc0e-993522da8465",
+      "name": "Create Description"
+    },
+    {
+      "parameters": {
+        "toolDescription": "Use this tool to create the script",
+        "text": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Prompt__User_Message_', ``, 'string') }}",
+        "options": {
+          "systemMessage": "Write a full newsletter draft (250–400 words) based on the given topic and description. Keep the tone professional but conversational. Structure with an intro, main insight, and closing."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agentTool",
+      "typeVersion": 2.2,
+      "position": [
+        -16,
+        144
+      ],
+      "id": "253d56ca-8e4c-44e1-85ab-6bae9effe4ad",
+      "name": "Create Script"
+    },
+    {
+      "parameters": {
+        "model": "meta-llama/llama-3-8b-instruct",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
+      "typeVersion": 1,
+      "position": [
+        -496,
+        -112
+      ],
+      "id": "0ecbf9f1-9aaf-480d-b478-49d906590874",
+      "name": "OpenRouter Chat Model",
+      "credentials": {
+        "openRouterApi": {
+          "id": "3aTZ2WWqyMZk5JGs",
+          "name": "SG OpenRouter account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": "meta-llama/llama-3.2-3b-instruct:free",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
+      "typeVersion": 1,
+      "position": [
+        -752,
+        368
+      ],
+      "id": "49c04d61-3259-43f0-8b4f-c6a792999761",
+      "name": "OpenRouter Chat Model1",
+      "credentials": {
+        "openRouterApi": {
+          "id": "3aTZ2WWqyMZk5JGs",
+          "name": "SG OpenRouter account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": "meta-llama/llama-3.2-3b-instruct:free",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
+      "typeVersion": 1,
+      "position": [
+        -528,
+        352
+      ],
+      "id": "5aab4f56-1686-4fef-8302-665917757712",
+      "name": "OpenRouter Chat Model2",
+      "credentials": {
+        "openRouterApi": {
+          "id": "3aTZ2WWqyMZk5JGs",
+          "name": "SG OpenRouter account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": "meta-llama/llama-3.2-3b-instruct:free",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
+      "typeVersion": 1,
+      "position": [
+        -272,
+        368
+      ],
+      "id": "967d4ddf-1c95-479b-9fe7-69e700dfda6a",
+      "name": "OpenRouter Chat Model3",
+      "credentials": {
+        "openRouterApi": {
+          "id": "3aTZ2WWqyMZk5JGs",
+          "name": "SG OpenRouter account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": "meta-llama/llama-3.2-3b-instruct:free",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
+      "typeVersion": 1,
+      "position": [
+        64,
+        352
+      ],
+      "id": "f4f7c7ae-d96e-482b-ae36-e0aaca94b2e0",
+      "name": "OpenRouter Chat Model4",
+      "credentials": {
+        "openRouterApi": {
+          "id": "3aTZ2WWqyMZk5JGs",
+          "name": "SG OpenRouter account"
+        }
+      }
+    }
+  ],
+  "pinData": {
+    "When chat message received": [
+      {
+        "json": {
+          "sessionId": "34b2a01b77f041bcb5c90cedb02b2bad",
+          "action": "sendMessage",
+          "chatInput": "How is AI disrupting or benefiting IT industry"
+        },
+        "pairedItem": {
+          "item": 0
+        }
+      }
+    ]
+  },
+  "connections": {
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Research Topics": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create Titles": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create Description": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create Script": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenRouter Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenRouter Chat Model1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Research Topics",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenRouter Chat Model2": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Create Titles",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenRouter Chat Model3": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Create Description",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenRouter Chat Model4": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Create Script",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "4f57925c-a5ac-4154-a241-108b8c9bde91",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "e99e0d1157c9445a053edb1d8bcb3c19869f806f2b50808813faa4f314de9dd4"
+  },
+  "id": "oPbPgo7G2xWf5jzH",
+  "tags": []
+}
