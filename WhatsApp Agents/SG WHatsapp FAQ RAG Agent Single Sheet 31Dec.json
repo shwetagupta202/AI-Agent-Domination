@@ -1,0 +1,204 @@
+{
+  "name": "SG WHatsapp FAQ RAG Agent Single Sheet 31Dec",
+  "nodes": [
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.messages[0].text.body }}",
+        "options": {
+          "systemMessage": "You are a practical e-commerce FAQ assistant who answers messages on Whatsapp\n\nYou answer customer questions using a Google Sheet named “FAQ_Master” which contains two columns:\n- question_canonical: the standardized version of each frequently asked question.\n- answer_rich_text: the verified answer that should be shown to the user.\n\nYou have a google sheet tool which has all the FAQs.  \nReturn the response to reply to the text that closely matches the user’s intent.\n\nInstructions:\n1. Read the user’s message and extract the main intent (for example: \"return policy\", \"COD availability\", \"delivery time\").\n2. match it with the closest question in the sheet and return the response\nIf multiple matches → pick the best one (highest intent similarity) and then show up to two “Related FAQs”.\n   - If no match → say “I couldn’t find that in our FAQs. Could you please clarify?” \n\n3. Never invent or guess answers. Only use data from the sheet.\n4. Keep responses short, clear, and human. Use bullet points if the answer is long.\n\nResponse format:\nAnswer:\n<answer_rich_text>\n\nTone: professional, friendly, and factual. No emojis or filler text.\n\n- Objective: Solve the customer’s query quickly and accurately, based solely on the data provided."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2.2,
+      "position": [
+        208,
+        0
+      ],
+      "id": "7401ffe4-2c20-4a49-91e4-1dac1dd24e07",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        80,
+        208
+      ],
+      "id": "ba9c06fd-d920-4ffe-a308-9eb64e24112e",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "p5hxeYZcLwpy0hRn",
+          "name": "SG_GoogleGemini_New"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ $json.contacts[0].wa_id }}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        224,
+        208
+      ],
+      "id": "cbc6ea63-d9fa-4d81-9995-64b8e5e332fb",
+      "name": "Simple Memory"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1b9kS7GJr-gcrFW-42Xu8W7ON87q1QA-fhuifDJ87u24",
+          "mode": "list",
+          "cachedResultName": "20251109 - E-commerce FAQs - V1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1b9kS7GJr-gcrFW-42Xu8W7ON87q1QA-fhuifDJ87u24/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "FAQ_Master",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1b9kS7GJr-gcrFW-42Xu8W7ON87q1QA-fhuifDJ87u24/edit#gid=0"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheetsTool",
+      "typeVersion": 4.7,
+      "position": [
+        368,
+        208
+      ],
+      "id": "ff0f51d1-e532-4cf3-9502-045a8d73e89f",
+      "name": "FAQ_Master",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "swHN4rGGgv0MH5qi",
+          "name": "SG Techie Google Sheets account 5"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "updates": [
+          "messages"
+        ],
+        "options": {}
+      },
+      "type": "n8n-nodes-base.whatsAppTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "08b9e422-cde9-4173-bfd9-4945d88d8ca9",
+      "name": "WhatsApp Trigger",
+      "webhookId": "bd7595c4-2c27-4d5b-9aa2-75f67f1405ef",
+      "credentials": {
+        "whatsAppTriggerApi": {
+          "id": "ooxQLQXVRbXOaTbD",
+          "name": "SG WhatsApp OAuth account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "send",
+        "phoneNumberId": "936347002896918",
+        "recipientPhoneNumber": "={{ $('WhatsApp Trigger').item.json.contacts[0].wa_id }}",
+        "textBody": "={{ $json.output }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.whatsApp",
+      "typeVersion": 1.1,
+      "position": [
+        560,
+        0
+      ],
+      "id": "25736011-37fe-4578-9006-a2a41da977a0",
+      "name": "Send message",
+      "webhookId": "32c990b2-155e-414f-bbdd-b3b986f5a3c0",
+      "credentials": {
+        "whatsAppApi": {
+          "id": "moHRN3igthLCZDBE",
+          "name": "SG WhatsApp account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "FAQ_Master": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "WhatsApp Trigger": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Send message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "803c4fde-7325-4348-bde0-09e24e89c30c",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "e99e0d1157c9445a053edb1d8bcb3c19869f806f2b50808813faa4f314de9dd4"
+  },
+  "id": "mKZ9Xy4S8Ygasf09",
+  "tags": []
+}
