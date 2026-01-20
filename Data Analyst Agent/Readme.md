@@ -1,8 +1,4 @@
-Chat GPT prompt for creating Lovable prompt "Act as a prompt engineer. I want to create a prompt for building an app in lovable for my data analysis agent. Give me the prompt to create an ecommerce website for selling books which will have the login feature for each user to login. While logging in user should be asked about his role. If the role is Data Analyst, that user should get an additional option to analyse data using a chat window. The signup functionality has to be built using supabase authentication. Give me the prompt"
-
-
-
-Lovable prompt
+Sample Lovable Prompt:
 "You are a senior full-stack AI engineer building a production-ready web application using Lovable.
 
 🎯 App Goal
