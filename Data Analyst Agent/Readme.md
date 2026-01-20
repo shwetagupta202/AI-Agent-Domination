@@ -144,4 +144,6 @@ Supabase-based authentication with role selection
 
 Role-specific features
 
-Data Analysis Chat Agent visible only to Data Analysts"
+Data Analysis Chat Agent visible only to Data Analysts
+
+When I login, I should see my name in the top bar somewhere. And for the Data Analysis Chat bot, add this as the embedded url "Embedded link from n8n"
