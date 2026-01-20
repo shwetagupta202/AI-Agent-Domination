@@ -1,4 +1,4 @@
-Sample Lovable Prompt:
+**Sample Lovable Prompt(Just for reference):**
 "You are a senior full-stack AI engineer building a production-ready web application using Lovable.
 
 🎯 App Goal
