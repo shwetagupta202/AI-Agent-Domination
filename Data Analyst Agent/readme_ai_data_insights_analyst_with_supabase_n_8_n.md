@@ -31,8 +31,39 @@ The AI agent behaves like a **Data Analyst**, not just a chatbot.
 
 **Tools Used by AI Agent**
 1. **DB Schema Tool** – lists all tables in the public schema
-2. **Get Table Definition Tool** – fetches column names, types, constraints
-3. **Run SQL Query Tool** – executes AI-generated SQL safely
+   Query- SELECT table_schema, table_name
+FROM information_schema.tables
+WHERE table_type = 'BASE TABLE' AND table_schema = 'public';
+3. **Get Table Definition Tool** – fetches column names, types, constraints
+   Query- "SELECT 
+    c.column_name,
+    c.data_type,
+    c.is_nullable,
+    c.column_default,
+    tc.constraint_type,
+    ccu.table_name AS referenced_table,
+    ccu.column_name AS referenced_column
+FROM 
+    information_schema.columns c
+LEFT JOIN 
+    information_schema.key_column_usage kcu 
+    ON c.table_name = kcu.table_name 
+    AND c.column_name = kcu.column_name
+LEFT JOIN 
+    information_schema.table_constraints tc 
+    ON kcu.constraint_name = tc.constraint_name
+    AND tc.constraint_type = 'FOREIGN KEY'
+LEFT JOIN
+    information_schema.constraint_column_usage ccu
+    ON tc.constraint_name = ccu.constraint_name
+WHERE 
+    c.table_name = '{{ $fromAI("table_name") }}' -- Your table name
+    AND c.table_schema = 'public' -- Ensure it's in the right schema
+ORDER BY 
+    c.ordinal_position;
+"
+5. **Run SQL Query Tool** – executes AI-generated SQL safely
+   Query- {{ $fromAI("query","SQL query for PostgreSQL DB in Supabase") }}
 
 **Memory**
 - Buffer-based conversational memory
