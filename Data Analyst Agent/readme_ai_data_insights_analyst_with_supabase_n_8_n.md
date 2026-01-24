@@ -96,7 +96,7 @@ LEFT JOIN
     information_schema.constraint_column_usage ccu
     ON tc.constraint_name = ccu.constraint_name
 WHERE 
-    c.table_name = '{{ $fromAI("table_name") }}' -- Your table name
+    c.table_name = '{{ $fromAI("table_name") }}'" -- Your table name
     AND c.table_schema = 'public' -- Ensure it's in the right schema
 ORDER BY 
     c.ordinal_position;
