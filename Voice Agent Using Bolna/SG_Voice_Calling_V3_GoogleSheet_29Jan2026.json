@@ -17,6 +17,14 @@
           "cachedResultName": "Calls_27Oct",
           "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1HsBnI0a2tQJ1-U0KtG9SVhaHYcbzkBOc6E3VRIcD-Ww/edit#gid=0"
         },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "status",
+              "lookupValue": "pending"
+            }
+          ]
+        },
         "options": {}
       },
       "type": "n8n-nodes-base.googleSheets",
@@ -44,40 +52,6 @@
       ],
       "id": "e93a7188-1361-436e-9bb2-d3a931c5b252",
       "name": "Limit"
-    },
-    {
-      "parameters": {
-        "conditions": {
-          "options": {
-            "caseSensitive": true,
-            "leftValue": "",
-            "typeValidation": "strict",
-            "version": 2
-          },
-          "conditions": [
-            {
-              "id": "4b3e666f-779a-4b1d-93cf-ab45913978c2",
-              "leftValue": "={{ $json.status }}",
-              "rightValue": "pending",
-              "operator": {
-                "type": "string",
-                "operation": "equals",
-                "name": "filter.operator.equals"
-              }
-            }
-          ],
-          "combinator": "and"
-        },
-        "options": {}
-      },
-      "type": "n8n-nodes-base.filter",
-      "typeVersion": 2.2,
-      "position": [
-        528,
-        304
-      ],
-      "id": "0008687b-c6d5-4f4a-919e-0f2d53faadec",
-      "name": "Filter"
     },
     {
       "parameters": {
@@ -441,6 +415,40 @@
           "name": "SG_GoogleGemini_New"
         }
       }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "4b3e666f-779a-4b1d-93cf-ab45913978c2",
+              "leftValue": "={{ $json.status }}",
+              "rightValue": "pending",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2.2,
+      "position": [
+        528,
+        304
+      ],
+      "id": "0008687b-c6d5-4f4a-919e-0f2d53faadec",
+      "name": "Filter"
     }
   ],
   "pinData": {
@@ -663,17 +671,6 @@
         ]
       ]
     },
-    "Filter": {
-      "main": [
-        [
-          {
-            "node": "Limit",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
     "Transcript": {
       "main": [
         [
@@ -817,13 +814,24 @@
           }
         ]
       ]
+    },
+    "Filter": {
+      "main": [
+        [
+          {
+            "node": "Limit",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "active": false,
   "settings": {
     "executionOrder": "v1"
   },
-  "versionId": "01fe2773-2c6d-4b82-b5d4-93d3b3f310b2",
+  "versionId": "c4a2bb6c-acb3-4202-8d84-64ee45af68f3",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "e99e0d1157c9445a053edb1d8bcb3c19869f806f2b50808813faa4f314de9dd4"
