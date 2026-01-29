@@ -1,0 +1,840 @@
+{
+  "name": "SG_Voice_Calling_V3_GoogleSheet_29Jan2026",
+  "nodes": [
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1HsBnI0a2tQJ1-U0KtG9SVhaHYcbzkBOc6E3VRIcD-Ww",
+          "mode": "list",
+          "cachedResultName": "SG AI Agents Calling sheet sample",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1HsBnI0a2tQJ1-U0KtG9SVhaHYcbzkBOc6E3VRIcD-Ww/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Calls_27Oct",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1HsBnI0a2tQJ1-U0KtG9SVhaHYcbzkBOc6E3VRIcD-Ww/edit#gid=0"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.6,
+      "position": [
+        368,
+        304
+      ],
+      "id": "3baecf7b-68ea-4ebd-b5b5-a53dcbc1ff85",
+      "name": "Google Sheets",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "swHN4rGGgv0MH5qi",
+          "name": "SG Techie Google Sheets account 5"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.limit",
+      "typeVersion": 1,
+      "position": [
+        688,
+        304
+      ],
+      "id": "e93a7188-1361-436e-9bb2-d3a931c5b252",
+      "name": "Limit"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "4b3e666f-779a-4b1d-93cf-ab45913978c2",
+              "leftValue": "={{ $json.status }}",
+              "rightValue": "pending",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2.2,
+      "position": [
+        528,
+        304
+      ],
+      "id": "0008687b-c6d5-4f4a-919e-0f2d53faadec",
+      "name": "Filter"
+    },
+    {
+      "parameters": {
+        "url": "=https://api.bolna.ai/agent/c471be3f-85b6-489c-859b-b5d4917f42e2/execution/{{ $json.execution_id }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1568,
+        304
+      ],
+      "id": "31195297-21d9-49a1-b886-b02e6b893911",
+      "name": "Transcript",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "9syDrSLoOUJ5Jjlw",
+          "name": "SG voice agent"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1HsBnI0a2tQJ1-U0KtG9SVhaHYcbzkBOc6E3VRIcD-Ww",
+          "mode": "list",
+          "cachedResultName": "SG AI Agents Calling sheet sample",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1HsBnI0a2tQJ1-U0KtG9SVhaHYcbzkBOc6E3VRIcD-Ww/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Calls_27Oct",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1HsBnI0a2tQJ1-U0KtG9SVhaHYcbzkBOc6E3VRIcD-Ww/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "execution ID": "={{ $('Calling the agent').item.json.execution_id }}",
+            "status": "={{ $('Transcript').item.json.status }}",
+            "Summary": "={{ $json.summary }}",
+            "row_number": "={{ $('Google Sheets').item.json.row_number }}"
+          },
+          "matchingColumns": [
+            "row_number"
+          ],
+          "schema": [
+            {
+              "id": "First name",
+              "displayName": "First name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "phone number",
+              "displayName": "phone number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "status",
+              "displayName": "status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "execution ID",
+              "displayName": "execution ID",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Summary",
+              "displayName": "Summary",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        2624,
+        288
+      ],
+      "id": "92625af4-bca8-469a-8ade-4ce1d2b34422",
+      "name": "update sheet4",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "swHN4rGGgv0MH5qi",
+          "name": "SG Techie Google Sheets account 5"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "5f4e0f28-2041-4ebb-b31f-0a3ad1c2446a",
+              "leftValue": "={{ $json.status }}",
+              "rightValue": "completed",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            },
+            {
+              "id": "3cfb6586-7bf8-4e0e-83bd-122ded65154a",
+              "leftValue": "={{ $json.status }}",
+              "rightValue": "busy",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            },
+            {
+              "id": "ee20313b-70fd-4e45-a87a-b13e7f80afdc",
+              "leftValue": "={{ $json.status }}",
+              "rightValue": "dropped",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "or"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1824,
+        304
+      ],
+      "id": "f6f7fc1d-8a70-4196-9f12-59799f5f4c25",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "amount": 30
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        1936,
+        528
+      ],
+      "id": "5f2a694c-6161-48f4-8790-ea09f03f0e7a",
+      "name": "Wait",
+      "webhookId": "190cbd54-eb72-4539-8bc3-55b566a3d21c"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        48,
+        352
+      ],
+      "id": "fc4cec21-fd5c-424f-b440-2a9b87fec392",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.bolna.ai/call",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "agent_id",
+              "value": "71be454a-122a-4376-a22c-472d902eafbf"
+            },
+            {
+              "name": "recipient_phone_number",
+              "value": "=+91{{ $json['phone number'] }}"
+            },
+            {
+              "name": "callback_url",
+              "value": "https://n8n.coachshwetagupta.com/webhook/bolna-callback"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        848,
+        304
+      ],
+      "id": "f3e8bf49-792f-4063-abaf-efbe80719227",
+      "name": "Calling the agent",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "9syDrSLoOUJ5Jjlw",
+          "name": "SG voice agent"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=You are a structured data extractor for sales calls.\n\nGiven the following call summary, extract and return the following fields in JSON:\n- summary\n\nUse plain values and infer where necessary. Format output as a clean JSON object.\n\nCALL SUMMARY:\n{{ $json.transcript }}\n\nOutput format should be \n{\n  \"summary\": summary\n}",
+        "hasOutputParser": true,
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2,
+      "position": [
+        2112,
+        256
+      ],
+      "id": "b6da867e-5cbf-4c8f-98d0-e30e63e39c28",
+      "name": "AI Agent1"
+    },
+    {
+      "parameters": {
+        "modelName": "models/gemini-2.0-flash-001",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        2240,
+        752
+      ],
+      "id": "2687b6b7-f2c8-428e-ae13-84be089773b3",
+      "name": "Google Gemini Chat Model1",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "p5hxeYZcLwpy0hRn",
+          "name": "SG_GoogleGemini_New"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const data = $getWorkflowStaticData('global');\ndata.execution_id = $input.first().json.execution_id;\nreturn [{ json: { stored: true, execution_id: $input.first().json.execution_id } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1056,
+        304
+      ],
+      "id": "8b200d6d-7e28-4993-aeb1-bf6c970629b3",
+      "name": "Store execution id"
+    },
+    {
+      "parameters": {
+        "jsCode": "const data = $getWorkflowStaticData('global');\nreturn [{ json: { execution_id: data.execution_id } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1264,
+        304
+      ],
+      "id": "e1feb61a-b5e5-4987-a330-f2e30998e148",
+      "name": "get stored execution id"
+    },
+    {
+      "parameters": {
+        "model": "meta-llama/llama-3-8b-instruct",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
+      "typeVersion": 1,
+      "position": [
+        2160,
+        592
+      ],
+      "id": "bec59597-165a-4acd-806b-7be3b1f96ced",
+      "name": "OpenRouter Chat Model",
+      "credentials": {
+        "openRouterApi": {
+          "id": "3aTZ2WWqyMZk5JGs",
+          "name": "SG OpenRouter account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsonSchemaExample": "{\n  \"summary\": \"Person is interested\"\n}",
+        "autoFix": true
+      },
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1.3,
+      "position": [
+        2304,
+        592
+      ],
+      "id": "8d53b70f-cba9-4179-b2e7-5a7ac6a7a900",
+      "name": "Structured Output Parser"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        2400,
+        720
+      ],
+      "id": "9cf5b659-b316-42f0-b25b-565ec3805ebd",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "p5hxeYZcLwpy0hRn",
+          "name": "SG_GoogleGemini_New"
+        }
+      }
+    }
+  ],
+  "pinData": {
+    "Transcript": [
+      {
+        "json": {
+          "id": "aaa9c245-60fc-40ab-8246-ea37aba36f36",
+          "agent_id": "71be454a-122a-4376-a22c-472d902eafbf",
+          "batch_id": null,
+          "created_at": "2026-01-28T07:10:33.120354",
+          "updated_at": "2026-01-28T07:11:56.935457",
+          "scheduled_at": null,
+          "answered_by_voice_mail": null,
+          "conversation_duration": 38.6,
+          "total_cost": 5.09,
+          "transcript": "assistant: Hello, this is a demo call for Bolna's voice AI. Ready to get started?\nuser:  your call has been forwarded to voice mail the person you are trying to reach is not available at the tone please record your message when you have finished recording you may hang up\nassistant:  Hi, thank you for registering for our workshop. This is Alex, your workshop assistant. I’d like to ask a few quick questions to make sure we can serve you best. Is that okay?\nassistant: Hi, thank you for registering for our workshop. This is Alex, your workshop assistant. I’d like to ask a few quick questions to make sure we can serve you best. Is that okay?\n",
+          "usage_breakdown": {
+            "llmModel": {
+              "azure/gpt-4.1-mini": {
+                "input": 914,
+                "output": 40
+              }
+            },
+            "voice_id": "90ipbRoKi4CpHXvKVtl0",
+            "api_tools": null,
+            "llmTokens": 0,
+            "buffer_size": 202,
+            "endpointing": 250,
+            "provider_source": {
+              "llm": "bolna",
+              "synthesizer": "bolna",
+              "transcriber": "bolna"
+            },
+            "incremental_delay": 500,
+            "synthesizer_model": "eleven_turbo_v2_5",
+            "transcriber_model": "nova-2",
+            "llm_usage_breakdown": {
+              "hangup": {
+                "input": 1368,
+                "model": "gpt-4o-mini",
+                "output": 7,
+                "provider": "openai",
+                "provider_connected": false
+              },
+              "analytics": null,
+              "extraction": null,
+              "conversation": {
+                "input": 914,
+                "model": "azure/gpt-4.1-mini",
+                "output": 40,
+                "provider": "azure",
+                "provider_connected": false
+              },
+              "summarization": null
+            },
+            "check_if_user_online": true,
+            "hangup_after_silence": 15,
+            "synthesizer_provider": "elevenlabs",
+            "transcriber_duration": 38.79994,
+            "transcriber_language": "en",
+            "transcriber_provider": "deepgram",
+            "synthesizer_characters": 198,
+            "synthesizer_usage_breakdown": {
+              "provider_connected": false,
+              "welcome_message_cache": true,
+              "conversation_characters": 198,
+              "welcome_message_characters": 0
+            },
+            "transcriber_usage_breakdown": {
+              "provider_connected": false,
+              "transcriber_duration": 38.79994
+            },
+            "voicemail_detection_enabled": false,
+            "trigger_user_online_message_after": 10
+          },
+          "cost_breakdown": {
+            "llm": 0.064,
+            "network": 0.688,
+            "platform": 2,
+            "synthesizer": 1.98,
+            "transcriber": 0.356,
+            "llm_breakdown": {
+              "hangup": 0.021,
+              "analytics": 0,
+              "voicemail": 0,
+              "extraction": 0,
+              "conversation": 0.043,
+              "summarization": 0
+            },
+            "transfer_cost": 0,
+            "synthesizer_breakdown": {
+              "conversation": 1.98,
+              "welcome_message": 0
+            },
+            "transcriber_breakdown": {
+              "analytics": 0,
+              "conversation": 0.356
+            }
+          },
+          "extracted_data": null,
+          "summary": null,
+          "error_message": null,
+          "status": "completed",
+          "agent_extraction": "{}",
+          "workflow_retries": null,
+          "rescheduled_at": null,
+          "custom_extractions": null,
+          "campaign_id": null,
+          "smart_status": "not_started",
+          "user_number": "+917757080938",
+          "agent_number": "+918035735856",
+          "initiated_at": "2026-01-28T07:10:36.248328",
+          "deleted": false,
+          "retry_config": null,
+          "retry_count": 0,
+          "retry_history": null,
+          "telephony_data": {
+            "duration": "40",
+            "to_number": "+917757080938",
+            "from_number": "+918035735856",
+            "recording_url": "https://bolna-recordings-india.s3.ap-south-1.amazonaws.com/plivo/10901025-8006-4069-8263-d624fa0b4813.mp3",
+            "hosted_telephony": true,
+            "provider_call_id": "10901025-8006-4069-8263-d624fa0b4813",
+            "call_type": "outbound",
+            "provider": "plivo",
+            "hangup_by": "Plivo",
+            "hangup_reason": "inactivity_timeout",
+            "hangup_provider_code": 4010
+          },
+          "transfer_call_data": null,
+          "context_details": {
+            "recipient_data": null,
+            "recipient_phone_number": "+917757080938"
+          },
+          "batch_run_details": null,
+          "provider": "plivo",
+          "latency_data": {
+            "stream_id": 198.26611,
+            "time_to_first_audio": 199.21753,
+            "region": "us",
+            "transcriber": {
+              "time_to_connect": 218,
+              "turns": [
+                {
+                  "turn": 1,
+                  "turn_latency": [
+                    {
+                      "sequence_id": 1,
+                      "audio_to_text_latency": 302.41528,
+                      "text": "at the tone please record your message when you have finished recording you may hang up"
+                    }
+                  ]
+                }
+              ]
+            },
+            "llm": {
+              "time_to_connect": null,
+              "turns": [
+                {
+                  "time_to_first_token": 1228.18152,
+                  "time_to_last_token": 2148.9439,
+                  "turn": 1
+                }
+              ]
+            },
+            "synthesizer": {
+              "time_to_connect": 157,
+              "turns": [
+                {
+                  "time_to_first_token": 157,
+                  "time_to_last_token": 1165,
+                  "turn": 1
+                },
+                {
+                  "time_to_first_token": 184,
+                  "time_to_last_token": 385,
+                  "turn": -1
+                }
+              ]
+            },
+            "rag": null
+          }
+        },
+        "pairedItem": {
+          "item": 0
+        }
+      }
+    ],
+    "get stored execution id": [
+      {
+        "json": {
+          "execution_id": "aaa9c245-60fc-40ab-8246-ea37aba36f36"
+        },
+        "pairedItem": {
+          "item": 0
+        }
+      }
+    ]
+  },
+  "connections": {
+    "Google Sheets": {
+      "main": [
+        [
+          {
+            "node": "Filter",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Limit": {
+      "main": [
+        [
+          {
+            "node": "Calling the agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filter": {
+      "main": [
+        [
+          {
+            "node": "Limit",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Transcript": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "AI Agent1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Wait",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "update sheet4": {
+      "main": [
+        [
+          {
+            "node": "Google Sheets",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait": {
+      "main": [
+        [
+          {
+            "node": "get stored execution id",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Google Sheets",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Calling the agent": {
+      "main": [
+        [
+          {
+            "node": "Store execution id",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent1": {
+      "main": [
+        [
+          {
+            "node": "update sheet4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model1": {
+      "ai_languageModel": [
+        []
+      ]
+    },
+    "Store execution id": {
+      "main": [
+        [
+          {
+            "node": "get stored execution id",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "get stored execution id": {
+      "main": [
+        [
+          {
+            "node": "Transcript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenRouter Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent1",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Structured Output Parser",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Structured Output Parser": {
+      "ai_outputParser": [
+        [
+          {
+            "node": "AI Agent1",
+            "type": "ai_outputParser",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "01fe2773-2c6d-4b82-b5d4-93d3b3f310b2",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "e99e0d1157c9445a053edb1d8bcb3c19869f806f2b50808813faa4f314de9dd4"
+  },
+  "id": "Xzu3iUo4hODCtVVC",
+  "tags": [
+    {
+      "updatedAt": "2025-11-01T17:53:32.390Z",
+      "createdAt": "2025-11-01T17:53:32.390Z",
+      "id": "ng1dgEloOm3KOCuS",
+      "name": "SG"
+    }
+  ]
+}
