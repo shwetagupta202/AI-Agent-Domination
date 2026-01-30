@@ -21,6 +21,13 @@ This voice agent is ideal for:
 - AI calling demos
 
 ---
+## **Pre-requisites- **
+	1. Open Router having few credits
+	2. bolna.ai logged in and create key(store somewhere safely)
+	3. Under bolna.ai-->verified numbers, add your number and verify it
+	4. Google Drive and Google sheet enabled in Google Cloud setup
+  5.Create New Credential for Google Sheet in n8n
+
 
 ## 🏗️ Architecture Overview
 
@@ -39,12 +46,44 @@ This voice agent is ideal for:
 1. **Manual Trigger** – Start workflow from n8n  
 2. **Google Sheets** – Fetch rows where `status = pending`  
 3. **Limit Node** – Control call volume  
-4. **Bolna API Call** – Initiates outbound voice call  
-5. **Store Execution ID** – Saves call execution reference  
-6. **Fetch Transcript** – Retrieves call transcript from Bolna  
-7. **IF Logic** – Checks call status (completed / busy / dropped)  
-8. **AI Agent** – Extracts structured summary from transcript  
-9. **Update Sheet** – Writes status, execution ID, and summary back
+4. **Bolna API Call** – Initiates outbound voice call
+   https://www.bolna.ai/docs/api-reference/calls/make
+   refer our AI Agent Domination sheet for detailed steps
+6. **Store Execution ID** – Saves call execution reference- Javascript
+   const data = $getWorkflowStaticData('global');
+    data.execution_id = $input.first().json.execution_id;
+    return [{ json: { stored: true, execution_id: $input.first().json.execution_id } }];
+7. **Get Stored Execution ID**- Javascript
+   const data = $getWorkflowStaticData('global');
+  return [{ json: { execution_id: data.execution_id } }];
+8. **Fetch Transcript** – Retrieves call transcript from Bolna
+   https://www.bolna.ai/docs/api-reference/agent/v2/get_agent_execution
+   refer our AI Agent Domination sheet for detailed steps
+9. **IF Logic** – Checks call status (completed / busy / dropped)
+    **{{ $json.status }}**  is equal to **completed** OR
+   **{{ $json.status }}**  is equal to **busy** OR
+   **{{ $json.status }}**  is equal to **dropped**
+11. **AI Agent** – Extracts structured summary from transcript
+   **Source**- Define Below
+  **Prompt(User Message)**: You are a structured data extractor for sales calls.
+
+    Given the following call summary, extract and return the following fields in JSON:
+    - summary
+    
+    Use plain values and infer where necessary. Format output as a clean JSON object.
+    
+    CALL SUMMARY:
+    {{ $json.transcript }}
+    
+    Output format should be 
+    {
+      "summary": summary
+    }
+13.  **Structured Output Parser**
+    {
+  "summary": "Person is interested"
+  }
+14. **Update Sheet** – Writes status, execution ID, and summary back
 
 ---
 
