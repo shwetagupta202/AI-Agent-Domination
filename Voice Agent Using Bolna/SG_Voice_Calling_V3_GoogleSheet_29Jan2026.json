@@ -97,7 +97,7 @@
           "value": {
             "execution ID": "={{ $('Calling the agent').item.json.execution_id }}",
             "status": "={{ $('Transcript').item.json.status }}",
-            "Summary": "={{ $json.summary }}",
+            "Summary": "={{ $json.output.summary }}",
             "row_number": "={{ $('Google Sheets').item.json.row_number }}"
           },
           "matchingColumns": [
@@ -451,203 +451,7 @@
       "name": "Filter"
     }
   ],
-  "pinData": {
-    "Transcript": [
-      {
-        "json": {
-          "id": "aaa9c245-60fc-40ab-8246-ea37aba36f36",
-          "agent_id": "71be454a-122a-4376-a22c-472d902eafbf",
-          "batch_id": null,
-          "created_at": "2026-01-28T07:10:33.120354",
-          "updated_at": "2026-01-28T07:11:56.935457",
-          "scheduled_at": null,
-          "answered_by_voice_mail": null,
-          "conversation_duration": 38.6,
-          "total_cost": 5.09,
-          "transcript": "assistant: Hello, this is a demo call for Bolna's voice AI. Ready to get started?\nuser:  your call has been forwarded to voice mail the person you are trying to reach is not available at the tone please record your message when you have finished recording you may hang up\nassistant:  Hi, thank you for registering for our workshop. This is Alex, your workshop assistant. I’d like to ask a few quick questions to make sure we can serve you best. Is that okay?\nassistant: Hi, thank you for registering for our workshop. This is Alex, your workshop assistant. I’d like to ask a few quick questions to make sure we can serve you best. Is that okay?\n",
-          "usage_breakdown": {
-            "llmModel": {
-              "azure/gpt-4.1-mini": {
-                "input": 914,
-                "output": 40
-              }
-            },
-            "voice_id": "90ipbRoKi4CpHXvKVtl0",
-            "api_tools": null,
-            "llmTokens": 0,
-            "buffer_size": 202,
-            "endpointing": 250,
-            "provider_source": {
-              "llm": "bolna",
-              "synthesizer": "bolna",
-              "transcriber": "bolna"
-            },
-            "incremental_delay": 500,
-            "synthesizer_model": "eleven_turbo_v2_5",
-            "transcriber_model": "nova-2",
-            "llm_usage_breakdown": {
-              "hangup": {
-                "input": 1368,
-                "model": "gpt-4o-mini",
-                "output": 7,
-                "provider": "openai",
-                "provider_connected": false
-              },
-              "analytics": null,
-              "extraction": null,
-              "conversation": {
-                "input": 914,
-                "model": "azure/gpt-4.1-mini",
-                "output": 40,
-                "provider": "azure",
-                "provider_connected": false
-              },
-              "summarization": null
-            },
-            "check_if_user_online": true,
-            "hangup_after_silence": 15,
-            "synthesizer_provider": "elevenlabs",
-            "transcriber_duration": 38.79994,
-            "transcriber_language": "en",
-            "transcriber_provider": "deepgram",
-            "synthesizer_characters": 198,
-            "synthesizer_usage_breakdown": {
-              "provider_connected": false,
-              "welcome_message_cache": true,
-              "conversation_characters": 198,
-              "welcome_message_characters": 0
-            },
-            "transcriber_usage_breakdown": {
-              "provider_connected": false,
-              "transcriber_duration": 38.79994
-            },
-            "voicemail_detection_enabled": false,
-            "trigger_user_online_message_after": 10
-          },
-          "cost_breakdown": {
-            "llm": 0.064,
-            "network": 0.688,
-            "platform": 2,
-            "synthesizer": 1.98,
-            "transcriber": 0.356,
-            "llm_breakdown": {
-              "hangup": 0.021,
-              "analytics": 0,
-              "voicemail": 0,
-              "extraction": 0,
-              "conversation": 0.043,
-              "summarization": 0
-            },
-            "transfer_cost": 0,
-            "synthesizer_breakdown": {
-              "conversation": 1.98,
-              "welcome_message": 0
-            },
-            "transcriber_breakdown": {
-              "analytics": 0,
-              "conversation": 0.356
-            }
-          },
-          "extracted_data": null,
-          "summary": null,
-          "error_message": null,
-          "status": "completed",
-          "agent_extraction": "{}",
-          "workflow_retries": null,
-          "rescheduled_at": null,
-          "custom_extractions": null,
-          "campaign_id": null,
-          "smart_status": "not_started",
-          "user_number": "+917757080938",
-          "agent_number": "+918035735856",
-          "initiated_at": "2026-01-28T07:10:36.248328",
-          "deleted": false,
-          "retry_config": null,
-          "retry_count": 0,
-          "retry_history": null,
-          "telephony_data": {
-            "duration": "40",
-            "to_number": "+917757080938",
-            "from_number": "+918035735856",
-            "recording_url": "https://bolna-recordings-india.s3.ap-south-1.amazonaws.com/plivo/10901025-8006-4069-8263-d624fa0b4813.mp3",
-            "hosted_telephony": true,
-            "provider_call_id": "10901025-8006-4069-8263-d624fa0b4813",
-            "call_type": "outbound",
-            "provider": "plivo",
-            "hangup_by": "Plivo",
-            "hangup_reason": "inactivity_timeout",
-            "hangup_provider_code": 4010
-          },
-          "transfer_call_data": null,
-          "context_details": {
-            "recipient_data": null,
-            "recipient_phone_number": "+917757080938"
-          },
-          "batch_run_details": null,
-          "provider": "plivo",
-          "latency_data": {
-            "stream_id": 198.26611,
-            "time_to_first_audio": 199.21753,
-            "region": "us",
-            "transcriber": {
-              "time_to_connect": 218,
-              "turns": [
-                {
-                  "turn": 1,
-                  "turn_latency": [
-                    {
-                      "sequence_id": 1,
-                      "audio_to_text_latency": 302.41528,
-                      "text": "at the tone please record your message when you have finished recording you may hang up"
-                    }
-                  ]
-                }
-              ]
-            },
-            "llm": {
-              "time_to_connect": null,
-              "turns": [
-                {
-                  "time_to_first_token": 1228.18152,
-                  "time_to_last_token": 2148.9439,
-                  "turn": 1
-                }
-              ]
-            },
-            "synthesizer": {
-              "time_to_connect": 157,
-              "turns": [
-                {
-                  "time_to_first_token": 157,
-                  "time_to_last_token": 1165,
-                  "turn": 1
-                },
-                {
-                  "time_to_first_token": 184,
-                  "time_to_last_token": 385,
-                  "turn": -1
-                }
-              ]
-            },
-            "rag": null
-          }
-        },
-        "pairedItem": {
-          "item": 0
-        }
-      }
-    ],
-    "get stored execution id": [
-      {
-        "json": {
-          "execution_id": "aaa9c245-60fc-40ab-8246-ea37aba36f36"
-        },
-        "pairedItem": {
-          "item": 0
-        }
-      }
-    ]
-  },
+  "pinData": {},
   "connections": {
     "Google Sheets": {
       "main": [
@@ -831,7 +635,7 @@
   "settings": {
     "executionOrder": "v1"
   },
-  "versionId": "c4a2bb6c-acb3-4202-8d84-64ee45af68f3",
+  "versionId": "8401945a-d733-4d70-87ec-d28688986b1b",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "e99e0d1157c9445a053edb1d8bcb3c19869f806f2b50808813faa4f314de9dd4"
