@@ -1,0 +1,2157 @@
+{
+  "name": "SG Youtube Scraper Final",
+  "nodes": [
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1WJ19g43YFDRi72kMPUiL_aCSsPcPVV1ZGC0xK__jL5k",
+          "mode": "list",
+          "cachedResultName": "20260203_Scraper",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1WJ19g43YFDRi72kMPUiL_aCSsPcPVV1ZGC0xK__jL5k/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "YouTube",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1WJ19g43YFDRi72kMPUiL_aCSsPcPVV1ZGC0xK__jL5k/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Video Title": "={{ $json.title }}",
+            "Link": "={{ $json.url }}",
+            "Views": "={{ $json.viewCount }}",
+            "Likes": "={{ $json.likes }}",
+            "Comments": "={{ $json.commentsCount }}",
+            "Channel Name": "={{ $json.channelName }}",
+            "Channel URL": "={{ $json.channelUrl }}",
+            "Subscribers": "={{ $json.numberOfSubscribers }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Video Title",
+              "displayName": "Video Title",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Link",
+              "displayName": "Link",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Views",
+              "displayName": "Views",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Likes",
+              "displayName": "Likes",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Comments",
+              "displayName": "Comments",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Channel Name",
+              "displayName": "Channel Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Channel URL",
+              "displayName": "Channel URL",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Subscribers",
+              "displayName": "Subscribers",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        800,
+        320
+      ],
+      "id": "e5625e83-0473-4b6d-955d-d0a9d8050cdd",
+      "name": "Append row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "swHN4rGGgv0MH5qi",
+          "name": "SG Techie Google Sheets account 5"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "### Give the name of the YouTube Channel\n",
+        "height": 272,
+        "width": 304
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        0,
+        240
+      ],
+      "typeVersion": 1,
+      "id": "43e153b5-1295-406b-a25e-fbb0969adf72",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "content": "### Pass the name as input",
+        "height": 272,
+        "width": 304
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        352,
+        240
+      ],
+      "typeVersion": 1,
+      "id": "3885d379-c4c7-4bd4-b993-9822e0bd4417",
+      "name": "Sticky Note1"
+    },
+    {
+      "parameters": {
+        "content": "### Store the data\n",
+        "height": 272,
+        "width": 304
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        704,
+        240
+      ],
+      "typeVersion": 1,
+      "id": "770259ec-c55f-446d-b2e8-9802e78d457f",
+      "name": "Sticky Note2"
+    },
+    {
+      "parameters": {
+        "content": "## YouTube Scraper\n- Google Sheet Link (Copy) https://docs.google.com/spreadsheets/d/1WJ19g43YFDRi72kMPUiL_aCSsPcPVV1ZGC0xK__jL5k/edit?gid=0#gid=0\n\n- Apify Actor - https://console.apify.com/actors/h7sDV53CddomktSi5/input",
+        "height": 144,
+        "width": 1008
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        0,
+        0
+      ],
+      "typeVersion": 1,
+      "id": "3cd943b8-7308-4b28-b20c-99d4da23b64e",
+      "name": "Sticky Note3"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -176,
+        320
+      ],
+      "id": "2b47f87f-a0fb-403d-82a9-9cc6e4037768",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "93d75b7f-24c3-46ba-bb47-0c8abef8fe8e",
+              "name": "Search",
+              "value": "n8n AI Agents",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        112,
+        320
+      ],
+      "id": "6ecb3bb3-d6a8-49ee-b538-e82e63fface7",
+      "name": "Search Field"
+    },
+    {
+      "parameters": {
+        "operation": "Run actor and get dataset",
+        "actorSource": "store",
+        "actorId": {
+          "__rl": true,
+          "value": "h7sDV53CddomktSi5",
+          "mode": "list",
+          "cachedResultName": "YouTube Scraper (streamers/youtube-scraper)",
+          "cachedResultUrl": "https://console.apify.com/actors/h7sDV53CddomktSi5/input"
+        },
+        "customBody": "={\n    \"downloadSubtitles\": false,\n    \"hasCC\": false,\n    \"hasLocation\": false,\n    \"hasSubtitles\": false,\n    \"is360\": false,\n    \"is3D\": false,\n    \"is4K\": false,\n    \"isBought\": false,\n    \"isHD\": false,\n    \"isHDR\": false,\n    \"isLive\": false,\n    \"isVR180\": false,\n    \"maxResultStreams\": 0,\n    \"maxResults\": 10,\n    \"maxResultsShorts\": 0,\n    \"preferAutoGeneratedSubtitles\": false,\n    \"saveSubsToKVS\": false,\n    \"searchQueries\": [\n        \"{{ $json.Search }}\"\n    ]\n}"
+      },
+      "type": "@apify/n8n-nodes-apify.apify",
+      "typeVersion": 1,
+      "position": [
+        448,
+        320
+      ],
+      "id": "5078acb8-b237-4561-9565-faec0680902a",
+      "name": "YouTube Scraper Final",
+      "credentials": {
+        "apifyApi": {
+          "id": "SJzXPvJrFxuPEBVW",
+          "name": "SG Apify account"
+        }
+      }
+    }
+  ],
+  "pinData": {
+    "YouTube Scraper Final": [
+      {
+        "json": {
+          "title": "10 Insane AI Agent Use Cases in n8n! (steal these)",
+          "translatedTitle": null,
+          "type": "video",
+          "id": "Dt6u-yFEpsk",
+          "url": "https://www.youtube.com/watch?v=Dt6u-yFEpsk",
+          "thumbnailUrl": "https://i.ytimg.com/vi/Dt6u-yFEpsk/maxresdefault.jpg",
+          "viewCount": 276039,
+          "date": "2025-05-18T15:16:48.000Z",
+          "likes": 5400,
+          "location": null,
+          "channelName": "Jono Catliff",
+          "channelUrl": "https://www.youtube.com/@jonocatliff",
+          "channelUsername": "jonocatliff",
+          "collaborators": null,
+          "channelId": "UCnzxPyNnn8jk4bHFk3JUBhA",
+          "numberOfSubscribers": 120000,
+          "duration": "00:16:30",
+          "commentsCount": 248,
+          "text": "🌍 COMMUNITY \nhttps://www.skool.com/automatable/about\n\n📝 BLUEPRINTS\n• ChatGPT →    • This ChatGPT SECRET Automates Nearly Every...  \n• Chatbot →    • Add ChatGPT To Your Website In Minutes (n8...  \n• Webscraping →    • This AI Agent Can Scrape ANYTHING (100% Au...  \n• Voice AI Agent →    • This AI Phone Agent Can Handle EVERYTHING ...  \n• Lovable + n8n →    • This Lovable + n8n Hack Builds Web Apps FO...  \n• AI Assistant →    • This n8n AI Assistant Will Manage Your Lif...  \n• Automate Invoice & Contracts →   • Automate Invoices & Contracts In 1 Click U...  \n• AI Agent Clone →    • I Just Built An AI Agent Clone Of Myself (...  \n• Manage Your Inbox →    • This n8n AI Agent Will Manage Your Email I...  \n• RAG System →    • Create This RAG n8n AI Agent in 30 Minutes...  \n\n📚 SUMMARY\nIn this video, I share 10 AI agents that help you automate tasks, reduce busywork, and win back your time — so you can focus on what matters most.\n\n📣 SOCIAL MEDIA\n• Instagram →   / jono_catliff  \n• TikTok →   / jonocatliff  \n• LinkedIn →   / jonocatliff  \n• X →   / @jonocatliff  \n\n📺 RELATED VIDEOS\n• Full crash course on Make.com →    • Make.com Basics: How To Automate Anything ...  \n• Full crash course on n8n →   • Master n8n in 2 Hours: Complete Beginner’s...  \n• 11 Favourite Make.com automations →    • 11 Make.com Automations You NEED To Start ...  \n• 12 Favourite n8n automations →    • The Only 12 n8n AI Automations You'll Ever...  \n\n🎯 1:1 CONSULTING\nBook a time → https://jonocatliff.com/consultation\n\n🚀 AUTOMATION AGENCY\nGet help with your business → https://www.automatable.co\n\n💼 CAREERS\nWork with me → https://jonocatliff.com/careers\n\n🔗 LINKS (some of these make me money - thanks in advance!)\n• n8n → https://jonocatliff.com/n8n\n• Make.com → https://jonocatliff.com/make\n• Go High Level → https://jonocatliff.com/gohighlevel\n• Apify → https://jonocatliff.com/apify\n• Skool → https://jonocatliff.com/skool\n• Zapier → https://jonocatliff.com/zapier\n• PandaDoc → https://jonocatliff.com/pandadoc\n• Apollo → https://jonocatliff.com/apollo\n• ManyChat → https://jonocatliff.com/manychat\n• Vapi → https://jonocatliff.com/vapi\n• PhantomBuster → https://jonocatliff.com/phantombuster\n• ClickUp → https://jonocatliff.com/clickup\n• ElevenLabs → https://jonocatliff.com/elevenlabs\n• Upwork → https://jonocatliff.com/upwork\n• Instantly.ai → https://jonocatliff.com/instantly\n• Airtable → https://jonocatliff.com/airtable\n\n👋  ABOUT ME\nHey everyone, my name is Jono. I run a 7-figure service business that offers DJ, photo, video services (#1 largest in Canada), and spent years figuring out how to automate every part of it (and hired the roles that I couldn't). Conservatively, I used to work 80+ hours per week, before sunrise till long after sunset; missing gatherings, family events and everything in between. Through automation though, I was able to replace my job. My goal is to help share what worked for me, in a dream of helping others find true success with their passion.\n\nPlease subscribe, like and comment below if you have any questions! Thank you 😊\n\n⌛ TIMESTAMPS\n0:00 – Intro\n0:12 – ChatGPT\n1:52 – Web scraping\n3:38 – Voice AI caller\n6:37 – Inbox automation\n7:53 – Extract data from PDFs & images\n9:24 – Personal AI assistant\n10:44 – Website chatbot\n11:42 – RAG system\n13:22 – Coding app integration\n14:46 – Clone yourself with AI",
+          "translatedText": null,
+          "descriptionLinks": [
+            {
+              "url": "https://www.skool.com/automatable/about",
+              "text": "https://www.skool.com/automatable/about"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=YcDLVPYIRSA",
+              "text": "   • This ChatGPT SECRET Automates Nearly Every...  "
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=4VD-6dFQJsk",
+              "text": "   • Add ChatGPT To Your Website In Minutes (n8...  "
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=VAaFsqu5NE8",
+              "text": "   • This AI Agent Can Scrape ANYTHING (100% Au...  "
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=XeyrdkFhh_U&pp=0gcJCR0AztywvtLA",
+              "text": "   • This AI Phone Agent Can Handle EVERYTHING ...  "
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=i08K-l8pjfs",
+              "text": "   • This Lovable + n8n Hack Builds Web Apps FO...  "
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=iEzr0GdFitU",
+              "text": "   • This n8n AI Assistant Will Manage Your Lif...  "
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=hle_HtchLz8",
+              "text": "   • Automate Invoices & Contracts In 1 Click U...  "
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=QQLEnVCHB1I",
+              "text": "   • I Just Built An AI Agent Clone Of Myself (...  "
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=l0SiFihbetA",
+              "text": "   • This n8n AI Agent Will Manage Your Email I...  "
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=KC34sUqgU5A",
+              "text": "   • Create This RAG n8n AI Agent in 30 Minutes...  "
+            },
+            {
+              "url": "https://instagram.com/jono_catliff",
+              "text": "  / jono_catliff  "
+            },
+            {
+              "url": "https://www.tiktok.com/@jonocatliff",
+              "text": "  / jonocatliff  "
+            },
+            {
+              "url": "https://www.linkedin.com/in/jonocatliff/",
+              "text": "  / jonocatliff  "
+            },
+            {
+              "url": "https://twitter.com/@jonocatliff",
+              "text": "  / @jonocatliff  "
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=hinLebdX8aM",
+              "text": "   • Make.com Basics: How To Automate Anything ...  "
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=AURnISajubk",
+              "text": "   • Master n8n in 2 Hours: Complete Beginner’s...  "
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=dIH1F1WlE84",
+              "text": "   • 11 Make.com Automations You NEED To Start ...  "
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=uQGT2K26W84",
+              "text": "   • The Only 12 n8n AI Automations You'll Ever...  "
+            },
+            {
+              "url": "https://jonocatliff.com/consultation",
+              "text": "https://jonocatliff.com/consultation"
+            },
+            {
+              "url": "https://www.automatable.co/",
+              "text": "https://www.automatable.co"
+            },
+            {
+              "url": "https://jonocatliff.com/careers",
+              "text": "https://jonocatliff.com/careers"
+            },
+            {
+              "url": "https://jonocatliff.com/n8n",
+              "text": "https://jonocatliff.com/n8n"
+            },
+            {
+              "url": "https://jonocatliff.com/make",
+              "text": "https://jonocatliff.com/make"
+            },
+            {
+              "url": "https://jonocatliff.com/gohighlevel",
+              "text": "https://jonocatliff.com/gohighlevel"
+            },
+            {
+              "url": "https://jonocatliff.com/apify",
+              "text": "https://jonocatliff.com/apify"
+            },
+            {
+              "url": "https://jonocatliff.com/skool",
+              "text": "https://jonocatliff.com/skool"
+            },
+            {
+              "url": "https://jonocatliff.com/zapier",
+              "text": "https://jonocatliff.com/zapier"
+            },
+            {
+              "url": "https://jonocatliff.com/pandadoc",
+              "text": "https://jonocatliff.com/pandadoc"
+            },
+            {
+              "url": "https://jonocatliff.com/apollo",
+              "text": "https://jonocatliff.com/apollo"
+            },
+            {
+              "url": "https://jonocatliff.com/manychat",
+              "text": "https://jonocatliff.com/manychat"
+            },
+            {
+              "url": "https://jonocatliff.com/vapi",
+              "text": "https://jonocatliff.com/vapi"
+            },
+            {
+              "url": "https://jonocatliff.com/phantombuster",
+              "text": "https://jonocatliff.com/phantombuster"
+            },
+            {
+              "url": "https://jonocatliff.com/clickup",
+              "text": "https://jonocatliff.com/clickup"
+            },
+            {
+              "url": "https://jonocatliff.com/elevenlabs",
+              "text": "https://jonocatliff.com/elevenlabs"
+            },
+            {
+              "url": "https://jonocatliff.com/upwork",
+              "text": "https://jonocatliff.com/upwork"
+            },
+            {
+              "url": "https://jonocatliff.com/instantly",
+              "text": "https://jonocatliff.com/instantly"
+            },
+            {
+              "url": "https://jonocatliff.com/airtable",
+              "text": "https://jonocatliff.com/airtable"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=Dt6u-yFEpsk",
+              "text": "0:00"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=Dt6u-yFEpsk&t=12s",
+              "text": "0:12"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=Dt6u-yFEpsk&t=112s",
+              "text": "1:52"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=Dt6u-yFEpsk&t=218s",
+              "text": "3:38"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=Dt6u-yFEpsk&t=397s",
+              "text": "6:37"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=Dt6u-yFEpsk&t=473s",
+              "text": "7:53"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=Dt6u-yFEpsk&t=564s",
+              "text": "9:24"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=Dt6u-yFEpsk&t=644s",
+              "text": "10:44"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=Dt6u-yFEpsk&t=702s",
+              "text": "11:42"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=Dt6u-yFEpsk&t=802s",
+              "text": "13:22"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=Dt6u-yFEpsk&t=886s",
+              "text": "14:46"
+            }
+          ],
+          "subtitles": null,
+          "order": 29,
+          "commentsTurnedOff": false,
+          "fromYTUrl": "https://www.youtube.com/results?search_query=n8n+AI+Agents",
+          "isMonetized": null,
+          "hashtags": [],
+          "formats": [],
+          "isMembersOnly": false,
+          "input": "n8n AI Agents",
+          "isPaidContent": false
+        },
+        "pairedItem": {
+          "item": 0
+        }
+      },
+      {
+        "json": {
+          "title": "How to Build AI Agents with n8n (Step-by-Step Tutorial)",
+          "translatedTitle": null,
+          "type": "video",
+          "id": "EkSJ4ss3iz4",
+          "url": "https://www.youtube.com/watch?v=EkSJ4ss3iz4",
+          "thumbnailUrl": "https://i.ytimg.com/vi/EkSJ4ss3iz4/maxresdefault.jpg",
+          "viewCount": 6819,
+          "date": "2025-10-23T02:25:07.000Z",
+          "likes": 205,
+          "location": null,
+          "channelName": "Howfinity",
+          "channelUrl": "https://www.youtube.com/@Howfinity",
+          "channelUsername": "Howfinity",
+          "collaborators": null,
+          "channelId": "UCrSvDunJEc1CME4-KvhW_3Q",
+          "numberOfSubscribers": 1070000,
+          "duration": "00:25:06",
+          "commentsCount": 5,
+          "text": "Self host n8n with Hostinger VPS: https://hostinger.com/howfinityn8n\n\nTake advantage of the early BlackFriday Discounts: 24mo for $6.49 (-64% OFF)\nAdditional 10% discount on top with coupon code HOWFINITYN8N\n\nI go step by step to show how I build an AI agent from scratch using N8N. This is my simple way to automate email replies with AI, without writing any code. I walk you through how N8N works, how to self-host it with Hostinger to save money and keep your data private, and how to set up AI models like OpenAI inside your workflows. \n\nI also show how to use triggers, nodes, and even add memory and tools to make your automation smarter. This helps me handle support emails faster and lets me set up agents that do way more than just reply. Everything is explained clearly, and you’ll see how to test, fix errors, and add new steps like sending urgent messages to your team.",
+          "translatedText": null,
+          "descriptionLinks": [
+            {
+              "url": "https://hostinger.com/howfinityn8n",
+              "text": "https://hostinger.com/howfinityn8n"
+            }
+          ],
+          "subtitles": null,
+          "order": 28,
+          "commentsTurnedOff": false,
+          "fromYTUrl": "https://www.youtube.com/results?search_query=n8n+AI+Agents",
+          "isMonetized": null,
+          "hashtags": [],
+          "formats": [],
+          "isMembersOnly": false,
+          "input": "n8n AI Agents",
+          "isPaidContent": true
+        },
+        "pairedItem": {
+          "item": 0
+        }
+      },
+      {
+        "json": {
+          "title": "Seriously, please watch this before you start learning n8n",
+          "translatedTitle": null,
+          "type": "video",
+          "id": "ofC4OeNjDx8",
+          "url": "https://www.youtube.com/watch?v=ofC4OeNjDx8",
+          "thumbnailUrl": "https://i.ytimg.com/vi/ofC4OeNjDx8/maxresdefault.jpg",
+          "viewCount": 164623,
+          "date": "2025-09-22T11:59:25.000Z",
+          "likes": 3800,
+          "location": null,
+          "channelName": "The AI Growth Lab with Tom",
+          "channelUrl": "https://www.youtube.com/@theaigrowthlabwithtom",
+          "channelUsername": "theaigrowthlabwithtom",
+          "collaborators": null,
+          "channelId": "UCbzAhbNfR5jT1T4lC8ux2WA",
+          "numberOfSubscribers": 9420,
+          "duration": "00:06:48",
+          "commentsCount": 514,
+          "text": "💻 Join my n8n mentorship 👉 https://learnn8nautomation.com/mentor...\n\n📧 Weekly n8n Newsletter → https://learnn8nautomation.com/newsle...\n\nFollow me on X for Daily AI Insights:   / tomcrawshaw01  \n\nMost people quit learning n8n in week 2 - not because it's hard, but because tutorials teach you the wrong way. After generating $25M+ in client revenue through ai automation, I'm exposing why most n8n learning approaches fail and showing you the exact path that actually works.\n\nIn this video, I break down the real n8n learning timeline, the 3 mistakes that kill progress, and the breakthrough moment that changes everything. You'll see why template addiction and complexity worship destroy results, plus how to approach n8n like a business operator instead of a hobbyist.\n\n⌛ Timestamps:\n0:00 Intro\n0:40 Why Most Tutorials Fail You\n1:42 The n8n Learning Curve\n3:42 3 Brutal Mistakes To Avoid\n5:15 n8n Breakthrough Moment\n5:57 How to Learn 10x Faster\n6:37 Outro\n\n📺 RELATED VIDEOS\nBuild N8N AI Agents with ONLY 1 Prompt Using Claude MCP →    • Build n8n AI Agents INSTANTLY Using Claude...  \n\nAI Agents Explained From Beginner to Pro\n   • AI Agents Explained From Beginner to Pro  ",
+          "translatedText": null,
+          "descriptionLinks": [
+            {
+              "url": "https://learnn8nautomation.com/mentorship",
+              "text": "https://learnn8nautomation.com/mentor..."
+            },
+            {
+              "url": "https://learnn8nautomation.com/newsletter",
+              "text": "https://learnn8nautomation.com/newsle..."
+            },
+            {
+              "url": "https://twitter.com/tomcrawshaw01",
+              "text": "  / tomcrawshaw01  "
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=ofC4OeNjDx8",
+              "text": "0:00"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=ofC4OeNjDx8&t=40s",
+              "text": "0:40"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=ofC4OeNjDx8&t=102s",
+              "text": "1:42"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=ofC4OeNjDx8&t=222s",
+              "text": "3:42"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=ofC4OeNjDx8&t=315s",
+              "text": "5:15"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=ofC4OeNjDx8&t=357s",
+              "text": "5:57"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=ofC4OeNjDx8&t=397s",
+              "text": "6:37"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=O_yyQAIU-zU",
+              "text": "   • Build n8n AI Agents INSTANTLY Using Claude...  "
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=YTcqQqkiUhg",
+              "text": "   • AI Agents Explained From Beginner to Pro  "
+            }
+          ],
+          "subtitles": null,
+          "order": 22,
+          "commentsTurnedOff": false,
+          "fromYTUrl": "https://www.youtube.com/results?search_query=n8n+AI+Agents",
+          "isMonetized": null,
+          "hashtags": [],
+          "formats": [],
+          "isMembersOnly": false,
+          "input": "n8n AI Agents",
+          "isPaidContent": false
+        },
+        "pairedItem": {
+          "item": 0
+        }
+      },
+      {
+        "json": {
+          "title": "n8n Masterclass: Build AI Agents & Automate Workflows (Beginner to Pro)",
+          "translatedTitle": null,
+          "type": "video",
+          "id": "ZHH3sr234zY",
+          "url": "https://www.youtube.com/watch?v=ZHH3sr234zY",
+          "thumbnailUrl": "https://i.ytimg.com/vi/ZHH3sr234zY/maxresdefault.jpg",
+          "viewCount": 457067,
+          "date": "2024-10-20T23:24:52.000Z",
+          "likes": 12000,
+          "location": null,
+          "channelName": "Nate Herk | AI Automation",
+          "channelUrl": "https://www.youtube.com/@nateherk",
+          "channelUsername": "nateherk",
+          "collaborators": null,
+          "channelId": "UC2ojq-nuP8ceeHqiroeKhBA",
+          "numberOfSubscribers": 515000,
+          "duration": "01:31:43",
+          "commentsCount": 386,
+          "text": "Full courses + unlimited support: https://www.skool.com/ai-automation-s...\nAll my FREE resources: https://www.skool.com/ai-automation-s...\nWork with me: https://uppitai.com/\n\nMy Tools💻\n14 day FREE n8n trial: https://n8n.partnerlinks.io/22crlu8afq5r\nCode NATEHERK to Self-Host n8n for 10% off (annual plan): http://hostinger.com/nateherk\n\n\n\nWelcome to the ultimate n8n masterclass! Whether you're a complete beginner or have little coding experience, this video will guide you step-by-step through everything you need to know to start automating workflows and building powerful AI agents with n8n.\n\nIn this video, you'll learn:\n\n⚙️ The basics of n8n, building your first workflow, and connecting with 300+ integrations.\n🌐 How to use APIs and HTTP requests in n8n.\n🧠 Harnessing the power of RAG (Retrieval-Augmented Generation) and vector databases for AI-powered automation.\n🛠️ Creating custom tools and integrating them into workflows to build smarter AI agents.\n🔗 Advanced concepts like webhooks, error handling, and scaling workflows for real-world automation.\n📈 Best practices to keep your workflows optimized, scalable, and resilient.\n\nBy the end, you’ll have the confidence to create your own AI agent automations, trigger workflows with webhooks, use APIs, and more!\n\n\n💡 If you found this video helpful, don’t forget to like, comment, and subscribe for more content on n8n, AI agents, and automation. Let me know in the comments what you plan to automate next!\n\n\nBusiness Inquiries:\n📧 nateherk@uppitai.com\n\nWATCH NEXT:\n   • I Built an AI Agent that Automated my Inbo...  \n\nTIMESTAMPS\n00:00 What is n8n?\n02:50 Why Should You Learn n8n?\n04:53 Part 1: Getting Started\n05:09 Self-Hosted vs Cloud\n08:25 Workflows, Nodes, Executions\n09:45 n8n Interface\n16:05 Part 2: Core Concepts\n16:28 Types of Nodes\n19:00 Building Example Workflow\n36:28 Part 3: RAG and Vector Databases\n36:55 What is RAG?\n38:23 What are Vector Databases?\n44:07 Building RAG AI Agent\n1:01:56 Part 4: Expanding Agents\n1:02:31 n8n Workflows as Tools\n1:05:23 Showcasing Agent Examples\n1:10:20 Part 5: APIs & HTTP Requests\n1:11:33 What is an API?\n1:12:49 What is an HTTP Request?\n1:13:14 How They Work Together\n1:15:04 HTTP Request Examples in n8n\n1:21:42 Part 6: The Final Part\n1:22:24 Error Workflows\n1:26:20 Best Practices\n1:28:30 Next Steps\n\nGear I Used:\nCamera: Razer Kiyo Pro\nMicrophone: HyperX SoloCast\nBackground Music:    • 🍂 [Copyright Free Chill Background Music] ...  \n\nDon't forget to like, subscribe, and hit the notification bell to stay updated with my latest videos on AI agents and automations!",
+          "translatedText": null,
+          "descriptionLinks": [
+            {
+              "url": "https://www.skool.com/ai-automation-society-plus/about",
+              "text": "https://www.skool.com/ai-automation-s..."
+            },
+            {
+              "url": "https://www.skool.com/ai-automation-society/about",
+              "text": "https://www.skool.com/ai-automation-s..."
+            },
+            {
+              "url": "https://uppitai.com/",
+              "text": "https://uppitai.com/"
+            },
+            {
+              "url": "https://n8n.partnerlinks.io/22crlu8afq5r",
+              "text": "https://n8n.partnerlinks.io/22crlu8afq5r"
+            },
+            {
+              "url": "http://hostinger.com/nateherk",
+              "text": "http://hostinger.com/nateherk"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=JUx2ZfNfD64",
+              "text": "   • I Built an AI Agent that Automated my Inbo...  "
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=ZHH3sr234zY",
+              "text": "00:00"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=ZHH3sr234zY&t=170s",
+              "text": "02:50"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=ZHH3sr234zY&t=293s",
+              "text": "04:53"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=ZHH3sr234zY&t=309s",
+              "text": "05:09"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=ZHH3sr234zY&t=505s",
+              "text": "08:25"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=ZHH3sr234zY&t=585s",
+              "text": "09:45"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=ZHH3sr234zY&t=965s",
+              "text": "16:05"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=ZHH3sr234zY&t=988s",
+              "text": "16:28"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=ZHH3sr234zY&t=1140s",
+              "text": "19:00"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=ZHH3sr234zY&t=2188s",
+              "text": "36:28"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=ZHH3sr234zY&t=2215s",
+              "text": "36:55"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=ZHH3sr234zY&t=2303s",
+              "text": "38:23"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=ZHH3sr234zY&t=2647s",
+              "text": "44:07"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=ZHH3sr234zY&t=3716s",
+              "text": "1:01:56"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=ZHH3sr234zY&t=3751s",
+              "text": "1:02:31"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=ZHH3sr234zY&t=3923s",
+              "text": "1:05:23"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=ZHH3sr234zY&t=4220s",
+              "text": "1:10:20"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=ZHH3sr234zY&t=4293s",
+              "text": "1:11:33"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=ZHH3sr234zY&t=4369s",
+              "text": "1:12:49"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=ZHH3sr234zY&t=4394s",
+              "text": "1:13:14"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=ZHH3sr234zY&t=4504s",
+              "text": "1:15:04"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=ZHH3sr234zY&t=4902s",
+              "text": "1:21:42"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=ZHH3sr234zY&t=4944s",
+              "text": "1:22:24"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=ZHH3sr234zY&t=5180s",
+              "text": "1:26:20"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=ZHH3sr234zY&t=5310s",
+              "text": "1:28:30"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=Q7HjxOAU5Kc",
+              "text": "   • 🍂 [Copyright Free Chill Background Music] ...  "
+            }
+          ],
+          "subtitles": null,
+          "order": 23,
+          "commentsTurnedOff": false,
+          "fromYTUrl": "https://www.youtube.com/results?search_query=n8n+AI+Agents",
+          "isMonetized": null,
+          "hashtags": [],
+          "formats": [],
+          "isMembersOnly": false,
+          "input": "n8n AI Agents",
+          "isPaidContent": false
+        },
+        "pairedItem": {
+          "item": 0
+        }
+      },
+      {
+        "json": {
+          "title": "n8n Just Made Multi Agent AI Way Easier: New AI Agent Tool",
+          "translatedTitle": null,
+          "type": "video",
+          "id": "lW5xEm7iSXk",
+          "url": "https://www.youtube.com/watch?v=lW5xEm7iSXk",
+          "thumbnailUrl": "https://i.ytimg.com/vi/lW5xEm7iSXk/maxresdefault.jpg",
+          "viewCount": 108692,
+          "date": "2025-08-01T10:01:29.000Z",
+          "likes": 1700,
+          "location": "BERLIN",
+          "channelName": "n8n",
+          "channelUrl": "https://www.youtube.com/@n8n-io",
+          "channelUsername": "n8n-io",
+          "collaborators": null,
+          "channelId": "UCiHVTkJtWSdc9N3h0nUGWLg",
+          "numberOfSubscribers": 213000,
+          "duration": "00:05:24",
+          "commentsCount": 85,
+          "text": "Instead of juggling complex subworkflows across multiple tabs, you can now build layered agent systems on a single canvas - making them easier to create, visualize, and debug. All thanks to the new AI Agent Tool node, out on n8n version 1.103.0.\n\n@theflowgrammer walks through this new feature 👇\n\n00:00 - Intro\n00:10 - Context: standard AI Agent with subworkflows\n00:46 - Introducing the AI Agent Tool node\n02:29 - Benefits of this approach\n04:47 - Wrap up\n\nFollow Max on LinkedIn: https://www.linkedin.com/in/maxtkacz/\n\n🔗 Links and Resources:\nhttps://n8n.io to sign up for n8n cloud\nhttps://docs.n8n.io for documentation (incl self-hosting n8n)\nhttps://community.n8n.io/ for help whilst building",
+          "translatedText": "Instead of juggling complex subworkflows across multiple tabs, you can now build layered agent systems on a single canvas - making them easier to create, visualize, and debug. All thanks to the new AI Agent Tool node, out on n8n version 1.103.0.\n\n‪@theflowgrammer‬ walks through this new feature 👇\n\n00:00 - Intro\n00:10 - Context: standard AI Agent with subworkflows\n00:46 - Introducing the AI Agent Tool node\n02:29 - Benefits of this approach\n04:47 - Wrap up\n\nFollow Max on LinkedIn:   / maxtkacz  \n\n🔗 Links and Resources:\nhttps://n8n.io to sign up for n8n cloud\nhttps://docs.n8n.io for documentation (incl self-hosting n8n)\nhttps://community.n8n.io/ for help whilst building",
+          "descriptionLinks": [
+            {
+              "url": "https://www.youtube.com/@theflowgrammer",
+              "text": "‪@theflowgrammer‬"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=lW5xEm7iSXk",
+              "text": "00:00"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=lW5xEm7iSXk&t=10s",
+              "text": "00:10"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=lW5xEm7iSXk&t=46s",
+              "text": "00:46"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=lW5xEm7iSXk&t=149s",
+              "text": "02:29"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=lW5xEm7iSXk&t=287s",
+              "text": "04:47"
+            },
+            {
+              "url": "https://www.linkedin.com/in/maxtkacz/",
+              "text": "  / maxtkacz  "
+            },
+            {
+              "url": "https://n8n.io/",
+              "text": "https://n8n.io"
+            },
+            {
+              "url": "https://docs.n8n.io/",
+              "text": "https://docs.n8n.io"
+            },
+            {
+              "url": "https://community.n8n.io/",
+              "text": "https://community.n8n.io/"
+            }
+          ],
+          "subtitles": null,
+          "order": 21,
+          "commentsTurnedOff": false,
+          "fromYTUrl": "https://www.youtube.com/results?search_query=n8n+AI+Agents",
+          "isMonetized": null,
+          "hashtags": [],
+          "formats": [],
+          "isMembersOnly": false,
+          "input": "n8n AI Agents",
+          "isPaidContent": false
+        },
+        "pairedItem": {
+          "item": 0
+        }
+      },
+      {
+        "json": {
+          "title": "How to Build AI Agents in n8n for Beginners! (Full n8n Guide)",
+          "translatedTitle": null,
+          "type": "video",
+          "id": "kEtYJOijCBM",
+          "url": "https://www.youtube.com/watch?v=kEtYJOijCBM",
+          "thumbnailUrl": "https://i.ytimg.com/vi/kEtYJOijCBM/maxresdefault.jpg",
+          "viewCount": 198684,
+          "date": "2025-05-12T16:00:07.000Z",
+          "likes": 5200,
+          "location": null,
+          "channelName": "AI Foundations",
+          "channelUrl": "https://www.youtube.com/@ai-foundations",
+          "channelUsername": "ai-foundations",
+          "collaborators": null,
+          "channelId": "UCWZwfV3ICOt3uEPpW6hYK4g",
+          "numberOfSubscribers": 299000,
+          "duration": "00:50:00",
+          "commentsCount": 205,
+          "text": "🔥Want our FULL agent building systems? Enroll here: https://swiy.co/n8n-course\n\nIn this full n8n guide we go over everything you need to know about building ai agents in n8n. We take it from the basic concepts like n8n node types, to building automations with n8n, all the way to building your first agent in n8n!\n\nEnjoy :)\n\n🔥Want our FULL agent building systems? Enroll here: https://swiy.co/n8n-course\n\n⌚Chapters:\n0:00 - AI Agent Revolution\n0:45 - What is n8n?\n1:10 - Benefits of n8n\n1:35 - Steps for learning n8n\n2:28 - What to do learn before building AI Agents?\n4:08 - What is an Agent?\n5:56 - n8n interface\n6:55 - Creating a workflow\n7:20 - What are Nodes?\n7:55 - Node Types in n8n\n9:27 - Trigger Nodes in n8n\n10:40 - Action Nodes in n8n\n12:14 - Quick Example Workflow\n13:50 - Inter Node Configuration\n14:30 - Dynamically Mapping Data\n16:04 - Utility Nodes in n8n\n16:40 - Code Nodes in n8n\n17:20 - Agent Nodes in n8n\n18:06 - Building our first automation in n8n\n19:00 - Creating automation triggers\n21:12 - What is an HTTP Request in n8n?\n23:18 - Creating weather API URL\n26:08 - Testing our HTTP request\n26:50 - Using Code Node to Make a Custom Message\n31:10 - Renaming Nodes\n31:25 - Connecting Gmail to our automation in n8n\n34:30 - Final Weather Report Result\n35:07 - Building your first agent\n35:39 - Adding a Chat Node\n36:20 - Adding an AI Agent Node\n37:03 - Adding a Chat Model to our Agent\n39:28 - Giving our Agent Memory\n41:16 - What are Agent Tools?\n42:02 - Adding an HTTP Request Tool\n44:08 - Adding a Gmail Tool\n44:40 - Let Model Decide Parameters\n46:00 - Testing the agent system\n47:25 - The future of your agent builds\n49:18 - Full Agent Building Course\n\n#n8n #aiagents",
+          "translatedText": null,
+          "descriptionLinks": [
+            {
+              "url": "https://swiy.co/n8n-course",
+              "text": "https://swiy.co/n8n-course"
+            },
+            {
+              "url": "https://swiy.co/n8n-course",
+              "text": "https://swiy.co/n8n-course"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=kEtYJOijCBM",
+              "text": "0:00"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=kEtYJOijCBM&t=45s",
+              "text": "0:45"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=kEtYJOijCBM&t=70s",
+              "text": "1:10"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=kEtYJOijCBM&t=95s",
+              "text": "1:35"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=kEtYJOijCBM&t=148s",
+              "text": "2:28"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=kEtYJOijCBM&t=248s",
+              "text": "4:08"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=kEtYJOijCBM&t=356s",
+              "text": "5:56"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=kEtYJOijCBM&t=415s",
+              "text": "6:55"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=kEtYJOijCBM&t=440s",
+              "text": "7:20"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=kEtYJOijCBM&t=475s",
+              "text": "7:55"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=kEtYJOijCBM&t=567s",
+              "text": "9:27"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=kEtYJOijCBM&t=640s",
+              "text": "10:40"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=kEtYJOijCBM&t=734s",
+              "text": "12:14"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=kEtYJOijCBM&t=830s",
+              "text": "13:50"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=kEtYJOijCBM&t=870s",
+              "text": "14:30"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=kEtYJOijCBM&t=964s",
+              "text": "16:04"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=kEtYJOijCBM&t=1000s",
+              "text": "16:40"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=kEtYJOijCBM&t=1040s",
+              "text": "17:20"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=kEtYJOijCBM&t=1086s",
+              "text": "18:06"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=kEtYJOijCBM&t=1140s",
+              "text": "19:00"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=kEtYJOijCBM&t=1272s",
+              "text": "21:12"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=kEtYJOijCBM&t=1398s",
+              "text": "23:18"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=kEtYJOijCBM&t=1568s",
+              "text": "26:08"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=kEtYJOijCBM&t=1610s",
+              "text": "26:50"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=kEtYJOijCBM&t=1870s",
+              "text": "31:10"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=kEtYJOijCBM&t=1885s",
+              "text": "31:25"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=kEtYJOijCBM&t=2070s",
+              "text": "34:30"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=kEtYJOijCBM&t=2107s",
+              "text": "35:07"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=kEtYJOijCBM&t=2139s",
+              "text": "35:39"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=kEtYJOijCBM&t=2180s",
+              "text": "36:20"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=kEtYJOijCBM&t=2223s",
+              "text": "37:03"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=kEtYJOijCBM&t=2368s",
+              "text": "39:28"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=kEtYJOijCBM&t=2476s",
+              "text": "41:16"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=kEtYJOijCBM&t=2522s",
+              "text": "42:02"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=kEtYJOijCBM&t=2648s",
+              "text": "44:08"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=kEtYJOijCBM&t=2680s",
+              "text": "44:40"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=kEtYJOijCBM&t=2760s",
+              "text": "46:00"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=kEtYJOijCBM&t=2845s",
+              "text": "47:25"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=kEtYJOijCBM&t=2958s",
+              "text": "49:18"
+            },
+            {
+              "url": "https://www.youtube.com/hashtag/n8n",
+              "text": "#n8n"
+            },
+            {
+              "url": "https://www.youtube.com/hashtag/aiagents",
+              "text": "#aiagents"
+            }
+          ],
+          "subtitles": null,
+          "order": 24,
+          "commentsTurnedOff": false,
+          "fromYTUrl": "https://www.youtube.com/results?search_query=n8n+AI+Agents",
+          "isMonetized": null,
+          "hashtags": [
+            "#n8n",
+            "#aiagents"
+          ],
+          "formats": [],
+          "isMembersOnly": false,
+          "input": "n8n AI Agents",
+          "isPaidContent": false
+        },
+        "pairedItem": {
+          "item": 0
+        }
+      },
+      {
+        "json": {
+          "title": "Build & Sell n8n AI Agents (8+ Hour Course, No Code)",
+          "translatedTitle": null,
+          "type": "video",
+          "id": "Ey18PDiaAYI",
+          "url": "https://www.youtube.com/watch?v=Ey18PDiaAYI",
+          "thumbnailUrl": "https://i.ytimg.com/vi/Ey18PDiaAYI/maxresdefault.jpg",
+          "viewCount": 1418980,
+          "date": "2025-05-23T23:21:11.000Z",
+          "likes": 48000,
+          "location": null,
+          "channelName": "Nate Herk | AI Automation",
+          "channelUrl": "https://www.youtube.com/@nateherk",
+          "channelUsername": "nateherk",
+          "collaborators": null,
+          "channelId": "UC2ojq-nuP8ceeHqiroeKhBA",
+          "numberOfSubscribers": 515000,
+          "duration": "08:26:38",
+          "commentsCount": 1397,
+          "text": "Full courses + unlimited support: https://www.skool.com/ai-automation-s...\nAll my FREE resources: https://www.skool.com/ai-automation-s...\nWork with me: https://uppitai.com/\n\nMy Tools💻\n14 day FREE n8n trial: https://n8n.partnerlinks.io/22crlu8afq5r\nCode NATEHERK to Self-Host n8n for 10% off (annual plan): http://hostinger.com/nateherk\n\n\n\nWelcome to the most comprehensive free course on AI automation and AI agents for beginners using n8n. \n\nIn this 8+ hour deep-dive, I’ll walk you step-by-step through what you need to go from complete beginner to building and selling real AI-powered automations, no coding required. \n\nWe’ll cover what AI agents are, why they’re a smart investment right now, and how to use n8n to build powerful workflows with a free two-week trial. \n\nYou’ll learn n8n foundations, how to set up APIs and HTTP requests, and how to use tools like agent memory, multi-agent systems, and prompting to create scalable systems. \n\nWe’ll also explore essential concepts like webhooks, MCP servers, and self-hosting, plus a ton of advanced strategies packed into easy-to-follow lessons. \n\nBy the end of this course, you’ll have built over 15 working AI automations that you can use or sell. This video is insanely value-packed, so make sure to save it and come back to it whenever you hit a roadblock. \n\nIf you’re serious about mastering AI agents and automation, this course is the only one you’ll need.\n\nSponsorship Inquiries:\n📧 sponsorships@nateherk.com\n\nWATCH NEXT:\n   • 6 Months of Building AI Agents in 43 Minut...  \n\nTIMESTAMPS\n00:00 Course Agenda (8+ Hours)\n01:43 AI Agents Simplified\n09:02 The Industry Opportunity\n12:05 n8n Foundations (workflows, variables, JSON)\n40:45 n8n Data Types \n48:25 23 Workflow Templates FREE \n49:09 Step by Step AI Workflows \n51:25 1) RAG Pipeline & Chatbot \n01:11:02 2) Customer Support Workflow \n01:22:06 3) LinkedIn Content Creator Workflow \n01:32:58 Bonus Workflow: Invoice Processing \n02:09:54 APIs Explained Simply \n02:34:21 Perplexity API Setup \n02:40:36 Firecrawl API Setup\n02:54:48 Apify API Setup \n03:02:50 Image Generation API Setup \n03:21:11 Video Generation API Setup \n03:47:15 Don't Use AI Agents Wrong \n04:00:26 Build Your First Agent! \n04:24:06 Postgres & Supabase Setup \n04:34:46 Multi Agent System Architecture \n04:55:22 4 Agent Architectures \n05:12:52 Prompting AI Agents \n05:39:58 Output Parsing \n05:46:25 Human in the Loop \n06:02:16 Error Workflows \n06:11:47 Dynamic Brain \n06:25:03 Webhooks \n06:31:24 Voice Email Agent \n06:47:31 Front End w/ Lovable \n07:06:59 What is MCP? \n07:19:49 MCP & Self Host n8n Setup \n07:45:05 Lessons from 6 Months of Building Agents \n08:25:36 If You Made it Here, You Rock\n\n\nGear I Used:\nCamera: Razer Kiyo Pro\nMicrophone: Blue Yeti USB",
+          "translatedText": null,
+          "descriptionLinks": [
+            {
+              "url": "https://www.skool.com/ai-automation-society-plus/about",
+              "text": "https://www.skool.com/ai-automation-s..."
+            },
+            {
+              "url": "https://www.skool.com/ai-automation-society/about",
+              "text": "https://www.skool.com/ai-automation-s..."
+            },
+            {
+              "url": "https://uppitai.com/",
+              "text": "https://uppitai.com/"
+            },
+            {
+              "url": "https://n8n.partnerlinks.io/22crlu8afq5r",
+              "text": "https://n8n.partnerlinks.io/22crlu8afq5r"
+            },
+            {
+              "url": "http://hostinger.com/nateherk",
+              "text": "http://hostinger.com/nateherk"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=QhujcQk8pyU",
+              "text": "   • 6 Months of Building AI Agents in 43 Minut...  "
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=Ey18PDiaAYI",
+              "text": "00:00"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=Ey18PDiaAYI&t=103s",
+              "text": "01:43"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=Ey18PDiaAYI&t=542s",
+              "text": "09:02"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=Ey18PDiaAYI&t=725s",
+              "text": "12:05"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=Ey18PDiaAYI&t=2445s",
+              "text": "40:45"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=Ey18PDiaAYI&t=2905s",
+              "text": "48:25"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=Ey18PDiaAYI&t=2949s",
+              "text": "49:09"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=Ey18PDiaAYI&t=3085s",
+              "text": "51:25"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=Ey18PDiaAYI&t=4262s",
+              "text": "01:11:02"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=Ey18PDiaAYI&t=4926s",
+              "text": "01:22:06"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=Ey18PDiaAYI&t=5578s",
+              "text": "01:32:58"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=Ey18PDiaAYI&t=7794s",
+              "text": "02:09:54"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=Ey18PDiaAYI&t=9261s",
+              "text": "02:34:21"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=Ey18PDiaAYI&t=9636s",
+              "text": "02:40:36"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=Ey18PDiaAYI&t=10488s",
+              "text": "02:54:48"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=Ey18PDiaAYI&t=10970s",
+              "text": "03:02:50"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=Ey18PDiaAYI&t=12071s",
+              "text": "03:21:11"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=Ey18PDiaAYI&t=13635s",
+              "text": "03:47:15"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=Ey18PDiaAYI&t=14426s",
+              "text": "04:00:26"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=Ey18PDiaAYI&t=15846s",
+              "text": "04:24:06"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=Ey18PDiaAYI&t=16486s",
+              "text": "04:34:46"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=Ey18PDiaAYI&t=17722s",
+              "text": "04:55:22"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=Ey18PDiaAYI&t=18772s",
+              "text": "05:12:52"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=Ey18PDiaAYI&t=20398s",
+              "text": "05:39:58"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=Ey18PDiaAYI&t=20785s",
+              "text": "05:46:25"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=Ey18PDiaAYI&t=21736s",
+              "text": "06:02:16"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=Ey18PDiaAYI&t=22307s",
+              "text": "06:11:47"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=Ey18PDiaAYI&t=23103s",
+              "text": "06:25:03"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=Ey18PDiaAYI&t=23484s",
+              "text": "06:31:24"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=Ey18PDiaAYI&t=24451s",
+              "text": "06:47:31"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=Ey18PDiaAYI&t=25619s",
+              "text": "07:06:59"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=Ey18PDiaAYI&t=26389s",
+              "text": "07:19:49"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=Ey18PDiaAYI&t=27905s",
+              "text": "07:45:05"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=Ey18PDiaAYI&t=30336s",
+              "text": "08:25:36"
+            }
+          ],
+          "subtitles": null,
+          "order": 20,
+          "commentsTurnedOff": false,
+          "fromYTUrl": "https://www.youtube.com/results?search_query=n8n+AI+Agents",
+          "isMonetized": null,
+          "hashtags": [],
+          "formats": [],
+          "isMembersOnly": false,
+          "input": "n8n AI Agents",
+          "isPaidContent": false
+        },
+        "pairedItem": {
+          "item": 0
+        }
+      },
+      {
+        "json": {
+          "title": "How to Build AI Agents with n8n in 2025! (Full Course)",
+          "translatedTitle": null,
+          "type": "video",
+          "id": "geR9PeCuHK4",
+          "url": "https://www.youtube.com/watch?v=geR9PeCuHK4",
+          "thumbnailUrl": "https://i.ytimg.com/vi/geR9PeCuHK4/maxresdefault.jpg",
+          "viewCount": 239166,
+          "date": "2025-06-30T14:47:57.000Z",
+          "likes": 7700,
+          "location": null,
+          "channelName": "AI Foundations",
+          "channelUrl": "https://www.youtube.com/@ai-foundations",
+          "channelUsername": "ai-foundations",
+          "collaborators": null,
+          "channelId": "UCWZwfV3ICOt3uEPpW6hYK4g",
+          "numberOfSubscribers": 299000,
+          "duration": "05:09:38",
+          "commentsCount": 393,
+          "text": "⭐️ Course for Building Agents Businesses PAY For: https://swiy.co/n8n-course\n\nIn this full agent building course for n8n we go over everything you need to know about building ai agents in 2025. We take it from the basic concepts like, \"What are AI Agents,\" to n8n node types, to building automations with n8n, all the way to fully building your first agents.\n\nIf you want to make money with AI agents in in 2025 and beyond, this full agent building course is a must!\n\nEnjoy :)\n\n🔥 Go deeper in building and learning about AI agents: https://swiy.co/n8n-course\n--------------------\n\n⌚Chapters:\n0:00   - Overview\n1:26   - AI Foundations\n2:58   - Course Intro\n4:21   - What are AI Agents?\n6:51   - Agents vs. Automations\n10:31  - Data Flow\n13:21  - Who are Agents for?\n15:18  - Tool Stack\n17:09  - Intro to N8N\n19:41  - N8N Pricing\n21:41  - Sign-up\n23:07  - N8N Dashboard\n28:07  - N8N Canvas\n28:51  - Start a Workflow\n30:51  - What are nodes?\n34:18  - Trigger, Action, Utility Nodes\n39:41  - Code & Agent Nodes\n41:11  - Building an Automation\n42:16  - Automation Building Tips\n45:21  - Build 1: Lead Form Automation\n47:21  - Build 1 Begins\n48:36  - Create a Form\n54:11  - Lead Form Execution\n55:31  - Switch Node\n57:23  - Input, Configure & Output\n59:41  - Switch Node Settings\n1:04:58 - Testing Switch Node\n1:07:21 - Gmail Action\n1:08:35 - Credentials Overview\n1:10:51 - Gmail Node Settings\n1:13:21 - Expression Field\n1:16:01 - Lead Form Test\n1:17:31 - Adding Labels\n1:22:46 - Testing all Budgets\n1:25:38 - Build 2: Weather Automation\n1:30:11 - Airtable Set-up\n1:34:21 - Build 2 Form\n1:36:04 - Switch Node Routing\n1:38:34 - Weather Data\n1:39:41 - HTTP Get Request\n1:44:46 - Latitude & Longitude\n1:49:12 - Mapping HTTP Request\n1:51:11 - Coordinate Error Fix\n1:53:53 - Code Node\n1:55:20 - Generating JS Code\n1:57:41 - Testing Code\n1:59:03 - Map Data to Airtable\n2:02:29 - Airtable Node Settings\n2:04:34 - Final Tests\n2:06:46 - Building an Agent\n2:08:46 - How Agents Work\n2:11:09 - Agentic Workflow\n2:14:51 - Additional Examples\n2:17:21 - Build 3: Email Agent\n2:19:24 - Build 3 Begins\n2:21:26 - Gmail Trigger\n2:22:31 - Trigger Test\n2:25:58 - Get Message Action\n2:27:26 - AI Agent Node\n2:29:15 - OpenAI Credentials\n2:32:39 - Tools for Agents\n2:34:24 - Calendar Access\n2:38:31 - Goals Workspace\n2:42:05 - Airtable Token\n2:43:09 - Search Tool\n2:44:59 - Chat Trigger\n2:46:37 - Alternative Search Tool\n2:47:11 - Instruction Basics\n2:49:35 - Expression Prompt\n2:52:33 - Input/Output Examples\n2:55:25 - Debugging Expression\n2:58:48 - Response Example\n3:00:48 - Email Labels\n3:05:30 - Output Extraction\n3:09:03 - Output Parser\n3:10:26 - JSON Basics\n3:15:11 - Applying JSON\n3:18:03 - Model Change for Agents\n3:19:51 - Draft Action\n3:22:32 - Agent Test\n3:23:51 - Add Label to Thread\n3:26:08 - B3 Switch Node\n3:28:10 - Dynamic Mapping\n3:30:41 - Final Route Testing\n3:36:24 - Build 4: Communication Mediums\n3:38:06 - Interfaces for Communication\n3:39:20 - Connect to Telegram\n3:41:30 - BotFather\n3:42:06 - Telegram Node\n3:46:07 - Chat Data\n3:48:36 - If Node Explained\n3:52:35 - Transcribe Node\n3:54:10 - Agent Node\n3:55:59 - Edit Fields\n3:58:04 - Chat Model\n3:58:51 - Chat ID\n4:01:09 - Edit Fields (Simplified)\n4:03:46 - Telegram Test\n4:04:36 - Adding Memory\n4:08:21 - What is Vibe Coding?\n4:09:37 - Vibe Coding Course\n4:10:23 - Webhook Node\n4:12:03 - Lovable Interface\n4:13:56 - Respond to Webhook\n4:15:21 - Edit Fields Duplicate\n4:16:05 - If Node Addition\n4:17:12 - Message Test\n4:18:38 - Multi-Agent Hierarchy\n4:22:09 - Classifier Agents\n4:24:57 - Call N8N Workflow Tool\n4:26:56 - Multi-Agent Uses\n4:31:21 - Build 5: Personal Assistant\n4:34:09 - Build 5 Begins\n4:35:03 - Chat Trigger & Agent\n4:36:57 - Instructions\n4:39:16 - Google Calendar\n4:40:56 - Agent Node Instructions\n4:43:30 - Classifier Tool\n4:44:56 - Classifier Test\n4:46:22 - User Query\n4:47:57 - Adding Calendar Tools\n4:53:29 - Create Test\n4:56:08 - Search Test\n4:58:26 - Delete, Get, Update Events\n5:00:49 - Final Tests\n5:02:31 - (!) Try it Yourself\n5:04:50 - Conclusion\n5:05:46 - Join AI Foundations\n\n#aiagents #n8n",
+          "translatedText": null,
+          "descriptionLinks": [
+            {
+              "url": "https://swiy.co/n8n-course",
+              "text": "https://swiy.co/n8n-course"
+            },
+            {
+              "url": "https://swiy.co/n8n-course",
+              "text": "https://swiy.co/n8n-course"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=geR9PeCuHK4",
+              "text": "0:00"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=geR9PeCuHK4&t=86s",
+              "text": "1:26"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=geR9PeCuHK4&t=178s",
+              "text": "2:58"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=geR9PeCuHK4&t=261s",
+              "text": "4:21"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=geR9PeCuHK4&t=411s",
+              "text": "6:51"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=geR9PeCuHK4&t=631s",
+              "text": "10:31"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=geR9PeCuHK4&t=801s",
+              "text": "13:21"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=geR9PeCuHK4&t=918s",
+              "text": "15:18"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=geR9PeCuHK4&t=1029s",
+              "text": "17:09"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=geR9PeCuHK4&t=1181s",
+              "text": "19:41"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=geR9PeCuHK4&t=1301s",
+              "text": "21:41"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=geR9PeCuHK4&t=1387s",
+              "text": "23:07"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=geR9PeCuHK4&t=1687s",
+              "text": "28:07"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=geR9PeCuHK4&t=1731s",
+              "text": "28:51"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=geR9PeCuHK4&t=1851s",
+              "text": "30:51"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=geR9PeCuHK4&t=2058s",
+              "text": "34:18"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=geR9PeCuHK4&t=2381s",
+              "text": "39:41"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=geR9PeCuHK4&t=2471s",
+              "text": "41:11"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=geR9PeCuHK4&t=2536s",
+              "text": "42:16"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=geR9PeCuHK4&t=2721s",
+              "text": "45:21"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=geR9PeCuHK4&t=2841s",
+              "text": "47:21"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=geR9PeCuHK4&t=2916s",
+              "text": "48:36"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=geR9PeCuHK4&t=3251s",
+              "text": "54:11"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=geR9PeCuHK4&t=3331s",
+              "text": "55:31"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=geR9PeCuHK4&t=3443s",
+              "text": "57:23"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=geR9PeCuHK4&t=3581s",
+              "text": "59:41"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=geR9PeCuHK4&t=3898s",
+              "text": "1:04:58"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=geR9PeCuHK4&t=4041s",
+              "text": "1:07:21"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=geR9PeCuHK4&t=4115s",
+              "text": "1:08:35"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=geR9PeCuHK4&t=4251s",
+              "text": "1:10:51"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=geR9PeCuHK4&t=4401s",
+              "text": "1:13:21"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=geR9PeCuHK4&t=4561s",
+              "text": "1:16:01"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=geR9PeCuHK4&t=4651s",
+              "text": "1:17:31"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=geR9PeCuHK4&t=4966s",
+              "text": "1:22:46"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=geR9PeCuHK4&t=5138s",
+              "text": "1:25:38"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=geR9PeCuHK4&t=5411s",
+              "text": "1:30:11"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=geR9PeCuHK4&t=5661s",
+              "text": "1:34:21"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=geR9PeCuHK4&t=5764s",
+              "text": "1:36:04"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=geR9PeCuHK4&t=5914s",
+              "text": "1:38:34"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=geR9PeCuHK4&t=5981s",
+              "text": "1:39:41"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=geR9PeCuHK4&t=6286s",
+              "text": "1:44:46"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=geR9PeCuHK4&t=6552s",
+              "text": "1:49:12"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=geR9PeCuHK4&t=6671s",
+              "text": "1:51:11"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=geR9PeCuHK4&t=6833s",
+              "text": "1:53:53"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=geR9PeCuHK4&t=6920s",
+              "text": "1:55:20"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=geR9PeCuHK4&t=7061s",
+              "text": "1:57:41"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=geR9PeCuHK4&t=7143s",
+              "text": "1:59:03"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=geR9PeCuHK4&t=7349s",
+              "text": "2:02:29"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=geR9PeCuHK4&t=7474s",
+              "text": "2:04:34"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=geR9PeCuHK4&t=7606s",
+              "text": "2:06:46"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=geR9PeCuHK4&t=7726s",
+              "text": "2:08:46"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=geR9PeCuHK4&t=7869s",
+              "text": "2:11:09"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=geR9PeCuHK4&t=8091s",
+              "text": "2:14:51"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=geR9PeCuHK4&t=8241s",
+              "text": "2:17:21"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=geR9PeCuHK4&t=8364s",
+              "text": "2:19:24"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=geR9PeCuHK4&t=8486s",
+              "text": "2:21:26"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=geR9PeCuHK4&t=8551s",
+              "text": "2:22:31"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=geR9PeCuHK4&t=8758s",
+              "text": "2:25:58"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=geR9PeCuHK4&t=8846s",
+              "text": "2:27:26"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=geR9PeCuHK4&t=8955s",
+              "text": "2:29:15"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=geR9PeCuHK4&t=9159s",
+              "text": "2:32:39"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=geR9PeCuHK4&t=9264s",
+              "text": "2:34:24"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=geR9PeCuHK4&t=9511s",
+              "text": "2:38:31"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=geR9PeCuHK4&t=9725s",
+              "text": "2:42:05"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=geR9PeCuHK4&t=9789s",
+              "text": "2:43:09"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=geR9PeCuHK4&t=9899s",
+              "text": "2:44:59"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=geR9PeCuHK4&t=9997s",
+              "text": "2:46:37"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=geR9PeCuHK4&t=10031s",
+              "text": "2:47:11"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=geR9PeCuHK4&t=10175s",
+              "text": "2:49:35"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=geR9PeCuHK4&t=10353s",
+              "text": "2:52:33"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=geR9PeCuHK4&t=10525s",
+              "text": "2:55:25"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=geR9PeCuHK4&t=10728s",
+              "text": "2:58:48"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=geR9PeCuHK4&t=10848s",
+              "text": "3:00:48"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=geR9PeCuHK4&t=11130s",
+              "text": "3:05:30"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=geR9PeCuHK4&t=11343s",
+              "text": "3:09:03"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=geR9PeCuHK4&t=11426s",
+              "text": "3:10:26"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=geR9PeCuHK4&t=11711s",
+              "text": "3:15:11"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=geR9PeCuHK4&t=11883s",
+              "text": "3:18:03"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=geR9PeCuHK4&t=11991s",
+              "text": "3:19:51"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=geR9PeCuHK4&t=12152s",
+              "text": "3:22:32"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=geR9PeCuHK4&t=12231s",
+              "text": "3:23:51"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=geR9PeCuHK4&t=12368s",
+              "text": "3:26:08"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=geR9PeCuHK4&t=12490s",
+              "text": "3:28:10"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=geR9PeCuHK4&t=12641s",
+              "text": "3:30:41"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=geR9PeCuHK4&t=12984s",
+              "text": "3:36:24"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=geR9PeCuHK4&t=13086s",
+              "text": "3:38:06"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=geR9PeCuHK4&t=13160s",
+              "text": "3:39:20"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=geR9PeCuHK4&t=13290s",
+              "text": "3:41:30"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=geR9PeCuHK4&t=13326s",
+              "text": "3:42:06"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=geR9PeCuHK4&t=13567s",
+              "text": "3:46:07"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=geR9PeCuHK4&t=13716s",
+              "text": "3:48:36"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=geR9PeCuHK4&t=13955s",
+              "text": "3:52:35"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=geR9PeCuHK4&t=14050s",
+              "text": "3:54:10"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=geR9PeCuHK4&t=14159s",
+              "text": "3:55:59"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=geR9PeCuHK4&t=14284s",
+              "text": "3:58:04"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=geR9PeCuHK4&t=14331s",
+              "text": "3:58:51"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=geR9PeCuHK4&t=14469s",
+              "text": "4:01:09"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=geR9PeCuHK4&t=14626s",
+              "text": "4:03:46"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=geR9PeCuHK4&t=14676s",
+              "text": "4:04:36"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=geR9PeCuHK4&t=14901s",
+              "text": "4:08:21"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=geR9PeCuHK4&t=14977s",
+              "text": "4:09:37"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=geR9PeCuHK4&t=15023s",
+              "text": "4:10:23"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=geR9PeCuHK4&t=15123s",
+              "text": "4:12:03"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=geR9PeCuHK4&t=15236s",
+              "text": "4:13:56"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=geR9PeCuHK4&t=15321s",
+              "text": "4:15:21"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=geR9PeCuHK4&t=15365s",
+              "text": "4:16:05"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=geR9PeCuHK4&t=15432s",
+              "text": "4:17:12"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=geR9PeCuHK4&t=15518s",
+              "text": "4:18:38"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=geR9PeCuHK4&t=15729s",
+              "text": "4:22:09"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=geR9PeCuHK4&t=15897s",
+              "text": "4:24:57"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=geR9PeCuHK4&t=16016s",
+              "text": "4:26:56"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=geR9PeCuHK4&t=16281s",
+              "text": "4:31:21"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=geR9PeCuHK4&t=16449s",
+              "text": "4:34:09"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=geR9PeCuHK4&t=16503s",
+              "text": "4:35:03"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=geR9PeCuHK4&t=16617s",
+              "text": "4:36:57"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=geR9PeCuHK4&t=16756s",
+              "text": "4:39:16"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=geR9PeCuHK4&t=16856s",
+              "text": "4:40:56"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=geR9PeCuHK4&t=17010s",
+              "text": "4:43:30"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=geR9PeCuHK4&t=17096s",
+              "text": "4:44:56"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=geR9PeCuHK4&t=17182s",
+              "text": "4:46:22"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=geR9PeCuHK4&t=17277s",
+              "text": "4:47:57"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=geR9PeCuHK4&t=17609s",
+              "text": "4:53:29"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=geR9PeCuHK4&t=17768s",
+              "text": "4:56:08"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=geR9PeCuHK4&t=17906s",
+              "text": "4:58:26"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=geR9PeCuHK4&t=18049s",
+              "text": "5:00:49"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=geR9PeCuHK4&t=18151s",
+              "text": "5:02:31"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=geR9PeCuHK4&t=18290s",
+              "text": "5:04:50"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=geR9PeCuHK4&t=18346s",
+              "text": "5:05:46"
+            },
+            {
+              "url": "https://www.youtube.com/hashtag/aiagents",
+              "text": "#aiagents"
+            },
+            {
+              "url": "https://www.youtube.com/hashtag/n8n",
+              "text": "#n8n"
+            }
+          ],
+          "subtitles": null,
+          "order": 27,
+          "commentsTurnedOff": false,
+          "fromYTUrl": "https://www.youtube.com/results?search_query=n8n+AI+Agents",
+          "isMonetized": null,
+          "hashtags": [
+            "#aiagents",
+            "#n8n"
+          ],
+          "formats": [],
+          "isMembersOnly": false,
+          "input": "n8n AI Agents",
+          "isPaidContent": false
+        },
+        "pairedItem": {
+          "item": 0
+        }
+      },
+      {
+        "json": {
+          "title": "Master 80% of n8n in 36 Minutes",
+          "translatedTitle": null,
+          "type": "video",
+          "id": "e3OV3LnrS7o",
+          "url": "https://www.youtube.com/watch?v=e3OV3LnrS7o",
+          "thumbnailUrl": "https://i.ytimg.com/vi/e3OV3LnrS7o/maxresdefault.jpg",
+          "viewCount": 404392,
+          "date": "2025-08-31T17:17:36.000Z",
+          "likes": 9900,
+          "location": null,
+          "channelName": "Futurepedia",
+          "channelUrl": "https://www.youtube.com/@futurepedia_io",
+          "channelUsername": "futurepedia_io",
+          "collaborators": [
+            {
+              "name": "Futurepedia",
+              "username": "futurepedia_io",
+              "url": "https://www.youtube.com/@futurepedia_io"
+            },
+            {
+              "name": "AI Agent Lab",
+              "username": "theAIAgentLab",
+              "url": "https://www.youtube.com/@theAIAgentLab"
+            }
+          ],
+          "channelId": "UC_RovKmk0OCbuZjA8f08opw",
+          "numberOfSubscribers": 0,
+          "duration": "00:36:22",
+          "commentsCount": 454,
+          "text": "Self host n8n with Hostinger -  http://hostinger.com/futurepedian8n\nUse the promo code FUTUREPEDIA\n\nMore from Futurepedia:\n👉 Join the fastest-growing AI education platform! Try it free and explore 20+ top-rated courses in AI: https://bit.ly/futurepediaSL\n\nSummary\nLearn how to master 80% of n8n in one video. We’ll start from scratch and build real automations step by step. From a simple daily weather email to a full sponsorship intake workflow with forms, Google Sheets, and conditional logic. Then we’ll take it further and create a personal AI assistant inside n8n using the AI Agent node.\n\nBy the end, you’ll know how to:\nBuild workflows with triggers, actions, and logic\nUse expressions & JSON without needing to code\nConnect Google Sheets and APIs\nDebug with Pin Data, Executions, and error handling\nCreate sub-workflows for reusable automation\nAdd an AI Agent that can read your Sheets, summarize leads, and call other workflows on command\n\nThis isn’t just theory, you’ll see complete builds you can replicate for your own business, side projects, or personal productivity. This video will get you building powerful workflows fast.\n\nChapters\n0:00 Intro\n0:52 What is n8n?\n1:25 What can you build?\n2:22 Build 1\n8:51 Setting up n8n\n10:29 5 Node Types\n11:57 Build 2\n20:20 JSON\n22:28 Agents vs Automations\n23:39 APIs and HTTP Requests\n25:51 Build 3\n35:01 Final Tips\n35:46 Futurepedia",
+          "translatedText": null,
+          "descriptionLinks": [
+            {
+              "url": "http://hostinger.com/futurepedian8n",
+              "text": "http://hostinger.com/futurepedian8n"
+            },
+            {
+              "url": "https://bit.ly/futurepediaSL",
+              "text": "https://bit.ly/futurepediaSL"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=e3OV3LnrS7o",
+              "text": "0:00"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=e3OV3LnrS7o&t=52s",
+              "text": "0:52"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=e3OV3LnrS7o&t=85s",
+              "text": "1:25"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=e3OV3LnrS7o&t=142s",
+              "text": "2:22"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=e3OV3LnrS7o&t=531s",
+              "text": "8:51"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=e3OV3LnrS7o&t=629s",
+              "text": "10:29"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=e3OV3LnrS7o&t=717s",
+              "text": "11:57"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=e3OV3LnrS7o&t=1220s",
+              "text": "20:20"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=e3OV3LnrS7o&t=1348s",
+              "text": "22:28"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=e3OV3LnrS7o&t=1419s",
+              "text": "23:39"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=e3OV3LnrS7o&t=1551s",
+              "text": "25:51"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=e3OV3LnrS7o&t=2101s",
+              "text": "35:01"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=e3OV3LnrS7o&t=2146s",
+              "text": "35:46"
+            }
+          ],
+          "subtitles": null,
+          "order": 26,
+          "commentsTurnedOff": false,
+          "fromYTUrl": "https://www.youtube.com/results?search_query=n8n+AI+Agents",
+          "isMonetized": null,
+          "hashtags": [],
+          "formats": [],
+          "isMembersOnly": false,
+          "input": "n8n AI Agents",
+          "isPaidContent": true
+        },
+        "pairedItem": {
+          "item": 0
+        }
+      },
+      {
+        "json": {
+          "title": "n8n AI Agent Tutorial for Beginners 2026 - Step by Step",
+          "translatedTitle": null,
+          "type": "video",
+          "id": "PfdnYe2690E",
+          "url": "https://www.youtube.com/watch?v=PfdnYe2690E",
+          "thumbnailUrl": "https://i.ytimg.com/vi/PfdnYe2690E/maxresdefault.jpg",
+          "viewCount": 83907,
+          "date": "2025-07-21T13:00:46.000Z",
+          "likes": 2000,
+          "location": null,
+          "channelName": "Metics Media",
+          "channelUrl": "https://www.youtube.com/@MeticsMedia",
+          "channelUsername": "MeticsMedia",
+          "collaborators": null,
+          "channelId": "UCuwpzP90g1LuGk6JUNms_AQ",
+          "numberOfSubscribers": 506000,
+          "duration": "00:23:34",
+          "commentsCount": 66,
+          "text": "This n8n tutorial for beginners shows you how to create AI agents step by step. Automate workflows, integrate tools, and build powerful AI features without coding.\n✅ Sign Up For n8n (Best Deal + Free Trial): https://meticsmedia.com/n8n-gbj\n\n💻 How to Self-Host n8n (Step-by-Step Tutorial):    • How to Set up N8n Self Hosting In 5 Minute...  \n\n✅ Best VPS for n8n (Self-Hosting): https://meticsmedia.com/hostinger-gbj\n\nThis video covers:\n✔️ Intro to n8n – Why it’s perfect for AI and automation\n✔️ Build your first AI agent step by step\n✔️ Connect OpenAI as the agent’s brain\n✔️ Add memory & tools for smarter workflows\n✔️ Automate with Gmail & Google Sheets\n✔️ Polish outputs using markdown, HTML, and AI formatting\n✔️ Prevent duplicates outputs with knowledge checks\n✔️ Pro tips & self-hosting for stability and cost savings\n\n🔗 Links Mentioned in Video\nHow to Self-Host n8n (Step-by-Step Tutorial):    • How to Set up N8n Self Hosting In 5 Minute...  \nOpenAI Developer Platform: https://platform.openai.com/\nSerpApi: https://serpapi.com/\nOpenWeatherMap: https://openweathermap.org/\nGoogle OAuth2 Setup Guide: https://docs.n8n.io/integrations/buil...\nGoogle OAuth2 Setup Video: https://docs.n8n.io/integrations/buil...\n\n📍 Exclusive Deals & Discounts: https://meticsmedia.com/deals\n\n⏱️ Timestamps\n0:00 Intro  \n0:48 Getting Started with n8n  \n1:40 Building Your First AI Agent  \n2:22 Connecting OpenAI as the Agent’s Brain  \n4:11 Giving the Agent Memory and Tools  \n6:04 Making the Agent Autonomous  \n6:22 Adding Triggers for Automation  \n7:09 Scheduling Autonomous Tasks  \n7:51 Prompting the Agent for Actions  \n8:47 Managing Memory & Testing the Workflow  \n9:49 Email Output with Gmail Integration  \n11:13 Beautifying Output with Markdown & AI  \n13:13 Logging Results to Google Sheets  \n15:50 Avoiding Duplicates with Knowledge Base Review  \n18:16 Finalizing the Automated Daily Briefing Agent  \n19:16 Pro Tips for Stable Agent Performance  \n20:32 Using and Customizing Templates  \n21:26 Self-Hosting n8n to Gain Control and Save Money  \n\n📄 Disclosure\nSome of the links are affiliate links. If you make a purchase through them, I earn a small commission at no extra cost to you. This helps us keep our videos free for everyone.",
+          "translatedText": null,
+          "descriptionLinks": [
+            {
+              "url": "https://meticsmedia.com/n8n-gbj",
+              "text": "https://meticsmedia.com/n8n-gbj"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=CWxoDT05ED0",
+              "text": "   • How to Set up N8n Self Hosting In 5 Minute...  "
+            },
+            {
+              "url": "https://meticsmedia.com/hostinger-gbj",
+              "text": "https://meticsmedia.com/hostinger-gbj"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=CWxoDT05ED0",
+              "text": "   • How to Set up N8n Self Hosting In 5 Minute...  "
+            },
+            {
+              "url": "https://platform.openai.com/",
+              "text": "https://platform.openai.com/"
+            },
+            {
+              "url": "https://serpapi.com/",
+              "text": "https://serpapi.com/"
+            },
+            {
+              "url": "https://openweathermap.org/",
+              "text": "https://openweathermap.org/"
+            },
+            {
+              "url": "https://docs.n8n.io/integrations/builtin/credentials/google/oauth-single-service/",
+              "text": "https://docs.n8n.io/integrations/buil..."
+            },
+            {
+              "url": "https://docs.n8n.io/integrations/builtin/credentials/google/oauth-single-service/#video",
+              "text": "https://docs.n8n.io/integrations/buil..."
+            },
+            {
+              "url": "https://meticsmedia.com/deals",
+              "text": "https://meticsmedia.com/deals"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=PfdnYe2690E",
+              "text": "0:00"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=PfdnYe2690E&t=48s",
+              "text": "0:48"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=PfdnYe2690E&t=100s",
+              "text": "1:40"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=PfdnYe2690E&t=142s",
+              "text": "2:22"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=PfdnYe2690E&t=251s",
+              "text": "4:11"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=PfdnYe2690E&t=364s",
+              "text": "6:04"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=PfdnYe2690E&t=382s",
+              "text": "6:22"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=PfdnYe2690E&t=429s",
+              "text": "7:09"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=PfdnYe2690E&t=471s",
+              "text": "7:51"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=PfdnYe2690E&t=527s",
+              "text": "8:47"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=PfdnYe2690E&t=589s",
+              "text": "9:49"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=PfdnYe2690E&t=673s",
+              "text": "11:13"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=PfdnYe2690E&t=793s",
+              "text": "13:13"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=PfdnYe2690E&t=950s",
+              "text": "15:50"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=PfdnYe2690E&t=1096s",
+              "text": "18:16"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=PfdnYe2690E&t=1156s",
+              "text": "19:16"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=PfdnYe2690E&t=1232s",
+              "text": "20:32"
+            },
+            {
+              "url": "https://www.youtube.com/watch?v=PfdnYe2690E&t=1286s",
+              "text": "21:26"
+            }
+          ],
+          "subtitles": null,
+          "order": 25,
+          "commentsTurnedOff": false,
+          "fromYTUrl": "https://www.youtube.com/results?search_query=n8n+AI+Agents",
+          "isMonetized": null,
+          "hashtags": [],
+          "formats": [],
+          "isMembersOnly": false,
+          "input": "n8n AI Agents",
+          "isPaidContent": false
+        },
+        "pairedItem": {
+          "item": 0
+        }
+      }
+    ]
+  },
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Search Field",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Search Field": {
+      "main": [
+        [
+          {
+            "node": "YouTube Scraper Final",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "YouTube Scraper Final": {
+      "main": [
+        [
+          {
+            "node": "Append row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "8e08f11a-d41a-4979-87ba-9017d220de3a",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "e99e0d1157c9445a053edb1d8bcb3c19869f806f2b50808813faa4f314de9dd4"
+  },
+  "id": "7LY54GQJ43gFGkwF",
+  "tags": []
+}

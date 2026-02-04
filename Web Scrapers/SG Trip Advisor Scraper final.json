@@ -1,0 +1,4311 @@
+{
+  "name": "SG Trip Advisor Scraper final",
+  "nodes": [
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1WJ19g43YFDRi72kMPUiL_aCSsPcPVV1ZGC0xK__jL5k",
+          "mode": "list",
+          "cachedResultName": "20260203_Scraper",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1WJ19g43YFDRi72kMPUiL_aCSsPcPVV1ZGC0xK__jL5k/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": 2109795639,
+          "mode": "list",
+          "cachedResultName": "Trip_advisor",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1WJ19g43YFDRi72kMPUiL_aCSsPcPVV1ZGC0xK__jL5k/edit#gid=2109795639"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Type": "={{ $json.type }}",
+            "Category": "={{ $json.category }}",
+            "Name": "={{ $json.name }}",
+            "Address": "={{ $json.locationString }}",
+            "Rating": "={{ $json.rating }}",
+            "Phone Number": "={{ $json.phone }}",
+            "Website": "={{ $json.website }}",
+            "Email": "={{ $json.email }}",
+            "No. of Reviews": "={{ $json.numberOfReviews }}",
+            "Price Range": "={{ $json.priceRange }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Type",
+              "displayName": "Type",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Category",
+              "displayName": "Category",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Name",
+              "displayName": "Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Address",
+              "displayName": "Address",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Rating",
+              "displayName": "Rating",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Phone Number",
+              "displayName": "Phone Number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Email",
+              "displayName": "Email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Website",
+              "displayName": "Website",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "No. of Reviews",
+              "displayName": "No. of Reviews",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Price Range",
+              "displayName": "Price Range",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        768,
+        320
+      ],
+      "id": "43726874-07ab-4f11-8ea6-9002fb5258e8",
+      "name": "Append row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "swHN4rGGgv0MH5qi",
+          "name": "SG Techie Google Sheets account 5"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "### Pass the city to the actor",
+        "height": 272,
+        "width": 304
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        336,
+        224
+      ],
+      "typeVersion": 1,
+      "id": "539f0c00-0eaf-4447-aab3-8bc7ef24c0af",
+      "name": "Sticky Note1"
+    },
+    {
+      "parameters": {
+        "content": "### Store the data\n",
+        "height": 272,
+        "width": 304
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        672,
+        224
+      ],
+      "typeVersion": 1,
+      "id": "7e63fcb9-90c0-4774-92ed-3e7459014846",
+      "name": "Sticky Note2"
+    },
+    {
+      "parameters": {
+        "operation": "Run actor and get dataset",
+        "actorSource": "store",
+        "actorId": {
+          "__rl": true,
+          "value": "dbEyMBriog95Fv8CW",
+          "mode": "list",
+          "cachedResultName": "Tripadvisor Scraper (maxcopell/tripadvisor)",
+          "cachedResultUrl": "https://console.apify.com/actors/dbEyMBriog95Fv8CW/input"
+        },
+        "customBody": "={\n    \"currency\": \"INR\",\n    \"includeAiReviewsSummary\": false,\n    \"includeAttractions\": false,\n    \"includeHotels\": true,\n    \"includeNearbyResults\": false,\n    \"includePriceOffers\": false,\n    \"includeRestaurants\": false,\n    \"includeTags\": false,\n    \"includeVacationRentals\": false,\n    \"language\": \"en\",\n    \"maxItemsPerQuery\": 10,\n    \"query\": \"{{ $json.Location }}\"\n}"
+      },
+      "type": "@apify/n8n-nodes-apify.apify",
+      "typeVersion": 1,
+      "position": [
+        432,
+        320
+      ],
+      "id": "17eeedf5-602e-4b9a-b785-5f0e4e47645f",
+      "name": "TripAdvisor Scraper",
+      "credentials": {
+        "apifyApi": {
+          "id": "SJzXPvJrFxuPEBVW",
+          "name": "SG Apify account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "## Trip Advisor\n- Google Sheet Link (Copy) https://docs.google.com/spreadsheets/d/1WJ19g43YFDRi72kMPUiL_aCSsPcPVV1ZGC0xK__jL5k/edit?gid=2109795639#gid=2109795639\n\n- Apify Actor - https://console.apify.com/actors/dbEyMBriog95Fv8CW/input",
+        "height": 128,
+        "width": 1008
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        0,
+        0
+      ],
+      "typeVersion": 1,
+      "id": "a7d3381e-7f2c-4066-bbbf-8b3d1a0adac3",
+      "name": "Sticky Note3"
+    },
+    {
+      "parameters": {
+        "content": "### Give a city name as input\n",
+        "height": 272,
+        "width": 304
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        0,
+        224
+      ],
+      "typeVersion": 1,
+      "id": "f9ca4cb3-c9de-4a40-a34a-04a79b6e2637",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -192,
+        320
+      ],
+      "id": "4cb72ff6-3dbf-4101-be66-65924fe6d678",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "93d75b7f-24c3-46ba-bb47-0c8abef8fe8e",
+              "name": "Location",
+              "value": "Pune",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        96,
+        320
+      ],
+      "id": "94647370-809c-46f2-ad40-edfbcd103b4e",
+      "name": "Search Field"
+    }
+  ],
+  "pinData": {
+    "TripAdvisor Scraper": [
+      {
+        "json": {
+          "id": "2215850",
+          "type": "HOTEL",
+          "category": "hotel",
+          "subcategories": [
+            "Hotel"
+          ],
+          "name": "Crowne Plaza Pune City Centre By IHG",
+          "locationString": "Pune, Pune District, Maharashtra",
+          "description": "Welcome to Crowne Plaza Pune City Centre, ideally situated in the heart of the city, offering a strategic location near the airport and railway station for convenient access. Our hotel boasts 173 spacious rooms designed for comfort and relaxation, along with a range of amenities including a swimming pool, spa, and gym to ensure a rejuvenating stay. Indulge your taste buds at Mosaic, our multi-cuisine restaurant that offers a culinary journey with food options from around the globe, prepared by our talented chefs. Experience the breathtaking panoramic view of the city at Evviva, our sky lounge. Enjoy a variety of cocktails, delicious food, and a vibrant atmosphere with multi-genre music to enhance your evening. With meeting and banqueting spaces spread over a total area of 11025 square feet, we offer versatile options for your events.",
+          "image": "https://media-cdn.tripadvisor.com/media/photo-m/1280/30/35/50/64/hotel-exterior.jpg",
+          "photoCount": 1110,
+          "rankingPosition": 29,
+          "rating": 4.6,
+          "rawRanking": 4.701419830322266,
+          "phone": "18778595095",
+          "address": "Cts No. 37 & 37/1 Bund Garden Road, Next To Jehangir Hospital, Pune 411001 India",
+          "addressObj": {
+            "street1": "Cts No. 37 & 37/1",
+            "street2": "Bund Garden Road, Next To Jehangir Hospital",
+            "city": "Pune",
+            "state": "Maharashtra",
+            "country": "India",
+            "postalcode": "411001"
+          },
+          "localName": "Crowne Plaza Pune City Centre By IHG",
+          "localAddress": "Cts No. 37 & 37/1, Bund Garden Road, Next To Jehangir Hospital, 411001",
+          "localLangCode": "en-IN",
+          "email": "reservations@crowneplazapune.com",
+          "latitude": 18.531525,
+          "longitude": 73.87667,
+          "webUrl": "https://www.tripadvisor.com/Hotel_Review-g297654-d2215850-Reviews-Crowne_Plaza_Pune_City_Centre_By_IHG-Pune_Pune_District_Maharashtra.html",
+          "website": "https://www.ihg.com/crowneplaza/hotels/us/en/pune/pnqcc/hoteldetail?cm_mmc=YextLocal-_-CP-_-IN-_-PNQCC",
+          "rankingString": "#29 of 1,230 hotels in Pune",
+          "rankingDenominator": "1230",
+          "rankingSource": "API",
+          "neighborhoodLocations": [],
+          "nearestMetroStations": [],
+          "ancestorLocations": [
+            {
+              "id": "297654",
+              "name": "Pune",
+              "abbreviation": null,
+              "subcategory": "City"
+            },
+            {
+              "id": "12400025",
+              "name": "Pune District",
+              "abbreviation": null,
+              "subcategory": "District"
+            },
+            {
+              "id": "297648",
+              "name": "Maharashtra",
+              "abbreviation": null,
+              "subcategory": "State"
+            },
+            {
+              "id": "293860",
+              "name": "India",
+              "abbreviation": null,
+              "subcategory": "Country"
+            }
+          ],
+          "ratingHistogram": {
+            "count1": 73,
+            "count2": 53,
+            "count3": 136,
+            "count4": 540,
+            "count5": 2410
+          },
+          "numberOfReviews": 3210,
+          "hotelClass": "4.0",
+          "hotelClassAttribution": "This property is classified according to Giata.",
+          "amenities": [
+            "Pool",
+            "Internet",
+            "Kids Activities",
+            "Shuttle Bus Service",
+            "Suites",
+            "Room service",
+            "Free Internet",
+            "Free parking",
+            "Wheelchair access",
+            "Restaurant",
+            "Bar/Lounge",
+            "Pets Allowed",
+            "Airport transportation",
+            "Wifi",
+            "Public Wifi",
+            "Free Wifi",
+            "Paid Wifi",
+            "Breakfast included",
+            "Dry Cleaning",
+            "Meeting rooms",
+            "Non-smoking rooms",
+            "Business center",
+            "Fitness center",
+            "Laundry Service",
+            "Concierge",
+            "Banquet Room",
+            "Air conditioning",
+            "Family Rooms",
+            "Multilingual Staff",
+            "Smoking rooms available",
+            "Accessible rooms",
+            "Minibar",
+            "Conference Facilities",
+            "Safe",
+            "Rooftop Bar",
+            "Flatscreen TV",
+            "Rooftop Terrace",
+            "Breakfast Buffet",
+            "Butler Service",
+            "Outdoor pool",
+            "Breakfast Available",
+            "Parking",
+            "Facilities for Disabled Guests",
+            "Housekeeping",
+            "Kids Stay Free",
+            "Air Purifier",
+            "Allergy-free Room",
+            "Baggage Storage",
+            "Bath / Shower",
+            "Bathrobes",
+            "Bottled Water",
+            "Breakfast in the Room",
+            "Car Hire",
+            "Express Check-in / Check-out",
+            "Coffee Shop",
+            "Currency Exchange",
+            "Doorperson",
+            "Electric Kettle",
+            "English",
+            "Fence Around Pool",
+            "Fitness / Spa Locker Rooms",
+            "Complimentary Toiletries",
+            "Complimentary Welcome Drink",
+            "24-Hour Front Desk",
+            "Hair Dryer",
+            "Happy Hour",
+            "Highchairs Available",
+            "Hindi",
+            "Interconnected room(s) available",
+            "Iron",
+            "Ironing Service",
+            "Kids' Meals",
+            "Laptop Safe",
+            "Newspaper",
+            "Nightclub / DJ",
+            "Outdoor Dining Area",
+            "Parking Garage",
+            "Patio",
+            "Pool / Beach Towels",
+            "Pool View",
+            "Private Bathrooms",
+            "24-Hour Security",
+            "Secured Parking",
+            "Separate Living Room",
+            "Shared Lounge / TV Area",
+            "Shoeshine",
+            "Sofa",
+            "Strollers",
+            "Taxi Service",
+            "Telephone",
+            "Valet Parking",
+            "VIP Room Facilities",
+            "Wake Up Service / Alarm Clock",
+            "Wardrobe / Closet"
+          ],
+          "priceLevel": "₹",
+          "priceRange": "₹5,934 - ₹13,420",
+          "roomTips": [
+            {
+              "user": null,
+              "type": "room_tip",
+              "text": "The best hotel I can suggest is crowne plaza, Pune city center",
+              "rating": "5",
+              "reviewId": "1048354188",
+              "id": "1048354188",
+              "createdTime": "2026-02-02T19:26:06-05:00"
+            },
+            {
+              "user": null,
+              "type": "room_tip",
+              "text": "Must visit ",
+              "rating": "5",
+              "reviewId": "1048116462",
+              "id": "1048116462",
+              "createdTime": "2026-01-31T20:29:24-05:00"
+            },
+            {
+              "user": null,
+              "type": "room_tip",
+              "text": "Plz Look This Stay for the next Stay of ur highly recommended ",
+              "rating": "5",
+              "reviewId": "1047514871",
+              "id": "1047514871",
+              "createdTime": "2026-01-26T22:15:23-05:00"
+            },
+            {
+              "user": null,
+              "type": "room_tip",
+              "text": "I will back again in future..........................................................................",
+              "rating": "5",
+              "reviewId": "1046010805",
+              "id": "1046010805",
+              "createdTime": "2026-01-13T20:12:35-05:00"
+            },
+            {
+              "user": null,
+              "type": "room_tip",
+              "text": "Look forward to the dining experience. Really very good. ",
+              "rating": "5",
+              "reviewId": "1045894860",
+              "id": "1045894860",
+              "createdTime": "2026-01-12T16:49:47-05:00"
+            }
+          ],
+          "checkInDate": "2026-02-04",
+          "checkOutDate": "2026-02-05",
+          "numberOfRooms": 176,
+          "categoryReviewScores": [
+            {
+              "categoryName": "Location",
+              "score": 4.608968,
+              "roundedScore": 4.6
+            },
+            {
+              "categoryName": "Rooms",
+              "score": 4.4631863,
+              "roundedScore": 4.5
+            },
+            {
+              "categoryName": "Value",
+              "score": 4.4520254,
+              "roundedScore": 4.5
+            },
+            {
+              "categoryName": "Cleanliness",
+              "score": 4.5253577,
+              "roundedScore": 4.5
+            },
+            {
+              "categoryName": "Service",
+              "score": 4.4897337,
+              "roundedScore": 4.5
+            },
+            {
+              "categoryName": "Sleep Quality",
+              "score": 4.5155807,
+              "roundedScore": 4.5
+            }
+          ],
+          "aiReviewsSummary": null,
+          "whatsAppRedirectUrl": null,
+          "photos": [],
+          "travelerChoiceAward": null,
+          "offers": [
+            {
+              "pricePerNight": 74,
+              "tax": 3,
+              "priceText": "$74",
+              "taxesAndFeesText": null,
+              "totalStayPriceText": null,
+              "priceBeforeSale": "$80",
+              "provider": "IHG",
+              "vendor": "CrownePlaza.com",
+              "canPayInInstallments": false
+            },
+            {
+              "pricePerNight": 79,
+              "tax": 3,
+              "priceText": "$80",
+              "taxesAndFeesText": null,
+              "totalStayPriceText": null,
+              "priceBeforeSale": null,
+              "provider": "BookingCom",
+              "vendor": "Booking.com",
+              "canPayInInstallments": false
+            },
+            {
+              "pricePerNight": 79,
+              "tax": 3,
+              "priceText": "$80",
+              "taxesAndFeesText": null,
+              "totalStayPriceText": null,
+              "priceBeforeSale": null,
+              "provider": "Expedia",
+              "vendor": "Expedia.com",
+              "canPayInInstallments": true
+            },
+            {
+              "pricePerNight": 79,
+              "tax": 3,
+              "priceText": "$80",
+              "taxesAndFeesText": null,
+              "totalStayPriceText": null,
+              "priceBeforeSale": null,
+              "provider": "Priceline",
+              "vendor": "Priceline",
+              "canPayInInstallments": false
+            },
+            {
+              "pricePerNight": 79,
+              "tax": 3,
+              "priceText": "$80",
+              "taxesAndFeesText": null,
+              "totalStayPriceText": null,
+              "priceBeforeSale": null,
+              "provider": "HotelsCom2",
+              "vendor": "Hotels.com",
+              "canPayInInstallments": true
+            },
+            {
+              "pricePerNight": 77,
+              "tax": 7,
+              "priceText": "$77",
+              "taxesAndFeesText": null,
+              "totalStayPriceText": null,
+              "priceBeforeSale": null,
+              "provider": "StayForLong",
+              "vendor": "StayForLong",
+              "canPayInInstallments": false
+            },
+            {
+              "pricePerNight": 80,
+              "tax": 4,
+              "priceText": "$80",
+              "taxesAndFeesText": null,
+              "totalStayPriceText": null,
+              "priceBeforeSale": null,
+              "provider": "MakeMyTrip",
+              "vendor": "MakeMyTrip",
+              "canPayInInstallments": false
+            }
+          ],
+          "reviewTags": [
+            {
+              "text": "sky lounge",
+              "reviews": 37
+            },
+            {
+              "text": "mosaic restaurant",
+              "reviews": 26
+            },
+            {
+              "text": "excellent service",
+              "reviews": 174
+            },
+            {
+              "text": "house keeping",
+              "reviews": 111
+            },
+            {
+              "text": "room service",
+              "reviews": 127
+            },
+            {
+              "text": "special thanks",
+              "reviews": 117
+            },
+            {
+              "text": "housekeeping department",
+              "reviews": 24
+            },
+            {
+              "text": "rooftop bar",
+              "reviews": 32
+            },
+            {
+              "text": "pune city",
+              "reviews": 55
+            },
+            {
+              "text": "comfortable stay",
+              "reviews": 78
+            },
+            {
+              "text": "room cleaning",
+              "reviews": 37
+            },
+            {
+              "text": "railway station",
+              "reviews": 51
+            },
+            {
+              "text": "business trip",
+              "reviews": 74
+            },
+            {
+              "text": "keep up the good work",
+              "reviews": 38
+            },
+            {
+              "text": "housekeeping staff",
+              "reviews": 43
+            },
+            {
+              "text": "taking care",
+              "reviews": 32
+            },
+            {
+              "text": "front office",
+              "reviews": 44
+            },
+            {
+              "text": "excellent stay",
+              "reviews": 47
+            },
+            {
+              "text": "food quality",
+              "reviews": 40
+            },
+            {
+              "text": "special mention",
+              "reviews": 44
+            },
+            {
+              "text": "great hospitality",
+              "reviews": 39
+            },
+            {
+              "text": "breakfast spread",
+              "reviews": 35
+            },
+            {
+              "text": "in room dining",
+              "reviews": 25
+            },
+            {
+              "text": "business hotel",
+              "reviews": 31
+            },
+            {
+              "text": "rooms are spacious",
+              "reviews": 30
+            },
+            {
+              "text": "wonderful experience",
+              "reviews": 29
+            },
+            {
+              "text": "services",
+              "reviews": 248
+            },
+            {
+              "text": "mr",
+              "reviews": 270
+            },
+            {
+              "text": "evviva",
+              "reviews": 24
+            },
+            {
+              "text": "mosaics",
+              "reviews": 53
+            }
+          ],
+          "isNearbyResult": false
+        },
+        "pairedItem": {
+          "item": 0
+        }
+      },
+      {
+        "json": {
+          "id": "3244476",
+          "type": "HOTEL",
+          "category": "hotel",
+          "subcategories": [
+            "Hotel"
+          ],
+          "name": "The HHI Pune",
+          "locationString": "Pune, Pune District, Maharashtra",
+          "description": "Luxury Boutique Hotel in Viman Nagar Pune. One KM from the Pune Airport. Personalized service, Designer Resto-Bar with Private Dining areas,Pan Asian open air restaurant and Open air roof top Indian restaurant with live barbecue Buffet dinner. In room spa, Gym, luxurious suite.",
+          "image": "https://media-cdn.tripadvisor.com/media/photo-s/03/00/7c/02/the-hhi-pune.jpg",
+          "photoCount": 244,
+          "rankingPosition": 56,
+          "rating": 3.9,
+          "rawRanking": 3.6690919399261475,
+          "phone": "+91 20 6628 3535",
+          "address": "33/1/1, Neco Bund, Plot 2H Garden Rd, Pune 411014 India",
+          "addressObj": {
+            "street1": "33/1/1, Neco Bund, Plot 2H",
+            "street2": "Garden Rd",
+            "city": "Pune",
+            "state": "Maharashtra",
+            "country": "India",
+            "postalcode": "411014"
+          },
+          "localName": "The HHI Pune",
+          "localAddress": "33/1/1, Neco Bund, Plot 2H, Garden Rd, 411014",
+          "localLangCode": "en-IN",
+          "email": "gmpune@hindusthan.com",
+          "latitude": 18.560831,
+          "longitude": 73.91473,
+          "webUrl": "https://www.tripadvisor.com/Hotel_Review-g297654-d3244476-Reviews-The_HHI_Pune-Pune_Pune_District_Maharashtra.html",
+          "website": "http://www.hhihotels.com/pune/index.html",
+          "rankingString": "#56 of 1,230 hotels in Pune",
+          "rankingDenominator": "1230",
+          "rankingSource": "API",
+          "neighborhoodLocations": [],
+          "nearestMetroStations": [],
+          "ancestorLocations": [
+            {
+              "id": "297654",
+              "name": "Pune",
+              "abbreviation": null,
+              "subcategory": "City"
+            },
+            {
+              "id": "12400025",
+              "name": "Pune District",
+              "abbreviation": null,
+              "subcategory": "District"
+            },
+            {
+              "id": "297648",
+              "name": "Maharashtra",
+              "abbreviation": null,
+              "subcategory": "State"
+            },
+            {
+              "id": "293860",
+              "name": "India",
+              "abbreviation": null,
+              "subcategory": "Country"
+            }
+          ],
+          "ratingHistogram": {
+            "count1": 45,
+            "count2": 23,
+            "count3": 57,
+            "count4": 109,
+            "count5": 204
+          },
+          "numberOfReviews": 438,
+          "hotelClass": "3.5",
+          "hotelClassAttribution": "This property is classified according to Giata.",
+          "amenities": [
+            "Internet",
+            "Room service",
+            "Free Internet",
+            "Free parking",
+            "Wheelchair access",
+            "Restaurant",
+            "Bar/Lounge",
+            "Airport transportation",
+            "Wifi",
+            "Free Wifi",
+            "Fitness center",
+            "Suites",
+            "Breakfast included",
+            "Dry Cleaning",
+            "Meeting rooms",
+            "Non-smoking rooms",
+            "Laundry Service",
+            "Banquet Room",
+            "Air conditioning",
+            "Conference Facilities",
+            "Safe",
+            "Flatscreen TV",
+            "Rooftop Terrace",
+            "Breakfast Buffet",
+            "Butler Service",
+            "Breakfast Available",
+            "Housekeeping",
+            "Baggage Storage",
+            "Bath / Shower",
+            "Bottled Water",
+            "Bridal Suite",
+            "Car Hire",
+            "Coffee Shop",
+            "English",
+            "Complimentary Toiletries",
+            "24-Hour Front Desk",
+            "Hair Dryer",
+            "Hindi",
+            "Ironing Service",
+            "Massage",
+            "24-Hour Security",
+            "Shoeshine",
+            "Telephone",
+            "Spa",
+            "Public Wifi",
+            "Concierge",
+            "Smoking rooms available",
+            "Minibar",
+            "Rooftop Bar",
+            "Parking",
+            "Bathrobes",
+            "Blackout Curtains",
+            "Cable / Satellite TV",
+            "Express Check-in / Check-out",
+            "Clothes Rack",
+            "Currency Exchange",
+            "Electric Kettle",
+            "Foot Massage",
+            "Complimentary Welcome Drink",
+            "Free Wifi in the Business Center",
+            "Full Body Massage",
+            "Hand Massage",
+            "Happy Hour",
+            "Head Massage",
+            "Interconnected room(s) available",
+            "Iron",
+            "Light Therapy",
+            "Newspaper",
+            "Outdoor Dining Area",
+            "Sofa",
+            "Soundproof Rooms",
+            "Tile / Marble Floor",
+            "Valet Parking",
+            "VIP Room Facilities",
+            "Wake Up Service / Alarm Clock",
+            "Walk-in Shower",
+            "Wardrobe / Closet",
+            "Photo Copier / Fax In Business Center"
+          ],
+          "priceLevel": "₹",
+          "priceRange": "₹3,378 - ₹11,046",
+          "roomTips": [
+            {
+              "user": null,
+              "type": "room_tip",
+              "text": "If there is an event or a party, you will not be able to dine in.",
+              "rating": "5",
+              "reviewId": "1045212974",
+              "id": "1045212974",
+              "createdTime": "2026-01-06T17:52:53-05:00"
+            },
+            {
+              "user": null,
+              "type": "room_tip",
+              "text": "Teach the staff first, major lapse in service. Training is required. Management is sleeping. Read my complain letter .",
+              "rating": "1",
+              "reviewId": "1034429817",
+              "id": "1034429817",
+              "createdTime": "2025-10-11T19:08:37-04:00"
+            },
+            {
+              "user": null,
+              "type": "room_tip",
+              "text": "I will not refer to anyone ",
+              "rating": "1",
+              "reviewId": "1015977175",
+              "id": "1015977175",
+              "createdTime": "2025-06-30T21:07:20-04:00"
+            },
+            {
+              "user": null,
+              "type": "room_tip",
+              "text": "Please have a look at the room physically before booking, because they also have a room without a bathtub, which is worse than what I mentioned.",
+              "rating": "2",
+              "reviewId": "976643613",
+              "id": "976643613",
+              "createdTime": "2024-10-25T18:29:37-04:00"
+            },
+            {
+              "user": null,
+              "type": "room_tip",
+              "text": "Reception team needs training ",
+              "rating": "1",
+              "reviewId": "972967376",
+              "id": "972967376",
+              "createdTime": "2024-10-07T08:21:24-04:00"
+            }
+          ],
+          "checkInDate": "2026-02-04",
+          "checkOutDate": "2026-02-05",
+          "numberOfRooms": 48,
+          "categoryReviewScores": [
+            {
+              "categoryName": "Location",
+              "score": 4.1314287,
+              "roundedScore": 4.1
+            },
+            {
+              "categoryName": "Rooms",
+              "score": 3.9375,
+              "roundedScore": 3.9
+            },
+            {
+              "categoryName": "Value",
+              "score": 3.9065932999999995,
+              "roundedScore": 3.9
+            },
+            {
+              "categoryName": "Cleanliness",
+              "score": 4.071429,
+              "roundedScore": 4.1
+            },
+            {
+              "categoryName": "Service",
+              "score": 3.8745247999999997,
+              "roundedScore": 3.9
+            },
+            {
+              "categoryName": "Sleep Quality",
+              "score": 3.9913044000000006,
+              "roundedScore": 4
+            }
+          ],
+          "aiReviewsSummary": null,
+          "whatsAppRedirectUrl": null,
+          "photos": [],
+          "travelerChoiceAward": null,
+          "offers": [
+            {
+              "pricePerNight": 52,
+              "tax": 3,
+              "priceText": "$52",
+              "taxesAndFeesText": null,
+              "totalStayPriceText": null,
+              "priceBeforeSale": null,
+              "provider": "MakeMyTrip",
+              "vendor": "MakeMyTrip",
+              "canPayInInstallments": false
+            }
+          ],
+          "reviewTags": [
+            {
+              "text": "rooftop restaurant",
+              "reviews": 12
+            },
+            {
+              "text": "birthday party",
+              "reviews": 7
+            },
+            {
+              "text": "banquet hall",
+              "reviews": 4
+            },
+            {
+              "text": "in room dining",
+              "reviews": 8
+            },
+            {
+              "text": "pleasant stay",
+              "reviews": 8
+            },
+            {
+              "text": "f b",
+              "reviews": 5
+            },
+            {
+              "text": "tasty food",
+              "reviews": 4
+            },
+            {
+              "text": "special mention",
+              "reviews": 6
+            },
+            {
+              "text": "ambience",
+              "reviews": 41
+            },
+            {
+              "text": "hospitality",
+              "reviews": 32
+            },
+            {
+              "text": "engagement",
+              "reviews": 7
+            },
+            {
+              "text": "mr",
+              "reviews": 25
+            },
+            {
+              "text": "starters",
+              "reviews": 12
+            },
+            {
+              "text": "event",
+              "reviews": 15
+            },
+            {
+              "text": "services",
+              "reviews": 21
+            },
+            {
+              "text": "mark",
+              "reviews": 13
+            },
+            {
+              "text": "courtesy",
+              "reviews": 7
+            },
+            {
+              "text": "team",
+              "reviews": 19
+            },
+            {
+              "text": "conference",
+              "reviews": 9
+            },
+            {
+              "text": "vicinity",
+              "reviews": 5
+            },
+            {
+              "text": "sir",
+              "reviews": 6
+            },
+            {
+              "text": "spread",
+              "reviews": 12
+            },
+            {
+              "text": "feedback",
+              "reviews": 4
+            }
+          ],
+          "isNearbyResult": false
+        },
+        "pairedItem": {
+          "item": 0
+        }
+      },
+      {
+        "json": {
+          "id": "5600236",
+          "type": "HOTEL",
+          "category": "hotel",
+          "subcategories": [
+            "Hotel"
+          ],
+          "name": "Novotel Pune Nagar Road",
+          "locationString": "Pune, Pune District, Maharashtra",
+          "description": null,
+          "image": "https://media-cdn.tripadvisor.com/media/photo-m/1280/32/57/b4/5b/exterior.jpg",
+          "photoCount": 1148,
+          "rankingPosition": 39,
+          "rating": 4.6,
+          "rawRanking": 4.591935634613037,
+          "phone": "+91 20 6705 6000",
+          "address": "Weikfield It City Infopark Viman Nagar, Pune 411014 India",
+          "addressObj": {
+            "street1": "Weikfield It City Infopark",
+            "street2": "Viman Nagar",
+            "city": "Pune",
+            "state": "Maharashtra",
+            "country": "India",
+            "postalcode": "411014"
+          },
+          "localName": "Novotel Pune Nagar Road",
+          "localAddress": "Weikfield It City Infopark, Viman Nagar, 411014",
+          "localLangCode": "en-IN",
+          "email": "h6833-re@accor.com",
+          "latitude": 18.55888,
+          "longitude": 73.910904,
+          "webUrl": "https://www.tripadvisor.com/Hotel_Review-g297654-d5600236-Reviews-Novotel_Pune_Nagar_Road-Pune_Pune_District_Maharashtra.html",
+          "website": "https://all.accor.com/hotel/6833/index.en.shtml",
+          "rankingString": "#39 of 1,230 hotels in Pune",
+          "rankingDenominator": "1230",
+          "rankingSource": "API",
+          "neighborhoodLocations": [],
+          "nearestMetroStations": [],
+          "ancestorLocations": [
+            {
+              "id": "297654",
+              "name": "Pune",
+              "abbreviation": null,
+              "subcategory": "City"
+            },
+            {
+              "id": "12400025",
+              "name": "Pune District",
+              "abbreviation": null,
+              "subcategory": "District"
+            },
+            {
+              "id": "297648",
+              "name": "Maharashtra",
+              "abbreviation": null,
+              "subcategory": "State"
+            },
+            {
+              "id": "293860",
+              "name": "India",
+              "abbreviation": null,
+              "subcategory": "Country"
+            }
+          ],
+          "ratingHistogram": {
+            "count1": 101,
+            "count2": 60,
+            "count3": 116,
+            "count4": 596,
+            "count5": 2319
+          },
+          "numberOfReviews": 3192,
+          "hotelClass": "5.0",
+          "hotelClassAttribution": "This property is classified according to Accor Hotels.",
+          "amenities": [
+            "Pool",
+            "Internet",
+            "Kids Activities",
+            "Shuttle Bus Service",
+            "Suites",
+            "Room service",
+            "Free Internet",
+            "Free parking",
+            "Wheelchair access",
+            "Restaurant",
+            "Bar/Lounge",
+            "Spa",
+            "Airport transportation",
+            "Wifi",
+            "Public Wifi",
+            "Paid Wifi",
+            "Dry Cleaning",
+            "Meeting rooms",
+            "Non-smoking rooms",
+            "Business center",
+            "Fitness center",
+            "Laundry Service",
+            "Concierge",
+            "Banquet Room",
+            "Air conditioning",
+            "Family Rooms",
+            "Multilingual Staff",
+            "Accessible rooms",
+            "Minibar",
+            "Conference Facilities",
+            "Non-smoking hotel",
+            "Safe",
+            "Swimup Bar",
+            "Flatscreen TV",
+            "Breakfast Buffet",
+            "Poolside Bar",
+            "Adult pool",
+            "Outdoor pool",
+            "Breakfast Available",
+            "Parking",
+            "Free airport transportation",
+            "Facilities for Disabled Guests",
+            "Housekeeping",
+            "Kids Club",
+            "Kids Stay Free",
+            "Allergy-free Room",
+            "Baggage Storage",
+            "Bath / Shower",
+            "Bottled Water",
+            "Breakfast in the Room",
+            "Car Hire",
+            "24-Hour Check-in",
+            "Clothes Rack",
+            "Coffee / Tea Maker",
+            "Currency Exchange",
+            "Desk",
+            "Doorperson",
+            "Electric Kettle",
+            "English",
+            "Executive Lounge Access",
+            "Fitness / Spa Locker Rooms",
+            "Complimentary Toiletries",
+            "24-Hour Front Desk",
+            "Hair Dryer",
+            "Hindi",
+            "Indoor Play Area for Children",
+            "Interconnected room(s) available",
+            "Iron",
+            "Ironing Service",
+            "Kid-Friendly Buffet",
+            "Pool / Beach Towels",
+            "Pool View",
+            "24-Hour Security",
+            "Secured Parking",
+            "Shoeshine",
+            "Taxi Service",
+            "Telephone",
+            "Valet Parking",
+            "Wake Up Service / Alarm Clock",
+            "Walk-in Shower",
+            "Wardrobe / Closet"
+          ],
+          "priceLevel": "₹₹",
+          "priceRange": "₹6,573 - ₹16,980",
+          "roomTips": [
+            {
+              "user": null,
+              "type": "room_tip",
+              "text": "The hotel is right on the main highway so becomes crowded. Pheonix mall is just a 5 minutes walk so avoid during weekends and pak hours",
+              "rating": "4",
+              "reviewId": "1044373346",
+              "id": "1044373346",
+              "createdTime": "2025-12-31T02:58:15-05:00"
+            },
+            {
+              "user": null,
+              "type": "room_tip",
+              "text": "Call the property in advance before reaching there.",
+              "rating": "5",
+              "reviewId": "1043756872",
+              "id": "1043756872",
+              "createdTime": "2025-12-26T07:07:51-05:00"
+            },
+            {
+              "user": null,
+              "type": "room_tip",
+              "text": "I prefer comfortable beds and neat and clean washroom. Highly recommended this property. ",
+              "rating": "5",
+              "reviewId": "1043527226",
+              "id": "1043527226",
+              "createdTime": "2025-12-23T19:05:56-05:00"
+            },
+            {
+              "user": null,
+              "type": "room_tip",
+              "text": "Avoid like the plague, choose another hotel if possible ",
+              "rating": "2",
+              "reviewId": "1040817879",
+              "id": "1040817879",
+              "createdTime": "2025-11-29T20:46:57-05:00"
+            },
+            {
+              "user": null,
+              "type": "room_tip",
+              "text": "brand like Novotel should lead with hospitality, not limitations.",
+              "rating": "1",
+              "reviewId": "1038134316",
+              "id": "1038134316",
+              "createdTime": "2025-11-07T16:39:19-05:00"
+            }
+          ],
+          "checkInDate": "2026-02-04",
+          "checkOutDate": "2026-02-05",
+          "numberOfRooms": 311,
+          "categoryReviewScores": [
+            {
+              "categoryName": "Location",
+              "score": 4.5804935,
+              "roundedScore": 4.6
+            },
+            {
+              "categoryName": "Rooms",
+              "score": 4.3903227,
+              "roundedScore": 4.4
+            },
+            {
+              "categoryName": "Value",
+              "score": 4.4468083,
+              "roundedScore": 4.4
+            },
+            {
+              "categoryName": "Cleanliness",
+              "score": 4.5624037,
+              "roundedScore": 4.6
+            },
+            {
+              "categoryName": "Service",
+              "score": 4.4794187999999995,
+              "roundedScore": 4.5
+            },
+            {
+              "categoryName": "Sleep Quality",
+              "score": 4.4680853,
+              "roundedScore": 4.5
+            }
+          ],
+          "aiReviewsSummary": null,
+          "whatsAppRedirectUrl": null,
+          "photos": [],
+          "travelerChoiceAward": null,
+          "offers": [
+            {
+              "pricePerNight": 82,
+              "tax": 4,
+              "priceText": "$82",
+              "taxesAndFeesText": null,
+              "totalStayPriceText": null,
+              "priceBeforeSale": null,
+              "provider": "Accor",
+              "vendor": "Novotel",
+              "canPayInInstallments": false
+            }
+          ],
+          "reviewTags": [
+            {
+              "text": "square restaurant",
+              "reviews": 54
+            },
+            {
+              "text": "nagar road",
+              "reviews": 56
+            },
+            {
+              "text": "special thanks",
+              "reviews": 111
+            },
+            {
+              "text": "excellent service",
+              "reviews": 110
+            },
+            {
+              "text": "phoenix mall",
+              "reviews": 42
+            },
+            {
+              "text": "close to the airport",
+              "reviews": 48
+            },
+            {
+              "text": "comfortable stay",
+              "reviews": 81
+            },
+            {
+              "text": "buffet spread",
+              "reviews": 31
+            },
+            {
+              "text": "in room dining",
+              "reviews": 42
+            },
+            {
+              "text": "business trip",
+              "reviews": 69
+            },
+            {
+              "text": "great hospitality",
+              "reviews": 51
+            },
+            {
+              "text": "room service",
+              "reviews": 76
+            },
+            {
+              "text": "front office",
+              "reviews": 47
+            },
+            {
+              "text": "pool side",
+              "reviews": 26
+            },
+            {
+              "text": "excellent stay",
+              "reviews": 50
+            },
+            {
+              "text": "great experience",
+              "reviews": 52
+            },
+            {
+              "text": "tasty food",
+              "reviews": 27
+            },
+            {
+              "text": "special mention",
+              "reviews": 47
+            },
+            {
+              "text": "keep up the good work",
+              "reviews": 30
+            },
+            {
+              "text": "cake",
+              "reviews": 38
+            },
+            {
+              "text": "excellent hotel",
+              "reviews": 36
+            },
+            {
+              "text": "courteous staff",
+              "reviews": 37
+            },
+            {
+              "text": "f b",
+              "reviews": 23
+            },
+            {
+              "text": "his team",
+              "reviews": 32
+            },
+            {
+              "text": "ambience",
+              "reviews": 221
+            },
+            {
+              "text": "anish",
+              "reviews": 41
+            },
+            {
+              "text": "mr",
+              "reviews": 190
+            },
+            {
+              "text": "services",
+              "reviews": 165
+            },
+            {
+              "text": "chef",
+              "reviews": 117
+            },
+            {
+              "text": "appreciation",
+              "reviews": 33
+            }
+          ],
+          "isNearbyResult": false
+        },
+        "pairedItem": {
+          "item": 0
+        }
+      },
+      {
+        "json": {
+          "id": "2037993",
+          "type": "HOTEL",
+          "category": "hotel",
+          "subcategories": [
+            "Hotel"
+          ],
+          "name": "Four Points By Sheraton Hotel & Serviced Apartments, Pune",
+          "locationString": "Pune, Pune District, Maharashtra",
+          "description": "Nestled in the dynamic Viman Nagar area & in close proximity to prominent business hubs of Pune like Kharadi, Magarpatta & Hadapsar, with seamless access to Pune Airport, Phoenix Market City, prominent business hubs such as World Trade Center, EON IT Park & top multinational companies including BNY, Maersk, ADP, Fiserv, Amazon, WNS & Barclays. Perfectly suited for business & leisure travelers, our apartment hotel boasts 217 elegantly designed rooms & expansive serviced apartments. After a full day, pamper yourself with a massage at The Spa, relax with a swim in our outdoor pool, or work out in our fully equipped fitness center. Savor delectable cuisine at any of our hotel's two on-site restaurants, including The Eatery & Awadh 5. With a vast 15,500 sq. ft. of banquet & meeting spaces, the hotel provides ideal venues for both corporate & social events. Whether you're in town for business or staycation with family, Four Points by Sheraton Pune promises an unforgettable experience.",
+          "image": "https://media-cdn.tripadvisor.com/media/photo-m/1280/31/dc/e9/13/one-king-bedroom-apartment.jpg",
+          "photoCount": 1256,
+          "rankingPosition": 22,
+          "rating": 4.6,
+          "rawRanking": 4.744706630706787,
+          "phone": "18446310595",
+          "address": "5th Mile Stone Viman Nagar, Pune 411014 India",
+          "addressObj": {
+            "street1": "5th Mile Stone",
+            "street2": "Viman Nagar",
+            "city": "Pune",
+            "state": "Maharashtra",
+            "country": "India",
+            "postalcode": "411014"
+          },
+          "localName": "Four Points By Sheraton Hotel & Serviced Apartments, Pune",
+          "localAddress": "5th Mile Stone, Viman Nagar, 411014",
+          "localLangCode": "en-IN",
+          "email": "reservations@punefourpoints.com",
+          "latitude": 18.56009,
+          "longitude": 73.914825,
+          "webUrl": "https://www.tripadvisor.com/Hotel_Review-g297654-d2037993-Reviews-Four_Points_By_Sheraton_Hotel_Serviced_Apartments_Pune-Pune_Pune_District_Maharashtra.html",
+          "website": "https://www.marriott.com/en-us/hotels/pnqfp-four-points-hotel-and-serviced-apartments-pune/overview/",
+          "rankingString": "#22 of 1,230 hotels in Pune",
+          "rankingDenominator": "1230",
+          "rankingSource": "API",
+          "neighborhoodLocations": [],
+          "nearestMetroStations": [],
+          "ancestorLocations": [
+            {
+              "id": "297654",
+              "name": "Pune",
+              "abbreviation": null,
+              "subcategory": "City"
+            },
+            {
+              "id": "12400025",
+              "name": "Pune District",
+              "abbreviation": null,
+              "subcategory": "District"
+            },
+            {
+              "id": "297648",
+              "name": "Maharashtra",
+              "abbreviation": null,
+              "subcategory": "State"
+            },
+            {
+              "id": "293860",
+              "name": "India",
+              "abbreviation": null,
+              "subcategory": "Country"
+            }
+          ],
+          "ratingHistogram": {
+            "count1": 54,
+            "count2": 39,
+            "count3": 125,
+            "count4": 558,
+            "count5": 1961
+          },
+          "numberOfReviews": 2737,
+          "hotelClass": "5.0",
+          "hotelClassAttribution": "This property is classified according to Giata.",
+          "amenities": [
+            "Pool",
+            "Free parking",
+            "Fitness center",
+            "Room service",
+            "Business center",
+            "Internet",
+            "Suites",
+            "Free Internet",
+            "Restaurant",
+            "Wifi",
+            "Free Wifi",
+            "Meeting rooms",
+            "Bar/Lounge",
+            "Concierge",
+            "Wheelchair access",
+            "Kitchenette",
+            "Public Wifi",
+            "Dry Cleaning",
+            "Non-smoking rooms",
+            "Laundry Service",
+            "Banquet Room",
+            "Air conditioning",
+            "Family Rooms",
+            "Multilingual Staff",
+            "Smoking rooms available",
+            "Accessible rooms",
+            "Refrigerator in room",
+            "Minibar",
+            "Conference Facilities",
+            "Safe",
+            "Flatscreen TV",
+            "Breakfast Buffet",
+            "Butler Service",
+            "Outdoor pool",
+            "Parking",
+            "Free airport transportation",
+            "Free Shuttle or Taxi Services",
+            "Facilities for Disabled Guests",
+            "Housekeeping",
+            "Kids Stay Free",
+            "Sauna",
+            "Allergy-free Room",
+            "Baggage Storage",
+            "Car Hire",
+            "Coffee Shop",
+            "Currency Exchange",
+            "Doorperson",
+            "English",
+            "Fitness / Spa Locker Rooms",
+            "24-Hour Front Desk",
+            "Hindi",
+            "Interconnected room(s) available",
+            "Iron",
+            "Ironing Service",
+            "Kitchenware",
+            "Massage",
+            "Newspaper",
+            "24-Hour Security",
+            "Secured Parking",
+            "Taxi Service",
+            "Valet Parking",
+            "VIP Room Facilities",
+            "Wake Up Service / Alarm Clock",
+            "Breakfast Available",
+            "Stovetop"
+          ],
+          "priceLevel": "₹₹",
+          "priceRange": "₹6,938 - ₹14,972",
+          "roomTips": [
+            {
+              "user": null,
+              "type": "room_tip",
+              "text": "The pool time can be increased a Little ",
+              "rating": "5",
+              "reviewId": "1018742068",
+              "id": "1018742068",
+              "createdTime": "2025-07-15T06:31:00-04:00"
+            },
+            {
+              "user": null,
+              "type": "room_tip",
+              "text": "Opt for the higher floors with city view.",
+              "rating": "4",
+              "reviewId": "1017605644",
+              "id": "1017605644",
+              "createdTime": "2025-07-11T01:45:16-04:00"
+            },
+            {
+              "user": null,
+              "type": "room_tip",
+              "text": "The food is good so make sure to try it . ",
+              "rating": "5",
+              "reviewId": "1014009690",
+              "id": "1014009690",
+              "createdTime": "2025-06-21T01:04:01-04:00"
+            },
+            {
+              "user": null,
+              "type": "room_tip",
+              "text": "More intercontinental dishes in the restaurants would help",
+              "rating": "5",
+              "reviewId": "1010857761",
+              "id": "1010857761",
+              "createdTime": "2025-06-02T18:24:55-04:00"
+            },
+            {
+              "user": null,
+              "type": "room_tip",
+              "text": "Ideal place to say at Pune",
+              "rating": "5",
+              "reviewId": "1010697692",
+              "id": "1010697692",
+              "createdTime": "2025-06-01T20:29:55-04:00"
+            }
+          ],
+          "checkInDate": "2026-02-04",
+          "checkOutDate": "2026-02-05",
+          "numberOfRooms": 217,
+          "categoryReviewScores": [
+            {
+              "categoryName": "Location",
+              "score": 4.466911999999999,
+              "roundedScore": 4.5
+            },
+            {
+              "categoryName": "Rooms",
+              "score": 4.465671500000001,
+              "roundedScore": 4.5
+            },
+            {
+              "categoryName": "Value",
+              "score": 4.483092,
+              "roundedScore": 4.5
+            },
+            {
+              "categoryName": "Cleanliness",
+              "score": 4.6353740000000005,
+              "roundedScore": 4.6
+            },
+            {
+              "categoryName": "Service",
+              "score": 4.5074043,
+              "roundedScore": 4.5
+            },
+            {
+              "categoryName": "Sleep Quality",
+              "score": 4.5453215,
+              "roundedScore": 4.5
+            }
+          ],
+          "aiReviewsSummary": null,
+          "whatsAppRedirectUrl": null,
+          "photos": [],
+          "travelerChoiceAward": null,
+          "offers": [
+            {
+              "pricePerNight": 92,
+              "tax": 16,
+              "priceText": "$93",
+              "taxesAndFeesText": null,
+              "totalStayPriceText": null,
+              "priceBeforeSale": null,
+              "provider": "BookingCom",
+              "vendor": "Booking.com",
+              "canPayInInstallments": false
+            },
+            {
+              "pricePerNight": 93,
+              "tax": 16,
+              "priceText": "$93",
+              "taxesAndFeesText": null,
+              "totalStayPriceText": null,
+              "priceBeforeSale": null,
+              "provider": "Expedia",
+              "vendor": "Expedia.com",
+              "canPayInInstallments": true
+            },
+            {
+              "pricePerNight": 92,
+              "tax": 16,
+              "priceText": "$93",
+              "taxesAndFeesText": null,
+              "totalStayPriceText": null,
+              "priceBeforeSale": null,
+              "provider": "HotelsCom2",
+              "vendor": "Hotels.com",
+              "canPayInInstallments": true
+            },
+            {
+              "pricePerNight": 93,
+              "tax": 16,
+              "priceText": "$93",
+              "taxesAndFeesText": null,
+              "totalStayPriceText": null,
+              "priceBeforeSale": null,
+              "provider": "Marriott1",
+              "vendor": "FourPoints.com",
+              "canPayInInstallments": false
+            },
+            {
+              "pricePerNight": 94,
+              "tax": 16,
+              "priceText": "$94",
+              "taxesAndFeesText": null,
+              "totalStayPriceText": null,
+              "priceBeforeSale": null,
+              "provider": "ZenHotels",
+              "vendor": "ZenHotels.com",
+              "canPayInInstallments": false
+            },
+            {
+              "pricePerNight": 92,
+              "tax": 16,
+              "priceText": "$93",
+              "taxesAndFeesText": null,
+              "totalStayPriceText": null,
+              "priceBeforeSale": null,
+              "provider": "Agoda",
+              "vendor": "Agoda.com",
+              "canPayInInstallments": false
+            },
+            {
+              "pricePerNight": 92,
+              "tax": 16,
+              "priceText": "$93",
+              "taxesAndFeesText": null,
+              "totalStayPriceText": null,
+              "priceBeforeSale": null,
+              "provider": "Vio",
+              "vendor": "Vio.com",
+              "canPayInInstallments": false
+            }
+          ],
+          "reviewTags": [
+            {
+              "text": "excellent service",
+              "reviews": 141
+            },
+            {
+              "text": "nagar road",
+              "reviews": 47
+            },
+            {
+              "text": "room service",
+              "reviews": 114
+            },
+            {
+              "text": "phoenix mall",
+              "reviews": 42
+            },
+            {
+              "text": "front office",
+              "reviews": 76
+            },
+            {
+              "text": "special thanks",
+              "reviews": 100
+            },
+            {
+              "text": "business hotel",
+              "reviews": 64
+            },
+            {
+              "text": "house keeping",
+              "reviews": 69
+            },
+            {
+              "text": "f b",
+              "reviews": 45
+            },
+            {
+              "text": "home away from home",
+              "reviews": 52
+            },
+            {
+              "text": "housekeeping team",
+              "reviews": 37
+            },
+            {
+              "text": "business trip",
+              "reviews": 77
+            },
+            {
+              "text": "special mention",
+              "reviews": 63
+            },
+            {
+              "text": "comfortable stay",
+              "reviews": 72
+            },
+            {
+              "text": "the hotel staff",
+              "reviews": 59
+            },
+            {
+              "text": "courteous staff",
+              "reviews": 53
+            },
+            {
+              "text": "excellent stay",
+              "reviews": 53
+            },
+            {
+              "text": "take care",
+              "reviews": 36
+            },
+            {
+              "text": "breakfast spread",
+              "reviews": 42
+            },
+            {
+              "text": "great experience",
+              "reviews": 53
+            },
+            {
+              "text": "keep up the good work",
+              "reviews": 29
+            },
+            {
+              "text": "great hospitality",
+              "reviews": 38
+            },
+            {
+              "text": "spacious rooms",
+              "reviews": 27
+            },
+            {
+              "text": "cake",
+              "reviews": 32
+            },
+            {
+              "text": "food quality",
+              "reviews": 31
+            },
+            {
+              "text": "eatery",
+              "reviews": 125
+            },
+            {
+              "text": "vinayak",
+              "reviews": 112
+            },
+            {
+              "text": "mr",
+              "reviews": 251
+            },
+            {
+              "text": "services",
+              "reviews": 205
+            },
+            {
+              "text": "gym",
+              "reviews": 112
+            }
+          ],
+          "isNearbyResult": false
+        },
+        "pairedItem": {
+          "item": 0
+        }
+      },
+      {
+        "json": {
+          "id": "1546486",
+          "type": "HOTEL",
+          "category": "hotel",
+          "subcategories": [
+            "Hotel"
+          ],
+          "name": "The Westin Pune Koregaon Park",
+          "locationString": "Pune, Pune District, Maharashtra",
+          "description": "The Westin Pune Koregaon Park is centrally located in the city, which is just 5 Kms from the Airport. Also in the vicinity are EON Kharadi, Business Bay, Yerwada, Magarpatta and Hadapsar, all IT hotspots. Industrial belts like Chakan, Ranjangaon, Pirangut and Talegaon lie within a 25-kilometer radius. As it is located in the heart of the city, the hotel is just walking distance to tourists spots as well as Social & Cultural hubs of Pune. The Westin Pune Koregaon Park is pet friendly and includes the Heavenly Spa by Westin, In-Room Spa and WestinWORKOUT Fitness studio for our discerning guests. With 1,470 square meters of meeting space with additional outdoor lawns, and an entire level for our restaurants, bar, nightclub, our 5-star hotel is an ideal choice for all travelers. Our 277 stylish guest rooms and suites include Westin Executive Club Rooms. Few of our rooms come with terraces.",
+          "image": "https://media-cdn.tripadvisor.com/media/photo-m/1280/32/4b/e4/18/exterior-facade.jpg",
+          "photoCount": 1466,
+          "rankingPosition": 33,
+          "rating": 4.6,
+          "rawRanking": 4.645937442779541,
+          "phone": "0018446310595",
+          "address": "36/3-b Koregaon Park Annexe, Mundhwa Road, Ghorpadi Mundhwa Road, Ghorpadi, Pune 411001 India",
+          "addressObj": {
+            "street1": "36/3-b Koregaon Park Annexe, Mundhwa Road, Ghorpadi",
+            "street2": "Mundhwa Road, Ghorpadi",
+            "city": "Pune",
+            "state": "Maharashtra",
+            "country": "India",
+            "postalcode": "411001"
+          },
+          "localName": "The Westin Pune Koregaon Park",
+          "localAddress": "36/3-b Koregaon Park Annexe, Mundhwa Road, Ghorpadi, Mundhwa Road, Ghorpadi, 411001",
+          "localLangCode": "en-IN",
+          "email": "reservation.westinpune@westin.com",
+          "latitude": 18.539513,
+          "longitude": 73.905975,
+          "webUrl": "https://www.tripadvisor.com/Hotel_Review-g297654-d1546486-Reviews-The_Westin_Pune_Koregaon_Park-Pune_Pune_District_Maharashtra.html",
+          "website": "https://www.marriott.com/en-us/hotels/pnqwi-the-westin-pune-koregaon-park/overview/",
+          "rankingString": "#33 of 1,230 hotels in Pune",
+          "rankingDenominator": "1230",
+          "rankingSource": "API",
+          "neighborhoodLocations": [],
+          "nearestMetroStations": [],
+          "ancestorLocations": [
+            {
+              "id": "297654",
+              "name": "Pune",
+              "abbreviation": null,
+              "subcategory": "City"
+            },
+            {
+              "id": "12400025",
+              "name": "Pune District",
+              "abbreviation": null,
+              "subcategory": "District"
+            },
+            {
+              "id": "297648",
+              "name": "Maharashtra",
+              "abbreviation": null,
+              "subcategory": "State"
+            },
+            {
+              "id": "293860",
+              "name": "India",
+              "abbreviation": null,
+              "subcategory": "Country"
+            }
+          ],
+          "ratingHistogram": {
+            "count1": 80,
+            "count2": 44,
+            "count3": 108,
+            "count4": 570,
+            "count5": 1951
+          },
+          "numberOfReviews": 2753,
+          "hotelClass": "5.0",
+          "hotelClassAttribution": "This property is classified according to Giata.",
+          "amenities": [
+            "Pets Allowed",
+            "Non-smoking hotel",
+            "Rooftop Pool",
+            "Electric vehicle charging station",
+            "Pool",
+            "Fitness center",
+            "Room service",
+            "Free parking",
+            "Restaurant",
+            "Bar/Lounge",
+            "Spa",
+            "Business center",
+            "Internet",
+            "Suites",
+            "Free Internet",
+            "Wifi",
+            "Free Wifi",
+            "Meeting rooms",
+            "Shuttle Bus Service",
+            "Wheelchair access",
+            "Laundry Service",
+            "Concierge",
+            "Airport transportation",
+            "Public Wifi",
+            "Paid Internet",
+            "Dry Cleaning",
+            "Non-smoking rooms",
+            "Banquet Room",
+            "Air conditioning",
+            "Family Rooms",
+            "Multilingual Staff",
+            "Smoking rooms available",
+            "Refrigerator in room",
+            "Minibar",
+            "Conference Facilities",
+            "Safe",
+            "Rooftop Bar",
+            "Flatscreen TV",
+            "Rooftop Terrace",
+            "Breakfast Buffet",
+            "Private Balcony",
+            "Outdoor pool",
+            "Parking",
+            "Facilities for Disabled Guests",
+            "Housekeeping",
+            "Kids Stay Free",
+            "Sauna",
+            "Additional Bathroom",
+            "Aerobics",
+            "Allergy-free Room",
+            "ATM On Site",
+            "Baggage Storage",
+            "Bath / Shower",
+            "Bathrobes",
+            "Bottled Water",
+            "Breakfast in the Room",
+            "Bridal Suite",
+            "Car Hire",
+            "Express Check-in / Check-out",
+            "Coffee Shop",
+            "Coffee / Tea Maker",
+            "Complimentary Tea",
+            "Currency Exchange",
+            "Desk",
+            "Doorperson",
+            "English",
+            "Evening Entertainment",
+            "Facial Treatments",
+            "Fitness Classes",
+            "Fitness / Spa Locker Rooms",
+            "Foot Massage",
+            "Complimentary Toiletries",
+            "24-Hour Front Desk",
+            "Full Body Massage",
+            "Hair Dryer",
+            "Head Massage",
+            "Hindi",
+            "Interconnected room(s) available",
+            "Iron",
+            "Ironing Service",
+            "Kids' Meals",
+            "Massage",
+            "Newspaper",
+            "Nightclub / DJ",
+            "Pool / Beach Towels",
+            "Pool with View",
+            "Private Check-in / Check-out",
+            "Salon",
+            "24-Hour Security",
+            "Secured Parking",
+            "Shoeshine",
+            "Soundproof Rooms",
+            "Squash",
+            "Steam Room",
+            "Sun Loungers / Beach Chairs",
+            "Sun Umbrellas",
+            "Taxi Service",
+            "Telephone",
+            "Wake Up Service / Alarm Clock",
+            "Kids pool",
+            "Breakfast Available",
+            "Body Wrap",
+            "Cable / Satellite TV",
+            "Couples Massage",
+            "Electric Kettle",
+            "First Aid Kit",
+            "Foot Bath",
+            "Complimentary Welcome Drink",
+            "Free Wifi in the Business Center",
+            "Hand Massage",
+            "Happy Hour",
+            "Highchairs Available",
+            "Laptop Safe",
+            "Makeup Services",
+            "Manicure",
+            "Neck Massage",
+            "On-Demand Movies",
+            "Outdoor Dining Area",
+            "Pedicure",
+            "Private Bathrooms",
+            "Shallow End",
+            "Sofa",
+            "Sun Deck",
+            "Umbrella",
+            "Valet Parking",
+            "Waxing Services",
+            "Yoga Room"
+          ],
+          "priceLevel": "₹₹₹",
+          "priceRange": "₹14,972 - ₹28,574",
+          "roomTips": [
+            {
+              "user": null,
+              "type": "room_tip",
+              "text": "I would say that the sleep quality is the best... ",
+              "rating": "5",
+              "reviewId": "1042303971",
+              "id": "1042303971",
+              "createdTime": "2025-12-12T17:50:14-05:00"
+            },
+            {
+              "user": null,
+              "type": "room_tip",
+              "text": "Concierge is awesome when u need ideas",
+              "rating": "5",
+              "reviewId": "1041756211",
+              "id": "1041756211",
+              "createdTime": "2025-12-07T23:02:40-05:00"
+            },
+            {
+              "user": null,
+              "type": "room_tip",
+              "text": "No need to buy water - lots available at front desk and room.",
+              "rating": "5",
+              "reviewId": "1029394732",
+              "id": "1029394732",
+              "createdTime": "2025-09-08T04:46:44-04:00"
+            },
+            {
+              "user": null,
+              "type": "room_tip",
+              "text": "Avoid at all cost. Does not be behave like a 5 star establishment.",
+              "rating": "1",
+              "reviewId": "1015332410",
+              "id": "1015332410",
+              "createdTime": "2025-06-26T23:56:59-04:00"
+            },
+            {
+              "user": null,
+              "type": "room_tip",
+              "text": "All good !",
+              "rating": "5",
+              "reviewId": "1010898621",
+              "id": "1010898621",
+              "createdTime": "2025-06-03T01:49:36-04:00"
+            }
+          ],
+          "checkInDate": "2026-02-04",
+          "checkOutDate": "2026-02-05",
+          "numberOfRooms": 277,
+          "categoryReviewScores": [
+            {
+              "categoryName": "Location",
+              "score": 4.45567,
+              "roundedScore": 4.5
+            },
+            {
+              "categoryName": "Rooms",
+              "score": 4.619332,
+              "roundedScore": 4.6
+            },
+            {
+              "categoryName": "Value",
+              "score": 4.2975206,
+              "roundedScore": 4.3
+            },
+            {
+              "categoryName": "Cleanliness",
+              "score": 4.645051,
+              "roundedScore": 4.6
+            },
+            {
+              "categoryName": "Service",
+              "score": 4.4927535,
+              "roundedScore": 4.5
+            },
+            {
+              "categoryName": "Sleep Quality",
+              "score": 4.560736,
+              "roundedScore": 4.6
+            }
+          ],
+          "aiReviewsSummary": null,
+          "whatsAppRedirectUrl": null,
+          "photos": [],
+          "travelerChoiceAward": null,
+          "offers": [
+            {
+              "pricePerNight": 196,
+              "tax": 35,
+              "priceText": "$197",
+              "taxesAndFeesText": null,
+              "totalStayPriceText": null,
+              "priceBeforeSale": null,
+              "provider": "BookingCom",
+              "vendor": "Booking.com",
+              "canPayInInstallments": false
+            }
+          ],
+          "reviewTags": [
+            {
+              "text": "koregaon park",
+              "reviews": 221
+            },
+            {
+              "text": "the executive lounge",
+              "reviews": 45
+            },
+            {
+              "text": "business trip",
+              "reviews": 93
+            },
+            {
+              "text": "coffee shop",
+              "reviews": 46
+            },
+            {
+              "text": "cake",
+              "reviews": 49
+            },
+            {
+              "text": "excellent service",
+              "reviews": 82
+            },
+            {
+              "text": "special thanks",
+              "reviews": 75
+            },
+            {
+              "text": "amazing food",
+              "reviews": 31
+            },
+            {
+              "text": "spacious rooms",
+              "reviews": 36
+            },
+            {
+              "text": "in room dining",
+              "reviews": 28
+            },
+            {
+              "text": "keep up the good work",
+              "reviews": 27
+            },
+            {
+              "text": "breakfast spread",
+              "reviews": 36
+            },
+            {
+              "text": "excellent stay",
+              "reviews": 43
+            },
+            {
+              "text": "great experience",
+              "reviews": 45
+            },
+            {
+              "text": "front office",
+              "reviews": 32
+            },
+            {
+              "text": "special mention",
+              "reviews": 32
+            },
+            {
+              "text": "comfortable stay",
+              "reviews": 27
+            },
+            {
+              "text": "chef",
+              "reviews": 175
+            },
+            {
+              "text": "team",
+              "reviews": 191
+            },
+            {
+              "text": "ambience",
+              "reviews": 185
+            },
+            {
+              "text": "hospitality",
+              "reviews": 170
+            },
+            {
+              "text": "gym",
+              "reviews": 134
+            },
+            {
+              "text": "brunch",
+              "reviews": 57
+            },
+            {
+              "text": "mr",
+              "reviews": 137
+            },
+            {
+              "text": "services",
+              "reviews": 127
+            },
+            {
+              "text": "kp",
+              "reviews": 25
+            },
+            {
+              "text": "indian",
+              "reviews": 67
+            },
+            {
+              "text": "event",
+              "reviews": 70
+            },
+            {
+              "text": "checkin",
+              "reviews": 31
+            },
+            {
+              "text": "leisure",
+              "reviews": 27
+            }
+          ],
+          "isNearbyResult": false
+        },
+        "pairedItem": {
+          "item": 0
+        }
+      },
+      {
+        "json": {
+          "id": "4716707",
+          "type": "HOTEL",
+          "category": "hotel",
+          "subcategories": [
+            "Hotel"
+          ],
+          "name": "Fairfield By Marriott Pune Kharadi",
+          "locationString": "Pune, Pune District, Maharashtra",
+          "description": "Situated just under 5 miles from the Pune International Airport, Fairfield by Marriott Pune Kharadi offers a convenient and comfortable stay. The EON IT Park, World Trade Center, Ranjangaon MIDC, and Viman Nagar are nearby locations. Enjoy complimentary high-speed Wi-Fi, an all-day dining restaurant, a well-equipped fitness center, three modern meeting spaces, and a fully-equipped business center. Hosting an event in Pune, reserve one of our versatile indoor and outdoor venues, complemented by smart catering and comprehensive planning services.",
+          "image": "https://media-cdn.tripadvisor.com/media/photo-m/1280/30/3c/9b/ea/fairfield-executive-queen.jpg",
+          "photoCount": 323,
+          "rankingPosition": 37,
+          "rating": 4.5,
+          "rawRanking": 4.604952812194824,
+          "phone": "+18446310595",
+          "address": "Kharadi Mundhwa Bypass Road, Thite Nagar, Kharadi Thite Nagar, Kharadi, Pune 411014 India",
+          "addressObj": {
+            "street1": "Kharadi Mundhwa Bypass Road, Thite Nagar, Kharadi",
+            "street2": "Thite Nagar, Kharadi",
+            "city": "Pune",
+            "state": "Maharashtra",
+            "country": "India",
+            "postalcode": "411014"
+          },
+          "localName": "Fairfield By Marriott Pune Kharadi",
+          "localAddress": "Kharadi Mundhwa Bypass Road, Thite Nagar, Kharadi, Thite Nagar, Kharadi, 411014",
+          "localLangCode": "en-IN",
+          "email": "reservation.fairfieldpune@marriott.com",
+          "latitude": 18.545815,
+          "longitude": 73.93665,
+          "webUrl": "https://www.tripadvisor.com/Hotel_Review-g297654-d4716707-Reviews-Fairfield_By_Marriott_Pune_Kharadi-Pune_Pune_District_Maharashtra.html",
+          "website": "https://www.marriott.com/en-us/hotels/pnqfi-fairfield-pune-kharadi/overview/",
+          "rankingString": "#37 of 1,230 hotels in Pune",
+          "rankingDenominator": "1230",
+          "rankingSource": "API",
+          "neighborhoodLocations": [],
+          "nearestMetroStations": [],
+          "ancestorLocations": [
+            {
+              "id": "297654",
+              "name": "Pune",
+              "abbreviation": null,
+              "subcategory": "City"
+            },
+            {
+              "id": "12400025",
+              "name": "Pune District",
+              "abbreviation": null,
+              "subcategory": "District"
+            },
+            {
+              "id": "297648",
+              "name": "Maharashtra",
+              "abbreviation": null,
+              "subcategory": "State"
+            },
+            {
+              "id": "293860",
+              "name": "India",
+              "abbreviation": null,
+              "subcategory": "Country"
+            }
+          ],
+          "ratingHistogram": {
+            "count1": 16,
+            "count2": 20,
+            "count3": 45,
+            "count4": 173,
+            "count5": 522
+          },
+          "numberOfReviews": 775,
+          "hotelClass": "3.5",
+          "hotelClassAttribution": "This property is classified according to Giata.",
+          "amenities": [
+            "Restaurant",
+            "Fitness center",
+            "Room service",
+            "Free parking",
+            "Bar/Lounge",
+            "Wifi",
+            "Meeting rooms",
+            "Laundry Service",
+            "Suites",
+            "Wheelchair access",
+            "Airport transportation",
+            "Public Wifi",
+            "Free Wifi",
+            "Dry Cleaning",
+            "Non-smoking rooms",
+            "Business center",
+            "Banquet Room",
+            "Air conditioning",
+            "Multilingual Staff",
+            "Accessible rooms",
+            "Refrigerator in room",
+            "Minibar",
+            "Conference Facilities",
+            "Safe",
+            "Flatscreen TV",
+            "Breakfast Buffet",
+            "Parking",
+            "Housekeeping",
+            "Baggage Storage",
+            "Bath / Shower",
+            "Bottled Water",
+            "Breakfast in the Room",
+            "Coffee Shop",
+            "Coffee / Tea Maker",
+            "Desk",
+            "Doorperson",
+            "English",
+            "Complimentary Toiletries",
+            "24-Hour Front Desk",
+            "Hair Dryer",
+            "Hindi",
+            "Interconnected room(s) available",
+            "Iron",
+            "24-Hour Security",
+            "Telephone",
+            "Wake Up Service / Alarm Clock",
+            "Breakfast Available",
+            "Facilities for Disabled Guests",
+            "Bowling Off-site",
+            "Cable / Satellite TV",
+            "Convenience Store",
+            "Dining Area",
+            "Electric Kettle",
+            "Executive Lounge Access",
+            "First Aid Kit",
+            "Free Wifi in the Business Center",
+            "Free Wired Internet in the Business Center",
+            "Kitchenware",
+            "Laptop Safe",
+            "Newspaper",
+            "Private Bathrooms",
+            "Radio",
+            "Seating Area",
+            "Separate Living Room",
+            "Shoeshine",
+            "Sofa",
+            "Squash Off-site",
+            "Tile / Marble Floor",
+            "Umbrella",
+            "Wardrobe / Closet"
+          ],
+          "priceLevel": "₹₹",
+          "priceRange": "₹6,025 - ₹13,146",
+          "roomTips": [
+            {
+              "user": null,
+              "type": "room_tip",
+              "text": "Good",
+              "rating": "5",
+              "reviewId": "1047249412",
+              "id": "1047249412",
+              "createdTime": "2026-01-24T18:48:52-05:00"
+            },
+            {
+              "user": null,
+              "type": "room_tip",
+              "text": "Yes",
+              "rating": "5",
+              "reviewId": "1047248530",
+              "id": "1047248530",
+              "createdTime": "2026-01-24T18:29:34-05:00"
+            },
+            {
+              "user": null,
+              "type": "room_tip",
+              "text": "Yes",
+              "rating": "5",
+              "reviewId": "1047248258",
+              "id": "1047248258",
+              "createdTime": "2026-01-24T18:22:55-05:00"
+            },
+            {
+              "user": null,
+              "type": "room_tip",
+              "text": "Yes",
+              "rating": "5",
+              "reviewId": "1047247287",
+              "id": "1047247287",
+              "createdTime": "2026-01-24T18:03:30-05:00"
+            },
+            {
+              "user": null,
+              "type": "room_tip",
+              "text": "Yes",
+              "rating": "5",
+              "reviewId": "1047246982",
+              "id": "1047246982",
+              "createdTime": "2026-01-24T17:57:59-05:00"
+            }
+          ],
+          "checkInDate": "2026-02-04",
+          "checkOutDate": "2026-02-05",
+          "numberOfRooms": 109,
+          "categoryReviewScores": [
+            {
+              "categoryName": "Location",
+              "score": 4.378549,
+              "roundedScore": 4.4
+            },
+            {
+              "categoryName": "Rooms",
+              "score": 4.3103447,
+              "roundedScore": 4.3
+            },
+            {
+              "categoryName": "Value",
+              "score": 4.3553457,
+              "roundedScore": 4.4
+            },
+            {
+              "categoryName": "Cleanliness",
+              "score": 4.5634327,
+              "roundedScore": 4.6
+            },
+            {
+              "categoryName": "Service",
+              "score": 4.361305,
+              "roundedScore": 4.4
+            },
+            {
+              "categoryName": "Sleep Quality",
+              "score": 4.466165500000001,
+              "roundedScore": 4.5
+            }
+          ],
+          "aiReviewsSummary": null,
+          "whatsAppRedirectUrl": null,
+          "photos": [],
+          "travelerChoiceAward": null,
+          "offers": [
+            {
+              "pricePerNight": 67,
+              "tax": 12,
+              "priceText": "$68",
+              "taxesAndFeesText": null,
+              "totalStayPriceText": null,
+              "priceBeforeSale": null,
+              "provider": "BookingCom",
+              "vendor": "Booking.com",
+              "canPayInInstallments": false
+            }
+          ],
+          "reviewTags": [
+            {
+              "text": "kava restaurant",
+              "reviews": 12
+            },
+            {
+              "text": "restaurant team",
+              "reviews": 8
+            },
+            {
+              "text": "business hotel",
+              "reviews": 21
+            },
+            {
+              "text": "business trip",
+              "reviews": 27
+            },
+            {
+              "text": "comfortable stay",
+              "reviews": 25
+            },
+            {
+              "text": "front office",
+              "reviews": 18
+            },
+            {
+              "text": "clean rooms",
+              "reviews": 16
+            },
+            {
+              "text": "breakfast spread",
+              "reviews": 17
+            },
+            {
+              "text": "house keeping",
+              "reviews": 17
+            },
+            {
+              "text": "basic amenities",
+              "reviews": 9
+            },
+            {
+              "text": "excellent service",
+              "reviews": 26
+            },
+            {
+              "text": "special thanks",
+              "reviews": 24
+            },
+            {
+              "text": "room service",
+              "reviews": 24
+            },
+            {
+              "text": "excellent stay",
+              "reviews": 16
+            },
+            {
+              "text": "nice experience",
+              "reviews": 10
+            },
+            {
+              "text": "quality of food",
+              "reviews": 9
+            },
+            {
+              "text": "room cleaning",
+              "reviews": 8
+            },
+            {
+              "text": "special mention",
+              "reviews": 14
+            },
+            {
+              "text": "amazing food",
+              "reviews": 8
+            },
+            {
+              "text": "will visit again",
+              "reviews": 8
+            },
+            {
+              "text": "take care",
+              "reviews": 9
+            },
+            {
+              "text": "housekeeping staff",
+              "reviews": 9
+            },
+            {
+              "text": "great hospitality",
+              "reviews": 10
+            },
+            {
+              "text": "mr",
+              "reviews": 61
+            },
+            {
+              "text": "eon",
+              "reviews": 16
+            },
+            {
+              "text": "services",
+              "reviews": 48
+            },
+            {
+              "text": "chef",
+              "reviews": 42
+            },
+            {
+              "text": "cleanliness",
+              "reviews": 29
+            },
+            {
+              "text": "ambience",
+              "reviews": 38
+            },
+            {
+              "text": "toiletries",
+              "reviews": 14
+            }
+          ],
+          "isNearbyResult": false
+        },
+        "pairedItem": {
+          "item": 0
+        }
+      },
+      {
+        "json": {
+          "id": "1866256",
+          "type": "HOTEL",
+          "category": "hotel",
+          "subcategories": [
+            "Hotel"
+          ],
+          "name": "Hyatt Pune",
+          "locationString": "Pune, Pune District, Maharashtra",
+          "description": "Hyatt Pune is a part of the incredible world of Hyatt. Located just 10 minutes from Pune Airport, 5 minutes from Phoenix Market City, and 15 minutes from the IT hub, Hyatt Pune has the perfect location, whether you’re traveling for work or leisure. Take advantage of our world-class Shanti spa where Ayurvedic treatments, reiki, and yoga relaxes and re-energize you. There’s something for everyone, with a scenic outdoor pool, garden suites, and round-the-clock room service, you will be spoilt for choice. Our three in-house restaurants- Baan Tao, Café 88, The Terrace Bar and TG's make dining decadent. Baan Tao is an award-winning restaurant, famed for its Thai and Chinese cuisine complemented by the ambiance of unique open-to-sky Thai Sala. If you’re in the mood for alfresco to enjoy Pune’s famously pleasant year-round weather, our restaurants are the perfect picks for you. At Hyatt Pune, there’s a world of possibility and the promise of solace. Come, check-in.",
+          "image": "https://media-cdn.tripadvisor.com/media/photo-m/1280/2b/48/f4/19/caption.jpg",
+          "photoCount": 2336,
+          "rankingPosition": 30,
+          "rating": 4.6,
+          "rawRanking": 4.6954779624938965,
+          "phone": "+91 20 4141 1234",
+          "address": "88, Nagar Road Adjacent To Aga Khan Palace, Pune 411006 India",
+          "addressObj": {
+            "street1": "88, Nagar Road",
+            "street2": "Adjacent To Aga Khan Palace",
+            "city": "Pune",
+            "state": "Maharashtra",
+            "country": "India",
+            "postalcode": "411006"
+          },
+          "localName": "Hyatt Pune",
+          "localAddress": "88, Nagar Road, Adjacent To Aga Khan Palace, 411006",
+          "localLangCode": "en-IN",
+          "email": null,
+          "latitude": 18.55421,
+          "longitude": 73.9047,
+          "webUrl": "https://www.tripadvisor.com/Hotel_Review-g297654-d1866256-Reviews-Hyatt_Pune-Pune_Pune_District_Maharashtra.html",
+          "website": "https://www.hyatt.com/en-US/hotel/india/hyatt-pune/pnqhy?src=corp_lclb_google_seo_pnqhy&%3Futm_source=google&utm_medium=organic&utm_campaign=lmr",
+          "rankingString": "#30 of 1,230 hotels in Pune",
+          "rankingDenominator": "1230",
+          "rankingSource": "API",
+          "neighborhoodLocations": [],
+          "nearestMetroStations": [],
+          "ancestorLocations": [
+            {
+              "id": "297654",
+              "name": "Pune",
+              "abbreviation": null,
+              "subcategory": "City"
+            },
+            {
+              "id": "12400025",
+              "name": "Pune District",
+              "abbreviation": null,
+              "subcategory": "District"
+            },
+            {
+              "id": "297648",
+              "name": "Maharashtra",
+              "abbreviation": null,
+              "subcategory": "State"
+            },
+            {
+              "id": "293860",
+              "name": "India",
+              "abbreviation": null,
+              "subcategory": "Country"
+            }
+          ],
+          "ratingHistogram": {
+            "count1": 77,
+            "count2": 89,
+            "count3": 183,
+            "count4": 745,
+            "count5": 3633
+          },
+          "numberOfReviews": 4727,
+          "hotelClass": "5.0",
+          "hotelClassAttribution": "This property is classified according to Giata.",
+          "amenities": [
+            "Pool",
+            "Free parking",
+            "Restaurant",
+            "Business center",
+            "Fitness center",
+            "Room service",
+            "Internet",
+            "Wheelchair access",
+            "Bar/Lounge",
+            "Spa",
+            "Wifi",
+            "Suites",
+            "Free Internet",
+            "Airport transportation",
+            "Free Wifi",
+            "Breakfast included",
+            "Dry Cleaning",
+            "Meeting rooms",
+            "Non-smoking rooms",
+            "Laundry Service",
+            "Concierge",
+            "Banquet Room",
+            "Air conditioning",
+            "Family Rooms",
+            "Multilingual Staff",
+            "Minibar",
+            "Conference Facilities",
+            "Babysitting",
+            "Safe",
+            "Flatscreen TV",
+            "Breakfast Buffet",
+            "Butler Service",
+            "Outdoor pool",
+            "Breakfast Available",
+            "Parking",
+            "Facilities for Disabled Guests",
+            "Housekeeping",
+            "Kids Stay Free",
+            "Allergy-free Room",
+            "Baggage Storage",
+            "Bath / Shower",
+            "Bathrobes",
+            "BBQ Facilities",
+            "Blackout Curtains",
+            "Bottled Water",
+            "Breakfast in the Room",
+            "Car Hire",
+            "Express Check-in / Check-out",
+            "Coffee Shop",
+            "Coffee / Tea Maker",
+            "Currency Exchange",
+            "Desk",
+            "Doorperson",
+            "English",
+            "Entertainment Staff",
+            "Facial Treatments",
+            "Fitness / Spa Locker Rooms",
+            "Complimentary Toiletries",
+            "24-Hour Front Desk",
+            "Hair Dryer",
+            "Hindi",
+            "Interconnected room(s) available",
+            "Iron",
+            "Ironing Service",
+            "Kids' Meals",
+            "Kid-Friendly Buffet",
+            "Massage",
+            "Nightclub / DJ",
+            "Outdoor Furniture",
+            "Pool / Beach Towels",
+            "Pool with View",
+            "Salon",
+            "Seating Area",
+            "24-Hour Security",
+            "Shoeshine",
+            "Snack Bar",
+            "Special Diet Menus",
+            "Steam Room",
+            "Sun Loungers / Beach Chairs",
+            "Sun Terrace",
+            "Sun Umbrellas",
+            "Table Tennis",
+            "Taxi Service",
+            "Telephone",
+            "Valet Parking",
+            "VIP Room Facilities",
+            "Wake Up Service / Alarm Clock",
+            "Wine / Champagne",
+            "Air Purifier",
+            "Body Wrap",
+            "Cable / Satellite TV",
+            "Clothes Rack",
+            "Couples Massage",
+            "Electric Kettle",
+            "Executive Lounge Access",
+            "First Aid Kit",
+            "Foot Massage",
+            "Full Body Massage",
+            "Hand Massage",
+            "Happy Hour",
+            "Head Massage",
+            "Highchairs Available",
+            "iPod Docking Station",
+            "Laptop Safe",
+            "Makeup Services",
+            "Manicure",
+            "Neck Massage",
+            "Outdoor Dining Area",
+            "Pedicure",
+            "Personal Trainer",
+            "Pool View",
+            "Private Bathrooms",
+            "Shallow End",
+            "Sofa",
+            "Sun Deck",
+            "Umbrella",
+            "Walk-in Shower",
+            "Wardrobe / Closet",
+            "Waxing Services",
+            "Yoga Classes"
+          ],
+          "priceLevel": "₹₹",
+          "priceRange": "₹7,577 - ₹17,437",
+          "roomTips": [
+            {
+              "user": null,
+              "type": "room_tip",
+              "text": "Hotel is located at a convenient travel time of less than 10 mints from airport and nearest metro station.",
+              "rating": "5",
+              "reviewId": "1047765989",
+              "id": "1047765989",
+              "createdTime": "2026-01-28T18:04:44-05:00"
+            },
+            {
+              "user": null,
+              "type": "room_tip",
+              "text": "Room services can improve and can provide small selves to keep clothes and in washroom also shelves need .",
+              "rating": "3",
+              "reviewId": "1047519219",
+              "id": "1047519219",
+              "createdTime": "2026-01-26T22:44:59-05:00"
+            },
+            {
+              "user": null,
+              "type": "room_tip",
+              "text": "Ask for a quiet room. The hotel has a lot of events",
+              "rating": "4",
+              "reviewId": "1047381577",
+              "id": "1047381577",
+              "createdTime": "2026-01-25T20:26:05-05:00"
+            },
+            {
+              "user": null,
+              "type": "room_tip",
+              "text": "Glass window are visible from outside ",
+              "rating": "5",
+              "reviewId": "1047380557",
+              "id": "1047380557",
+              "createdTime": "2026-01-25T20:11:04-05:00"
+            },
+            {
+              "user": null,
+              "type": "room_tip",
+              "text": "Come here, Unwind, Use the Spa, Pool and Delicious Food, the staff took special care and are super friendly. My goo hotel in Pune, Keepitup.",
+              "rating": "5",
+              "reviewId": "1047289815",
+              "id": "1047289815",
+              "createdTime": "2026-01-25T02:49:06-05:00"
+            }
+          ],
+          "checkInDate": "2026-02-04",
+          "checkOutDate": "2026-02-05",
+          "numberOfRooms": 209,
+          "categoryReviewScores": [
+            {
+              "categoryName": "Location",
+              "score": 4.5642176,
+              "roundedScore": 4.6
+            },
+            {
+              "categoryName": "Rooms",
+              "score": 4.420548,
+              "roundedScore": 4.4
+            },
+            {
+              "categoryName": "Value",
+              "score": 4.491138,
+              "roundedScore": 4.5
+            },
+            {
+              "categoryName": "Cleanliness",
+              "score": 4.6277814,
+              "roundedScore": 4.6
+            },
+            {
+              "categoryName": "Service",
+              "score": 4.5975275,
+              "roundedScore": 4.6
+            },
+            {
+              "categoryName": "Sleep Quality",
+              "score": 4.510741699999999,
+              "roundedScore": 4.5
+            }
+          ],
+          "aiReviewsSummary": null,
+          "whatsAppRedirectUrl": null,
+          "photos": [],
+          "travelerChoiceAward": null,
+          "offers": [
+            {
+              "pricePerNight": 87,
+              "tax": 15,
+              "priceText": "$88",
+              "taxesAndFeesText": null,
+              "totalStayPriceText": null,
+              "priceBeforeSale": null,
+              "provider": "Hyatt",
+              "vendor": "Hyatt.com",
+              "canPayInInstallments": false
+            }
+          ],
+          "reviewTags": [
+            {
+              "text": "special thanks",
+              "reviews": 138
+            },
+            {
+              "text": "close to the airport",
+              "reviews": 61
+            },
+            {
+              "text": "business trip",
+              "reviews": 110
+            },
+            {
+              "text": "great experience",
+              "reviews": 94
+            },
+            {
+              "text": "excellent service",
+              "reviews": 120
+            },
+            {
+              "text": "restaurant staff",
+              "reviews": 56
+            },
+            {
+              "text": "great hospitality",
+              "reviews": 74
+            },
+            {
+              "text": "taking care",
+              "reviews": 51
+            },
+            {
+              "text": "special mention",
+              "reviews": 83
+            },
+            {
+              "text": "his team",
+              "reviews": 60
+            },
+            {
+              "text": "cake",
+              "reviews": 66
+            },
+            {
+              "text": "comfortable stay",
+              "reviews": 87
+            },
+            {
+              "text": "swimming pool",
+              "reviews": 84
+            },
+            {
+              "text": "house keeping",
+              "reviews": 64
+            },
+            {
+              "text": "room service",
+              "reviews": 100
+            },
+            {
+              "text": "excellent stay",
+              "reviews": 68
+            },
+            {
+              "text": "in room dining",
+              "reviews": 40
+            },
+            {
+              "text": "housekeeping staff",
+              "reviews": 48
+            },
+            {
+              "text": "f b",
+              "reviews": 36
+            },
+            {
+              "text": "keep up the good work",
+              "reviews": 37
+            },
+            {
+              "text": "breakfast spread",
+              "reviews": 43
+            },
+            {
+              "text": "food quality",
+              "reviews": 37
+            },
+            {
+              "text": "tao",
+              "reviews": 255
+            },
+            {
+              "text": "baan",
+              "reviews": 196
+            },
+            {
+              "text": "ban",
+              "reviews": 79
+            },
+            {
+              "text": "eighty",
+              "reviews": 140
+            },
+            {
+              "text": "fishbowl",
+              "reviews": 47
+            },
+            {
+              "text": "sandesh",
+              "reviews": 70
+            },
+            {
+              "text": "ambience",
+              "reviews": 316
+            },
+            {
+              "text": "chef",
+              "reviews": 274
+            }
+          ],
+          "isNearbyResult": false
+        },
+        "pairedItem": {
+          "item": 0
+        }
+      },
+      {
+        "json": {
+          "id": "619336",
+          "type": "HOTEL",
+          "category": "hotel",
+          "subcategories": [
+            "Hotel"
+          ],
+          "name": "The Corinthians Resort",
+          "locationString": "Pune, Pune District, Maharashtra",
+          "description": "Nestled in tranquillity, The Corinthians Resort & Club, Pune, is a haven of relaxation and rejuvenation where you can immerse yourself in a world of calm amidst the enchantment of nature and the finest of luxuries, including 181 plush rooms and an array of banquet venues with 60,000 square feet of open space, a unit of NYATI HOTELS AND RESORTS PRIVATE LTD. We promise you exceptional gastronomic experiences, best-in-class amenities, warm hospitality, and a memorable stay.",
+          "image": "https://media-cdn.tripadvisor.com/media/photo-o/03/c5/3e/5d/the-corinthians-boutique.jpg",
+          "photoCount": 2925,
+          "rankingPosition": 8,
+          "rating": 4.7,
+          "rawRanking": 4.845485687255859,
+          "phone": "+91 20 2695 2222",
+          "address": "Corinthians Club Internal Rd NIBM Annex, Pune 411060 India",
+          "addressObj": {
+            "street1": "Corinthians Club Internal Rd",
+            "street2": "NIBM Annex",
+            "city": "Pune",
+            "state": "Maharashtra",
+            "country": "India",
+            "postalcode": "411060"
+          },
+          "localName": "The Corinthians Resort",
+          "localAddress": "Corinthians Club Internal Rd, NIBM Annex, 411060",
+          "localLangCode": "en-IN",
+          "email": "reservations@thecorinthianspune.com",
+          "latitude": 18.463272,
+          "longitude": 73.919304,
+          "webUrl": "https://www.tripadvisor.com/Hotel_Review-g297654-d619336-Reviews-The_Corinthians_Resort-Pune_Pune_District_Maharashtra.html",
+          "website": "http://thecorinthianspune.com/",
+          "rankingString": "#8 of 1,230 hotels in Pune",
+          "rankingDenominator": "1230",
+          "rankingSource": "API",
+          "neighborhoodLocations": [],
+          "nearestMetroStations": [],
+          "ancestorLocations": [
+            {
+              "id": "297654",
+              "name": "Pune",
+              "abbreviation": null,
+              "subcategory": "City"
+            },
+            {
+              "id": "12400025",
+              "name": "Pune District",
+              "abbreviation": null,
+              "subcategory": "District"
+            },
+            {
+              "id": "297648",
+              "name": "Maharashtra",
+              "abbreviation": null,
+              "subcategory": "State"
+            },
+            {
+              "id": "293860",
+              "name": "India",
+              "abbreviation": null,
+              "subcategory": "Country"
+            }
+          ],
+          "ratingHistogram": {
+            "count1": 49,
+            "count2": 46,
+            "count3": 138,
+            "count4": 629,
+            "count5": 3280
+          },
+          "numberOfReviews": 4142,
+          "hotelClass": "5.0",
+          "hotelClassAttribution": "This property is classified according to Giata.",
+          "amenities": [
+            "Pool",
+            "Room service",
+            "Free parking",
+            "Restaurant",
+            "Business center",
+            "Internet",
+            "Free Internet",
+            "Wifi",
+            "Fitness center",
+            "Wheelchair access",
+            "Bar/Lounge",
+            "Spa",
+            "Airport transportation",
+            "Dry Cleaning",
+            "Meeting rooms",
+            "Non-smoking rooms",
+            "Tennis Court",
+            "Laundry Service",
+            "Concierge",
+            "Banquet Room",
+            "Air conditioning",
+            "Family Rooms",
+            "Multilingual Staff",
+            "Smoking rooms available",
+            "Accessible rooms",
+            "Refrigerator in room",
+            "Minibar",
+            "Conference Facilities",
+            "Babysitting",
+            "Safe",
+            "Swimup Bar",
+            "Flatscreen TV",
+            "Rooftop Terrace",
+            "Breakfast Buffet",
+            "Poolside Bar",
+            "Private Balcony",
+            "Butler Service",
+            "Outdoor pool",
+            "Parking",
+            "Facilities for Disabled Guests",
+            "Housekeeping",
+            "Kids Club",
+            "Kids Stay Free",
+            "Allergy-free Room",
+            "Baggage Storage",
+            "Billiards",
+            "Breakfast in the Room",
+            "Car Hire",
+            "Darts",
+            "Doorperson",
+            "English",
+            "Entertainment Staff",
+            "Evening Entertainment",
+            "Fitness Classes",
+            "Fitness / Spa Locker Rooms",
+            "24-Hour Front Desk",
+            "Game Room",
+            "Hindi",
+            "Indoor Play Area for Children",
+            "Interconnected room(s) available",
+            "Ironing Service",
+            "Kids' Meals",
+            "Kids' Outdoor Play Equipment",
+            "Massage",
+            "Newspaper",
+            "Salon",
+            "24-Hour Security",
+            "Special Diet Menus",
+            "Table Tennis",
+            "Taxi Service",
+            "Valet Parking",
+            "VIP Room Facilities",
+            "Breakfast Available"
+          ],
+          "priceLevel": "₹₹",
+          "priceRange": "₹7,212 - ₹22,458",
+          "roomTips": [
+            {
+              "user": null,
+              "type": "room_tip",
+              "text": "The place was  very welcoming   and staff was very efficient.\nThe guys Govind and Babu were really nice and helpful.\nAlso room is so good.",
+              "rating": "5",
+              "reviewId": "1047988946",
+              "id": "1047988946",
+              "createdTime": "2026-01-30T18:56:38-05:00"
+            },
+            {
+              "user": null,
+              "type": "room_tip",
+              "text": "Pool is good! Food is awesome. The staff is very helpful ",
+              "rating": "5",
+              "reviewId": "1047497780",
+              "id": "1047497780",
+              "createdTime": "2026-01-26T18:07:05-05:00"
+            },
+            {
+              "user": null,
+              "type": "room_tip",
+              "text": "No everything is perfect ",
+              "rating": "5",
+              "reviewId": "1046568109",
+              "id": "1046568109",
+              "createdTime": "2026-01-18T18:33:38-05:00"
+            },
+            {
+              "user": null,
+              "type": "room_tip",
+              "text": "Cleniness, service, ambience is excellent. If you want to have spicy food don't go for buffet, go for ala carte so that you can ask spicy.",
+              "rating": "5",
+              "reviewId": "1045902516",
+              "id": "1045902516",
+              "createdTime": "2026-01-12T19:25:48-05:00"
+            },
+            {
+              "user": null,
+              "type": "room_tip",
+              "text": "Everything at this resort, is outdated, not maintained, and filthy",
+              "rating": "1",
+              "reviewId": "1044843806",
+              "id": "1044843806",
+              "createdTime": "2026-01-03T23:36:28-05:00"
+            }
+          ],
+          "checkInDate": "2026-02-04",
+          "checkOutDate": "2026-02-05",
+          "numberOfRooms": 181,
+          "categoryReviewScores": [
+            {
+              "categoryName": "Location",
+              "score": 4.4551992,
+              "roundedScore": 4.5
+            },
+            {
+              "categoryName": "Rooms",
+              "score": 4.5447392,
+              "roundedScore": 4.5
+            },
+            {
+              "categoryName": "Value",
+              "score": 4.538614,
+              "roundedScore": 4.5
+            },
+            {
+              "categoryName": "Cleanliness",
+              "score": 4.6343694,
+              "roundedScore": 4.6
+            },
+            {
+              "categoryName": "Service",
+              "score": 4.6233835,
+              "roundedScore": 4.6
+            },
+            {
+              "categoryName": "Sleep Quality",
+              "score": 4.540183,
+              "roundedScore": 4.5
+            }
+          ],
+          "aiReviewsSummary": null,
+          "whatsAppRedirectUrl": null,
+          "photos": [],
+          "travelerChoiceAward": null,
+          "offers": [
+            {
+              "pricePerNight": 66,
+              "tax": 16,
+              "priceText": "$66",
+              "taxesAndFeesText": null,
+              "totalStayPriceText": null,
+              "priceBeforeSale": null,
+              "provider": "MakeMyTrip",
+              "vendor": "MakeMyTrip",
+              "canPayInInstallments": false
+            },
+            {
+              "pricePerNight": 81,
+              "tax": 4,
+              "priceText": "$82",
+              "taxesAndFeesText": null,
+              "totalStayPriceText": null,
+              "priceBeforeSale": null,
+              "provider": "BookingCom",
+              "vendor": "Booking.com",
+              "canPayInInstallments": false
+            },
+            {
+              "pricePerNight": 53,
+              "tax": 3,
+              "priceText": "$53",
+              "taxesAndFeesText": null,
+              "totalStayPriceText": null,
+              "priceBeforeSale": "$91",
+              "provider": "Skyscanner",
+              "vendor": "Skyscanner",
+              "canPayInInstallments": false
+            },
+            {
+              "pricePerNight": 86,
+              "tax": 18,
+              "priceText": "$86",
+              "taxesAndFeesText": null,
+              "totalStayPriceText": null,
+              "priceBeforeSale": null,
+              "provider": "Goibibo",
+              "vendor": "goibibo.com",
+              "canPayInInstallments": false
+            },
+            {
+              "pricePerNight": 54,
+              "tax": 3,
+              "priceText": "$54",
+              "taxesAndFeesText": null,
+              "totalStayPriceText": null,
+              "priceBeforeSale": null,
+              "provider": "Agoda",
+              "vendor": "Agoda.com",
+              "canPayInInstallments": false
+            },
+            {
+              "pricePerNight": 75,
+              "tax": 16,
+              "priceText": "$75",
+              "taxesAndFeesText": null,
+              "totalStayPriceText": null,
+              "priceBeforeSale": null,
+              "provider": "Expedia",
+              "vendor": "Expedia",
+              "canPayInInstallments": true
+            },
+            {
+              "pricePerNight": 81,
+              "tax": 4,
+              "priceText": "$82",
+              "taxesAndFeesText": null,
+              "totalStayPriceText": null,
+              "priceBeforeSale": null,
+              "provider": "CtripTA",
+              "vendor": "Trip.com",
+              "canPayInInstallments": false
+            },
+            {
+              "pricePerNight": 90,
+              "tax": 16,
+              "priceText": "$91",
+              "taxesAndFeesText": null,
+              "totalStayPriceText": null,
+              "priceBeforeSale": null,
+              "provider": "HotelsCom2",
+              "vendor": "Hotels.com",
+              "canPayInInstallments": false
+            }
+          ],
+          "reviewTags": [
+            {
+              "text": "brew house",
+              "reviews": 194
+            },
+            {
+              "text": "apple cider",
+              "reviews": 107
+            },
+            {
+              "text": "salsa restaurant",
+              "reviews": 69
+            },
+            {
+              "text": "micro brewery",
+              "reviews": 33
+            },
+            {
+              "text": "indoor games",
+              "reviews": 89
+            },
+            {
+              "text": "pool side",
+              "reviews": 111
+            },
+            {
+              "text": "special thanks",
+              "reviews": 186
+            },
+            {
+              "text": "jain food",
+              "reviews": 46
+            },
+            {
+              "text": "huge property",
+              "reviews": 35
+            },
+            {
+              "text": "birthday celebration",
+              "reviews": 48
+            },
+            {
+              "text": "cake",
+              "reviews": 86
+            },
+            {
+              "text": "must visit place",
+              "reviews": 51
+            },
+            {
+              "text": "special mention",
+              "reviews": 76
+            },
+            {
+              "text": "amazing experience",
+              "reviews": 60
+            },
+            {
+              "text": "awesome place",
+              "reviews": 32
+            },
+            {
+              "text": "restaurant manager",
+              "reviews": 30
+            },
+            {
+              "text": "great ambience",
+              "reviews": 36
+            },
+            {
+              "text": "excellent service",
+              "reviews": 93
+            },
+            {
+              "text": "the entire staff",
+              "reviews": 31
+            },
+            {
+              "text": "pune city",
+              "reviews": 44
+            },
+            {
+              "text": "his team",
+              "reviews": 45
+            },
+            {
+              "text": "will visit again",
+              "reviews": 35
+            },
+            {
+              "text": "delicious food",
+              "reviews": 45
+            },
+            {
+              "text": "pleasant stay",
+              "reviews": 40
+            },
+            {
+              "text": "courteous staff",
+              "reviews": 36
+            },
+            {
+              "text": "front office",
+              "reviews": 31
+            },
+            {
+              "text": "pyramisa",
+              "reviews": 209
+            },
+            {
+              "text": "abhishek",
+              "reviews": 211
+            },
+            {
+              "text": "brewhouse",
+              "reviews": 110
+            },
+            {
+              "text": "farid",
+              "reviews": 115
+            }
+          ],
+          "isNearbyResult": false
+        },
+        "pairedItem": {
+          "item": 0
+        }
+      },
+      {
+        "json": {
+          "id": "730137",
+          "type": "HOTEL",
+          "category": "hotel",
+          "subcategories": [
+            "Hotel"
+          ],
+          "name": "The Fern Residency Pune, Woodland, Series by Marriott",
+          "locationString": "Pune, Pune District, Maharashtra",
+          "description": "With pocket friendly solutions and 87, 3-star equivalent rooms, Woodland is located minutes away from the Pune railway station. It has all the major restaurants, entertainment centres and transport hubs in its vicinity. This makes it a perfect choice for businessmen, students and travellers who come into the city for a brief period of time. Its convenient location also makes it a perfect choice to organize meetings and seminars. This coupled with a comfortable, yet affordable stay Woodland brings you the best of both worlds",
+          "image": "https://media-cdn.tripadvisor.com/media/photo-m/1280/2f/9b/bb/1d/caption.jpg",
+          "photoCount": 70,
+          "rankingPosition": 36,
+          "rating": 4.7,
+          "rawRanking": 4.619150161743164,
+          "phone": "0018446310595",
+          "address": "BJ Road Sadhu Vaswani Circle, Near Pune Raily Station Sadhu Vaswani Circle, Near Pune Railway Station, Pune 411001 India",
+          "addressObj": {
+            "street1": "BJ Road Sadhu Vaswani Circle, Near Pune Raily Station ",
+            "street2": "Sadhu Vaswani Circle, Near Pune Railway Station",
+            "city": "Pune",
+            "state": "Maharashtra",
+            "country": "India",
+            "postalcode": "411001"
+          },
+          "localName": "The Fern Residency Pune, Woodland, Series by Marriott",
+          "localAddress": "BJ Road Sadhu Vaswani Circle, Near Pune Raily Station, Sadhu Vaswani Circle, Near Pune Railway Station, 411001",
+          "localLangCode": "en-IN",
+          "email": "gm.fr.woodland@fernhotels.com",
+          "latitude": 18.52498,
+          "longitude": 73.87456,
+          "webUrl": "https://www.tripadvisor.com/Hotel_Review-g297654-d730137-Reviews-The_Fern_Residency_Pune_Woodland_Series_by_Marriott-Pune_Pune_District_Maharashtra.html",
+          "website": "https://www.marriott.com/en-us/hotels/pnqrw-the-fern-residency-pune-woodland-series/overview/",
+          "rankingString": "#36 of 1,230 hotels in Pune",
+          "rankingDenominator": "1230",
+          "rankingSource": "API",
+          "neighborhoodLocations": [],
+          "nearestMetroStations": [],
+          "ancestorLocations": [
+            {
+              "id": "297654",
+              "name": "Pune",
+              "abbreviation": null,
+              "subcategory": "City"
+            },
+            {
+              "id": "12400025",
+              "name": "Pune District",
+              "abbreviation": null,
+              "subcategory": "District"
+            },
+            {
+              "id": "297648",
+              "name": "Maharashtra",
+              "abbreviation": null,
+              "subcategory": "State"
+            },
+            {
+              "id": "293860",
+              "name": "India",
+              "abbreviation": null,
+              "subcategory": "Country"
+            }
+          ],
+          "ratingHistogram": {
+            "count1": 3,
+            "count2": 0,
+            "count3": 6,
+            "count4": 35,
+            "count5": 190
+          },
+          "numberOfReviews": 234,
+          "hotelClass": "3.0",
+          "hotelClassAttribution": "This property is classified according to Giata.",
+          "amenities": [
+            "Room service",
+            "Free parking",
+            "Restaurant",
+            "Dry Cleaning",
+            "Laundry Service",
+            "Air conditioning",
+            "Multilingual Staff",
+            "Safe",
+            "Flatscreen TV",
+            "Breakfast Buffet",
+            "Baggage Storage",
+            "Bath / Shower",
+            "Bottled Water",
+            "Breakfast in the Room",
+            "Coffee / Tea Maker",
+            "English",
+            "Complimentary Toiletries",
+            "24-Hour Front Desk",
+            "Hindi",
+            "Newspaper",
+            "24-Hour Security",
+            "Internet",
+            "Suites",
+            "Free Internet",
+            "Wheelchair access",
+            "Wifi",
+            "Free Wifi",
+            "Breakfast included",
+            "Meeting rooms",
+            "Non-smoking rooms",
+            "Business center",
+            "Concierge",
+            "Non-smoking hotel",
+            "Parking",
+            "Housekeeping",
+            "Bathrobes",
+            "Coffee Shop"
+          ],
+          "priceLevel": "₹",
+          "priceRange": "₹4,108 - ₹5,843",
+          "roomTips": [
+            {
+              "user": null,
+              "type": "room_tip",
+              "text": "Very clean and comfortable rooms.\nFriendly, helpful staff who make check-ins and stays smooth.\n",
+              "rating": "4",
+              "reviewId": "1047127893",
+              "id": "1047127893",
+              "createdTime": "2026-01-23T18:43:32-05:00"
+            },
+            {
+              "user": null,
+              "type": "room_tip",
+              "text": "Contact number are very helpful location also near and central of city so you can rich very easily to the hotel and it was a very amazing ex",
+              "rating": "4",
+              "reviewId": "1046519513",
+              "id": "1046519513",
+              "createdTime": "2026-01-18T07:43:45-05:00"
+            },
+            {
+              "user": null,
+              "type": "room_tip",
+              "text": "It is located in center of city, very near to railway station. ",
+              "rating": "5",
+              "reviewId": "1044378998",
+              "id": "1044378998",
+              "createdTime": "2025-12-31T03:55:07-05:00"
+            },
+            {
+              "user": null,
+              "type": "room_tip",
+              "text": "Rooms need little more cleanliness \nShould be sprayed as  saw some cockroges\n",
+              "rating": "5",
+              "reviewId": "1043299437",
+              "id": "1043299437",
+              "createdTime": "2025-12-21T19:18:13-05:00"
+            },
+            {
+              "user": null,
+              "type": "room_tip",
+              "text": "Keep it up ",
+              "rating": "5",
+              "reviewId": "1043111213",
+              "id": "1043111213",
+              "createdTime": "2025-12-20T03:04:47-05:00"
+            }
+          ],
+          "checkInDate": "2026-02-04",
+          "checkOutDate": "2026-02-05",
+          "numberOfRooms": 87,
+          "categoryReviewScores": [
+            {
+              "categoryName": "Location",
+              "score": 4.796875,
+              "roundedScore": 4.8
+            },
+            {
+              "categoryName": "Rooms",
+              "score": 4.6328125,
+              "roundedScore": 4.6
+            },
+            {
+              "categoryName": "Value",
+              "score": 4.6328125,
+              "roundedScore": 4.6
+            },
+            {
+              "categoryName": "Cleanliness",
+              "score": 4.7637796,
+              "roundedScore": 4.8
+            },
+            {
+              "categoryName": "Service",
+              "score": 4.7559056,
+              "roundedScore": 4.8
+            },
+            {
+              "categoryName": "Sleep Quality",
+              "score": 4.6904764,
+              "roundedScore": 4.7
+            }
+          ],
+          "aiReviewsSummary": null,
+          "whatsAppRedirectUrl": null,
+          "photos": [],
+          "travelerChoiceAward": null,
+          "offers": [
+            {
+              "pricePerNight": 43,
+              "tax": 2,
+              "priceText": "$44",
+              "taxesAndFeesText": null,
+              "totalStayPriceText": null,
+              "priceBeforeSale": null,
+              "provider": "BookingCom",
+              "vendor": "Booking.com",
+              "canPayInInstallments": false
+            }
+          ],
+          "reviewTags": [],
+          "isNearbyResult": false
+        },
+        "pairedItem": {
+          "item": 0
+        }
+      },
+      {
+        "json": {
+          "id": "589858",
+          "type": "HOTEL",
+          "category": "hotel",
+          "subcategories": [
+            "Hotel"
+          ],
+          "name": "E-Square The Fern Pune, Series by Marriott",
+          "locationString": "Pune, Pune District, Maharashtra",
+          "description": "INTRODUCTION:The E-SQUARE Hotel is a charming little hotel that's big on style. Unlike the sameness of everyday hotels, our themed rooms coupled with warm attentive service combine to create a stylish escape that one can consider home! Located at E-SQUARE Multiplex in the University area, the Hotel is 12 km from Lohegaon Airport and 5 km from the Pune Railway station. The Hotel is also in close driving proximity of Business Districts of Pune - 5 minutes from Senapati Bapat Road, JM Road & FC Road, 15 minutes from Koregaon Park, MG Road & Camp and amidst malls like Pune Central, Westside, Shopper's Stop etc. The Hotel is boutique property with rooms in the following categories: Boutique, Deluxe, Superior, Suite. GST Extra. The above rates are INCLUSIVE of the following: • Complimentary Buffet Breakfast.• Free WI FI Internet Connections.• Use of RECHARGE - The Gym and Swimming pool.• 1 Bottle of Packaged Drinking Water replenished daily.• Electric Tea / Coffee Maker with replenishments",
+          "image": "https://media-cdn.tripadvisor.com/media/photo-m/1280/32/2a/22/0f/exterior-day.jpg",
+          "photoCount": 425,
+          "rankingPosition": 13,
+          "rating": 4.6,
+          "rawRanking": 4.816226959228516,
+          "phone": "0018446310595",
+          "address": "133a, University Road, Ganeshkhind Ganeshkhind, Shivaji Nagar, Pune 411016 India",
+          "addressObj": {
+            "street1": "133a, University Road, Ganeshkhind",
+            "street2": "Ganeshkhind, Shivaji Nagar",
+            "city": "Pune",
+            "state": "Maharashtra",
+            "country": "India",
+            "postalcode": "411016"
+          },
+          "localName": "E-Square The Fern Pune, Series by Marriott",
+          "localAddress": "133a, University Road, Ganeshkhind, Ganeshkhind, Shivaji Nagar, 411016",
+          "localLangCode": "en-IN",
+          "email": "fom.tf.esquare@fernhotels.com",
+          "latitude": 18.5204,
+          "longitude": 73.8562,
+          "webUrl": "https://www.tripadvisor.com/Hotel_Review-g297654-d589858-Reviews-E_Square_The_Fern_Pune_Series_by_Marriott-Pune_Pune_District_Maharashtra.html",
+          "website": "https://www.marriott.com/en-us/hotels/pnqfe-e-square-the-fern-pune-series-/overview/",
+          "rankingString": "#13 of 1,230 hotels in Pune",
+          "rankingDenominator": "1230",
+          "rankingSource": "API",
+          "neighborhoodLocations": [],
+          "nearestMetroStations": [],
+          "ancestorLocations": [
+            {
+              "id": "297654",
+              "name": "Pune",
+              "abbreviation": null,
+              "subcategory": "City"
+            },
+            {
+              "id": "12400025",
+              "name": "Pune District",
+              "abbreviation": null,
+              "subcategory": "District"
+            },
+            {
+              "id": "297648",
+              "name": "Maharashtra",
+              "abbreviation": null,
+              "subcategory": "State"
+            },
+            {
+              "id": "293860",
+              "name": "India",
+              "abbreviation": null,
+              "subcategory": "Country"
+            }
+          ],
+          "ratingHistogram": {
+            "count1": 23,
+            "count2": 16,
+            "count3": 65,
+            "count4": 188,
+            "count5": 777
+          },
+          "numberOfReviews": 1069,
+          "hotelClass": "3.5",
+          "hotelClassAttribution": "This property is classified according to Giata.",
+          "amenities": [
+            "Internet",
+            "Free Internet",
+            "Wifi",
+            "Free Wifi",
+            "Pool",
+            "Free parking",
+            "Meeting rooms",
+            "Business center",
+            "Fitness center",
+            "Room service",
+            "Non-smoking rooms",
+            "Laundry Service",
+            "Concierge",
+            "Banquet Room",
+            "Kids Activities",
+            "Suites",
+            "Wheelchair access",
+            "Restaurant",
+            "Bar/Lounge",
+            "Spa",
+            "Airport transportation",
+            "Breakfast included",
+            "Dry Cleaning",
+            "Air conditioning",
+            "Multilingual Staff",
+            "Accessible rooms",
+            "Minibar",
+            "Conference Facilities",
+            "Safe",
+            "Rooftop Pool",
+            "Flatscreen TV",
+            "Breakfast Buffet",
+            "Outdoor pool",
+            "Kids Stay Free",
+            "Baggage Storage",
+            "Car Hire",
+            "Doorperson",
+            "English",
+            "24-Hour Front Desk",
+            "Hindi",
+            "Ironing Service",
+            "Newspaper",
+            "24-Hour Security",
+            "Shoeshine",
+            "Taxi Service",
+            "Family Rooms",
+            "Smoking rooms available",
+            "Breakfast Available"
+          ],
+          "priceLevel": "₹₹",
+          "priceRange": "₹7,760 - ₹18,623",
+          "roomTips": [
+            {
+              "user": null,
+              "type": "room_tip",
+              "text": "The lift might take a bit more than you expect, and the buffet closes by 9.50 am ",
+              "rating": "5",
+              "reviewId": "1040692303",
+              "id": "1040692303",
+              "createdTime": "2025-11-28T18:35:05-05:00"
+            },
+            {
+              "user": null,
+              "type": "room_tip",
+              "text": "Its still getting into Marriot standards but it is still very good maintained and very great experience staying with them.",
+              "rating": "5",
+              "reviewId": "1038940942",
+              "id": "1038940942",
+              "createdTime": "2025-11-14T00:07:47-05:00"
+            },
+            {
+              "user": null,
+              "type": "room_tip",
+              "text": "Most of the amenities mentioned are not available ",
+              "rating": "1",
+              "reviewId": "1025485169",
+              "id": "1025485169",
+              "createdTime": "2025-08-19T02:56:50-04:00"
+            },
+            {
+              "user": null,
+              "type": "room_tip",
+              "text": "Parking or drop in is little confusing as it is in a mall on 5th floor",
+              "rating": "5",
+              "reviewId": "1020516411",
+              "id": "1020516411",
+              "createdTime": "2025-07-23T19:49:49-04:00"
+            },
+            {
+              "user": null,
+              "type": "room_tip",
+              "text": "Mr Swapnil for room service was great!",
+              "rating": "4",
+              "reviewId": "1016927480",
+              "id": "1016927480",
+              "createdTime": "2025-07-06T22:55:00-04:00"
+            }
+          ],
+          "checkInDate": "2026-02-04",
+          "checkOutDate": "2026-02-05",
+          "numberOfRooms": 55,
+          "categoryReviewScores": [
+            {
+              "categoryName": "Location",
+              "score": 4.6065574,
+              "roundedScore": 4.6
+            },
+            {
+              "categoryName": "Rooms",
+              "score": 4.4350877,
+              "roundedScore": 4.4
+            },
+            {
+              "categoryName": "Value",
+              "score": 4.5783895999999995,
+              "roundedScore": 4.6
+            },
+            {
+              "categoryName": "Cleanliness",
+              "score": 4.579861,
+              "roundedScore": 4.6
+            },
+            {
+              "categoryName": "Service",
+              "score": 4.4540815,
+              "roundedScore": 4.5
+            },
+            {
+              "categoryName": "Sleep Quality",
+              "score": 4.445833,
+              "roundedScore": 4.4
+            }
+          ],
+          "aiReviewsSummary": null,
+          "whatsAppRedirectUrl": null,
+          "photos": [],
+          "travelerChoiceAward": null,
+          "offers": [
+            {
+              "pricePerNight": 115,
+              "tax": 21,
+              "priceText": "$115",
+              "taxesAndFeesText": null,
+              "totalStayPriceText": null,
+              "priceBeforeSale": null,
+              "provider": "MakeMyTrip",
+              "vendor": "MakeMyTrip",
+              "canPayInInstallments": false
+            },
+            {
+              "pricePerNight": 114,
+              "tax": 20,
+              "priceText": "$115",
+              "taxesAndFeesText": null,
+              "totalStayPriceText": null,
+              "priceBeforeSale": null,
+              "provider": "BookingCom",
+              "vendor": "Booking.com",
+              "canPayInInstallments": false
+            },
+            {
+              "pricePerNight": 115,
+              "tax": 20,
+              "priceText": "$115",
+              "taxesAndFeesText": null,
+              "totalStayPriceText": null,
+              "priceBeforeSale": null,
+              "provider": "Marriott1",
+              "vendor": "Marriott",
+              "canPayInInstallments": false
+            },
+            {
+              "pricePerNight": 115,
+              "tax": 20,
+              "priceText": "$115",
+              "taxesAndFeesText": null,
+              "totalStayPriceText": null,
+              "priceBeforeSale": null,
+              "provider": "Skyscanner",
+              "vendor": "Skyscanner",
+              "canPayInInstallments": false
+            },
+            {
+              "pricePerNight": 115,
+              "tax": 20,
+              "priceText": "$115",
+              "taxesAndFeesText": null,
+              "totalStayPriceText": null,
+              "priceBeforeSale": null,
+              "provider": "Expedia",
+              "vendor": "Expedia",
+              "canPayInInstallments": false
+            },
+            {
+              "pricePerNight": 114,
+              "tax": 20,
+              "priceText": "$115",
+              "taxesAndFeesText": null,
+              "totalStayPriceText": null,
+              "priceBeforeSale": null,
+              "provider": "HotelsCom2",
+              "vendor": "Hotels.com",
+              "canPayInInstallments": false
+            },
+            {
+              "pricePerNight": 114,
+              "tax": 20,
+              "priceText": "$115",
+              "taxesAndFeesText": null,
+              "totalStayPriceText": null,
+              "priceBeforeSale": null,
+              "provider": "Agoda",
+              "vendor": "Agoda.com",
+              "canPayInInstallments": false
+            },
+            {
+              "pricePerNight": 115,
+              "tax": 20,
+              "priceText": "$115",
+              "taxesAndFeesText": null,
+              "totalStayPriceText": null,
+              "priceBeforeSale": null,
+              "provider": "Goibibo",
+              "vendor": "goibibo.com",
+              "canPayInInstallments": false
+            }
+          ],
+          "reviewTags": [
+            {
+              "text": "university road",
+              "reviews": 7
+            },
+            {
+              "text": "shivaji nagar",
+              "reviews": 11
+            },
+            {
+              "text": "swimming pool",
+              "reviews": 28
+            },
+            {
+              "text": "room service",
+              "reviews": 31
+            },
+            {
+              "text": "excellent experience",
+              "reviews": 11
+            },
+            {
+              "text": "excellent service",
+              "reviews": 25
+            },
+            {
+              "text": "comfortable stay",
+              "reviews": 19
+            },
+            {
+              "text": "rooms are spacious",
+              "reviews": 14
+            },
+            {
+              "text": "food quality",
+              "reviews": 13
+            },
+            {
+              "text": "housekeeping staff",
+              "reviews": 11
+            },
+            {
+              "text": "f b",
+              "reviews": 9
+            },
+            {
+              "text": "house keeping",
+              "reviews": 11
+            },
+            {
+              "text": "restaurant staff",
+              "reviews": 7
+            },
+            {
+              "text": "great hospitality",
+              "reviews": 9
+            },
+            {
+              "text": "business trip",
+              "reviews": 13
+            },
+            {
+              "text": "his team",
+              "reviews": 8
+            },
+            {
+              "text": "special thanks",
+              "reviews": 15
+            },
+            {
+              "text": "breakfast spread",
+              "reviews": 8
+            },
+            {
+              "text": "front office",
+              "reviews": 7
+            },
+            {
+              "text": "special mention",
+              "reviews": 8
+            },
+            {
+              "text": "fern",
+              "reviews": 77
+            },
+            {
+              "text": "multiplex",
+              "reviews": 49
+            },
+            {
+              "text": "gokul",
+              "reviews": 28
+            },
+            {
+              "text": "wok",
+              "reviews": 18
+            },
+            {
+              "text": "mr",
+              "reviews": 51
+            },
+            {
+              "text": "services",
+              "reviews": 49
+            },
+            {
+              "text": "aarti",
+              "reviews": 8
+            },
+            {
+              "text": "shivajinagar",
+              "reviews": 7
+            },
+            {
+              "text": "cooperative",
+              "reviews": 28
+            },
+            {
+              "text": "gym",
+              "reviews": 25
+            }
+          ],
+          "isNearbyResult": false
+        },
+        "pairedItem": {
+          "item": 0
+        }
+      }
+    ]
+  },
+  "connections": {
+    "TripAdvisor Scraper": {
+      "main": [
+        [
+          {
+            "node": "Append row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Search Field",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Search Field": {
+      "main": [
+        [
+          {
+            "node": "TripAdvisor Scraper",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "f8a59e49-1c40-422c-9351-5bfda1076fa5",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "e99e0d1157c9445a053edb1d8bcb3c19869f806f2b50808813faa4f314de9dd4"
+  },
+  "id": "AxdnHhP84JNqFCB2",
+  "tags": []
+}
