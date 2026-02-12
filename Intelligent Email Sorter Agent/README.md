@@ -67,7 +67,8 @@ Copy and paste this into your Structured Output Parser node:
 
 ### Required Headers
 
-Please make a copy of this sheet - [Email Sorter](https://docs.google.com/spreadsheets/d/12DGj6emdR8Mjaf_ZGJBEHWeSXaKCNaBFKPxvZhdqQ5M/edit?usp=sharing)
+Please make a copy of this sheet - https://docs.google.com/spreadsheets/d/1ErjipanwlId2WF4xJ4SMw-56QTGqsURYNbOEURRSuBg/edit?gid=0#gid=0
+
 
 ---
 
@@ -247,7 +248,7 @@ Copy and paste this into your Structured Output Parser node:
 
 ### Required Headers
 
-Please make a copy of this sheet - [Email Sorter](https://docs.google.com/spreadsheets/d/12DGj6emdR8Mjaf_ZGJBEHWeSXaKCNaBFKPxvZhdqQ5M/edit?usp=sharing)
+Please make a copy of the earlier sheet
 
 ---
 
