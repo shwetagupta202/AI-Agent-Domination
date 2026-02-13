@@ -4,6 +4,25 @@
 This workflow uses an AI Agent with Google Sheets tool access to automatically categorize and log all incoming emails directly to a spreadsheet.
 
 ---
+## Real-World Use Cases
+
+**Inbox Prioritization**
+Automatically classifies incoming emails and highlights only those that require a response.
+
+**Sales Lead Filtering**
+Identifies sales-related emails, marks urgency, and suggests quick replies to respond faster to hot leads.
+
+**Support Email Triage**
+Detects support requests, categorizes priority, and logs them for easy tracking and follow-ups.
+
+**Founder / Coach Email Assistant**
+Filters out newsletters and low-priority emails so founders focus only on actionable conversations.
+
+**Shared Team Inbox Management**
+Logs all response-required emails in Google Sheets, creating visibility and accountability for teams.
+
+**Email Activity Logging**
+Maintains a structured record of important emails with sender details, category, and AI-suggested responses.
 
 ## Workflow Diagram
 
