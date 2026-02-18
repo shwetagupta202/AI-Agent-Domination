@@ -118,3 +118,4 @@ STYLE
 ALTER TABLE documents_google
 ALTER COLUMN embedding TYPE vector(3072);
 ```
+Also use the latest json from this github: SG_RAG Agent_24_7 Intelligent Assistant of Company_new18Feb.json
