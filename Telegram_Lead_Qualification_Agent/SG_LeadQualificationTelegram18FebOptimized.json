@@ -1,0 +1,496 @@
+{
+  "name": "SG_LeadQualificationTelegram18FebOptimized",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "## System 1 - Capture Lead Details",
+        "height": 784,
+        "width": 880
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        0,
+        0
+      ],
+      "typeVersion": 1,
+      "id": "4959019d-7137-4aa4-9e6a-77b026bc5286",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "content": "## System 2 - Store & Score Leads\n\nMake a copy of this sheet: https://docs.google.com/spreadsheets/d/1TaaLfezJ62eiJ9cvWR2tXTjeG-NgxXiez2n6zpPbsMM/edit?gid=0#gid=0",
+        "height": 784,
+        "width": 880
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        896,
+        0
+      ],
+      "typeVersion": 1,
+      "id": "a1be7b1e-3ca5-4f1c-8875-9a692640412a",
+      "name": "Sticky Note1"
+    },
+    {
+      "parameters": {
+        "updates": [
+          "message"
+        ],
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        96,
+        256
+      ],
+      "id": "0fa72fd8-626d-45a4-b736-2340d905f8bc",
+      "name": "Telegram Trigger",
+      "webhookId": "ace27729-fd3c-4969-9601-e5bd5bde9b40",
+      "credentials": {
+        "telegramApi": {
+          "id": "7Ejz7zJIq3UTv1ZW",
+          "name": "SG Telegram demo Bot"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=You are a friendly sales assistant collecting lead information via Telegram and qualifying leads using BANT criteria.\n\nCURRENT USER MESSAGE: {{ $('Telegram Trigger').item.json.message.text }}\nUSER ID: {{ $('Telegram Trigger').item.json.message.chat.id }}\nUSER NAME: {{ $('Telegram Trigger').item.json.message.from.first_name }}\n\nANALYZE MEMORY:\nCheck if you already have: name, email, budget, timeline, authority from previous messages.\n\nCONVERSATION FLOW:\n1. If no name in memory → Ask: \"Hi {{ $('Telegram Trigger').item.json.message.from.first_name }}! I'm here to help you learn about our AI services. What's your email address?\"\n\n2. If have name but no email → Ask: \"What's your email address?\"\n\n3. If have email but no budget → Ask: \"What's your budget range for AI automation?\n   A) Under $1,000/month\n   B) $1,000-$5,000/month  \n   C) $5,000+/month\n   D) Not sure yet\"\n\n4. If have budget but no timeline → Ask: \"When are you looking to get started?\n   A) This month\n   B) Next 2-3 months\n   C) Later this year\n   D) Just exploring\"\n\n5. If have timeline but no authority → Ask: \"Can you make the buying decision for your company?\n   A) Yes, I decide\n   B) I decide with others\n   C) I need approval\n   D) Just gathering info\"\n\n6. If have ALL info → \"Thanks! We've got everything. Someone will reach out soon.\"\n\n7. If user choses a response which is not among the available options. Tell this \"This option is not available. Please chose among the below options\" and append the respective question again which was answered incorrectly\n\n\nEXTRACT FULL RESPONSES (not just letters):\n- Budget: Convert A→\"Under $1,000/month\", B→\"$1,000-$5,000/month\", C→\"$5,000+/month\", D→\"Not sure yet\"\n- Timeline: Convert A→\"This month\", B→\"Next 2-3 months\", C→\"Later this year\", D→\"Just exploring\"  \n- Authority: Convert A→\"Yes, I decide\", B→\"I decide with others\", C→\"I need approval\", D→\"Just gathering info\"\n\nRESPONSE FORMAT:\nIf missing any info:\n{\n  \"message\": \"your next question\",\n  \"conversation_status\": \"ongoing\",\n  \"name\": \"{{ $('Telegram Trigger').item.json.message.from.first_name }}\",\n  \"email\": \"extracted email or empty\",\n  \"budget\": \"full budget text or empty\", \n  \"timeline\": \"full timeline text or empty\",\n  \"authority\": \"full authority text or empty\"\n}\n\nIf have ALL 5 fields:\n{\n  \"message\": \"Thanks! We've got everything. Someone will reach out soon.\",\n  \"conversation_status\": \"complete\",\n  \"name\": \"{{ $('Telegram Trigger').item.json.message.from.first_name }}\",\n  \"email\": \"email address\",\n  \"budget\": \"Under $1,000/month\",\n  \"timeline\": \"This month\",\n  \"authority\": \"Yes, I decide\", \n  \"lead_type\": \"HOT LEAD\",\n  \"score\": 23,\n  \"reasoning\": \"High urgency timeline (this month) and full decision authority make this a hot lead despite smaller budget. Ready to move fast with clear buying authority.\",\n  \"next_steps\": \"Contact within 24 hours with budget-appropriate solution. Focus on quick wins and ROI for smaller budget segment.\"\n}\n\nResponse:\n\n",
+        "hasOutputParser": true,
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3,
+      "position": [
+        304,
+        256
+      ],
+      "id": "1ae6b692-38d1-4de7-928d-cddc5703c62c",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        128,
+        464
+      ],
+      "id": "1a9b835d-8ad7-4f5b-80e1-9032307228c9",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "p5hxeYZcLwpy0hRn",
+          "name": "SG_GoogleGemini_New"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ $json.message.chat.id }}"
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        320,
+        464
+      ],
+      "id": "bec0d180-b95e-455d-8459-f81cfc0a4371",
+      "name": "Simple Memory"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "bbf236f7-eb96-43cc-be4f-173395d6afb4",
+              "leftValue": "={{ $json.output.conversation_status }}",
+              "rightValue": "complete",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        960,
+        304
+      ],
+      "id": "4f784553-ef28-4fe9-85b9-3d2a9738bc5b",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "jsonSchemaExample": "{\n  \"message\": \"Hi there! What's your name?\",\n  \"conversation_status\": \"ongoing\",\n  \"name\": \"John Doe\",\n  \"email\": \"john@example.com\",\n  \"budget\": \"B) $1K-$5K\",\n  \"timeline\": \"A) This month\",\n  \"authority\": \"A) Yes, I decide\",\n  \"lead_type\": \"HOT LEAD\",\n  \"score\": 8,\n  \"reasoning\": \"Good budget and timeline\",\n  \"next_steps\": \"Call within 24 hours\"\n}",
+        "autoFix": true
+      },
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1.3,
+      "position": [
+        480,
+        464
+      ],
+      "id": "3aafa947-3f32-48ac-8007-156c577e4aa6",
+      "name": "Structured Output Parser"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        416,
+        624
+      ],
+      "id": "be07eb5f-3df3-4882-8591-d68f48b3f481",
+      "name": "Google Gemini Chat Model1",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "p5hxeYZcLwpy0hRn",
+          "name": "SG_GoogleGemini_New"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1TaaLfezJ62eiJ9cvWR2tXTjeG-NgxXiez2n6zpPbsMM",
+          "mode": "list",
+          "cachedResultName": "Telegram Lead Qualification Agent",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1TaaLfezJ62eiJ9cvWR2tXTjeG-NgxXiez2n6zpPbsMM/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1TaaLfezJ62eiJ9cvWR2tXTjeG-NgxXiez2n6zpPbsMM/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Name": "={{ $('AI Agent').item.json.output.name }}",
+            "Email": "={{ $('AI Agent').item.json.output.email }}",
+            "Budget": "={{ $('AI Agent').item.json.output.budget }}",
+            "Timeline": "={{ $('AI Agent').item.json.output.timeline }}",
+            "Decision Maker": "={{ $('AI Agent').item.json.output.authority }}",
+            "Lead type": "={{ $('AI Agent').item.json.output.lead_type }}",
+            "Score": "={{ $('AI Agent').item.json.output.score }}",
+            "Reasoning": "={{ $('AI Agent').item.json.output.reasoning }}",
+            "Next Steps": "={{ $('AI Agent').item.json.output.next_steps }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Name",
+              "displayName": "Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Email",
+              "displayName": "Email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Budget",
+              "displayName": "Budget",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Timeline",
+              "displayName": "Timeline",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Decision Maker",
+              "displayName": "Decision Maker",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Lead type",
+              "displayName": "Lead type",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Score",
+              "displayName": "Score",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Reasoning",
+              "displayName": "Reasoning",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Next Steps",
+              "displayName": "Next Steps",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        1168,
+        208
+      ],
+      "id": "5aee3c59-9a69-4302-8f64-9376590ffaae",
+      "name": "Append row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "swHN4rGGgv0MH5qi",
+          "name": "SG Techie Google Sheets account 5"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
+        "text": "={{ $('AI Agent').item.json.output.message }}",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        1168,
+        400
+      ],
+      "id": "0c7569ba-ca23-4ec7-8f4b-5caf22ab4f5f",
+      "name": "Send a text message",
+      "webhookId": "8f1a0ffa-fe75-437a-9d7d-75abe8823349",
+      "credentials": {
+        "telegramApi": {
+          "id": "7Ejz7zJIq3UTv1ZW",
+          "name": "SG Telegram demo Bot"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Trigger').item.json.message.chat.id }}",
+        "text": "Thank you for providing your details. Our team will reach for an appointment under 72 hours. ",
+        "additionalFields": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        1376,
+        208
+      ],
+      "id": "5845f35f-db55-46ba-8827-b1d21b18d946",
+      "name": "Send a text message1",
+      "webhookId": "79b523a8-0d68-4f00-9a9d-24c98d25f024",
+      "credentials": {
+        "telegramApi": {
+          "id": "7Ejz7zJIq3UTv1ZW",
+          "name": "SG Telegram demo Bot"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": "google/gemini-2.5-flash-lite-preview-09-2025",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
+      "typeVersion": 1,
+      "position": [
+        224,
+        448
+      ],
+      "id": "931d78a5-97de-4469-b8e8-c595a3e3dd41",
+      "name": "OpenRouter Chat Model",
+      "credentials": {
+        "openRouterApi": {
+          "id": "3aTZ2WWqyMZk5JGs",
+          "name": "SG OpenRouter account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Telegram Trigger": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Structured Output Parser": {
+      "ai_outputParser": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_outputParser",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Structured Output Parser",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "Append row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Send a text message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append row in sheet": {
+      "main": [
+        [
+          {
+            "node": "Send a text message1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenRouter Chat Model": {
+      "ai_languageModel": [
+        []
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "timeSavedMode": "fixed",
+    "saveDataErrorExecution": "all",
+    "saveDataSuccessExecution": "all",
+    "saveManualExecutions": false,
+    "callerPolicy": "workflowsFromSameOwner",
+    "availableInMCP": false,
+    "binaryMode": "separate"
+  },
+  "versionId": "4ffd0db6-d42f-4b72-b495-4af5c424a15c",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "e99e0d1157c9445a053edb1d8bcb3c19869f806f2b50808813faa4f314de9dd4"
+  },
+  "id": "pjsEiKqx4At4ywjb",
+  "tags": []
+}
