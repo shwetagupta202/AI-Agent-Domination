@@ -114,6 +114,7 @@ STYLE
 
 **Note**: If Data loading is an issue, it might be the case that table is created in Supabase with 768 embedding for Gemini but from n8n it sends embedding as 3072, so we would need to alter the table embedding in SQL editor using below query:
 
-'
+```
 ALTER TABLE documents_google
-ALTER COLUMN embedding TYPE vector(3072); '
+ALTER COLUMN embedding TYPE vector(3072);
+```
