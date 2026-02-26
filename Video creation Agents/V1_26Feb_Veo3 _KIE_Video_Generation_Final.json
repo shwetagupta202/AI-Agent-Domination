@@ -1,0 +1,901 @@
+{
+  "name": "SG_26Feb_Veo3 _KIE_Video_Generation_Final",
+  "nodes": [
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.kie.ai/api/v1/veo/generate",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "prompt",
+              "value": "={{ $json.prompt }}"
+            },
+            {
+              "name": "model",
+              "value": "={{ $json.model }}"
+            },
+            {
+              "name": "aspectRatio",
+              "value": "={{ $json.aspectRatio }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "dd41ff6c-8217-4539-a0fc-42e18a371f23",
+      "name": "Generate Video with VEO3",
+      "type": "n8n-nodes-base.httpRequest",
+      "position": [
+        112,
+        1264
+      ],
+      "typeVersion": 4.2,
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "BWkcIgFnKsCzyxRe",
+          "name": "SG KIE VEO3"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "amount": 30
+      },
+      "id": "a942d742-1fe3-4c4c-8361-4723bf5484c0",
+      "name": "Wait for VEO3 Rendering",
+      "type": "n8n-nodes-base.wait",
+      "position": [
+        336,
+        1264
+      ],
+      "webhookId": "dd46e5d8-8a15-425b-997a-e6df224f58f2",
+      "typeVersion": 1.1
+    },
+    {
+      "parameters": {
+        "url": "https://api.kie.ai/api/v1/veo/record-info",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "taskId",
+              "value": "={{ $json.data.taskId }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "678254ca-1579-4e8e-8ab0-34ff4a47f80b",
+      "name": "Download Video from VEO3",
+      "type": "n8n-nodes-base.httpRequest",
+      "position": [
+        608,
+        1264
+      ],
+      "typeVersion": 4.2,
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "BWkcIgFnKsCzyxRe",
+          "name": "SG KIE VEO3"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "1HaO1LDA3oJM-049iZCCjMwD_GhgbVWnrdOdLK70GUuA",
+          "mode": "list",
+          "cachedResultName": "20260209_Youtube_Content",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1HaO1LDA3oJM-049iZCCjMwD_GhgbVWnrdOdLK70GUuA/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "YouTube",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1HaO1LDA3oJM-049iZCCjMwD_GhgbVWnrdOdLK70GUuA/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "videoLink": "={{ $json.data.response.resultUrls[0] }}",
+            "videoStatus": "={{ $json.msg }}",
+            "Title": "={{ $('Format Prompt').item.json.title }}"
+          },
+          "matchingColumns": [
+            "Title"
+          ],
+          "schema": [
+            {
+              "id": "Title",
+              "displayName": "Title",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "video_script",
+              "displayName": "video_script",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Scene 1",
+              "displayName": "Scene 1",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Scene 2",
+              "displayName": "Scene 2",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Scene 3",
+              "displayName": "Scene 3",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Scene 4",
+              "displayName": "Scene 4",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "style",
+              "displayName": "style",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "caption",
+              "displayName": "caption",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "music",
+              "displayName": "music",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "videoStatus",
+              "displayName": "videoStatus",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "publishStatus",
+              "displayName": "publishStatus",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "videoLink",
+              "displayName": "videoLink",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "id": "3ead524a-1c68-44d0-a2d6-948163ee39f9",
+      "name": "Save Caption Video to Google Sheets",
+      "type": "n8n-nodes-base.googleSheets",
+      "position": [
+        816,
+        1264
+      ],
+      "typeVersion": 4.6,
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "swHN4rGGgv0MH5qi",
+          "name": "SG Techie Google Sheets account 5"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "return {\n  json: {\n    prompt: JSON.stringify($input.first().json.scene), // this escapes it correctly!\n    model: \"veo3_fast\",\n    aspectRatio: \"9:16\",\n    title: $('Webhook').first().json.body.rowValues[0]['0']\n  }\n};\n"
+      },
+      "id": "0b1930a3-3a49-4f6e-901c-4a8b0a42aa83",
+      "name": "Format Prompt",
+      "type": "n8n-nodes-base.code",
+      "position": [
+        752,
+        752
+      ],
+      "typeVersion": 2
+    },
+    {
+      "parameters": {
+        "content": "# 📑 STEP 2 — Generate Video Ad Script",
+        "height": 460,
+        "width": 1180
+      },
+      "id": "8a505aad-1b80-4eff-b8e5-699ff17e09a8",
+      "name": "Sticky Note2",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        0,
+        640
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "content": "# 📑 STEP 3 — Generate Video with VEO3",
+        "height": 480,
+        "width": 1180
+      },
+      "id": "48f6f50d-ab64-4674-b23d-c8dd008fdfeb",
+      "name": "Sticky Note4",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        0,
+        1152
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "content": "# 📑 STEP 1 — Collect Idea & Image",
+        "height": 592,
+        "width": 1184
+      },
+      "id": "20868952-0175-49e9-b833-530432075f5e",
+      "name": "Sticky Note",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        0,
+        0
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1HaO1LDA3oJM-049iZCCjMwD_GhgbVWnrdOdLK70GUuA",
+          "mode": "list",
+          "cachedResultName": "20260209_Youtube_Content",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1HaO1LDA3oJM-049iZCCjMwD_GhgbVWnrdOdLK70GUuA/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "YouTube",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1HaO1LDA3oJM-049iZCCjMwD_GhgbVWnrdOdLK70GUuA/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "video_script": "={{ $('Write Video Script').first().json.output.video_script }}",
+            "style": "={{ $('Write Video Script').first().json.output.style }}",
+            "caption": "={{ $('Write Video Script').first().json.output.caption }}",
+            "Scene 1": "={{ $json.output.scene1 }}",
+            "Scene 2": "={{ $json.output.scene2 }}",
+            "Scene 3": "={{ $json.output.scene3 }}",
+            "Scene 4": "={{ $json.output.scene4 }}",
+            "row_number": 0,
+            "Title": "={{ $json.output.title }}",
+            "music": "={{ $json.output.music }}"
+          },
+          "matchingColumns": [
+            "Title"
+          ],
+          "schema": [
+            {
+              "id": "Title",
+              "displayName": "Title",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "video_script",
+              "displayName": "video_script",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Scene 1",
+              "displayName": "Scene 1",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Scene 2",
+              "displayName": "Scene 2",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Scene 3",
+              "displayName": "Scene 3",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Scene 4",
+              "displayName": "Scene 4",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "style",
+              "displayName": "style",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "caption",
+              "displayName": "caption",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "music",
+              "displayName": "music",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "videoStatus",
+              "displayName": "videoStatus",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "publishStatus",
+              "displayName": "publishStatus",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "videoLink",
+              "displayName": "videoLink",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        976,
+        160
+      ],
+      "id": "d4afda8b-0bfc-4740-a598-40f1ab2e3d07",
+      "name": "Youtube shorts",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "swHN4rGGgv0MH5qi",
+          "name": "SG Techie Google Sheets account 5"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $('Webhook').item.json.body.value }}",
+        "hasOutputParser": true,
+        "options": {
+          "systemMessage": "=You are a professional video scriptwriter.\n\nYour task is to generate a 6-8seconds instagram video script** for the given Instagram Short title. This script must:\n\n1. Be exactly between 6-8seconds long.\n2. Each scene must be exactly 2 seconds long, There will be a video that is exactly 2 seconds long generated to overlay over this 2 second script.\n3. Be formatted as a single line of narration under the field `video_script`.\n4. Clearly explain the concept in the title.\n5. Be spoken naturally under 8 seconds.\n6. Be split into 3 or 4 short scene descriptions, one for each visual moment.\n7. Include a `style` (5-10 words), music(5-6words) and a `caption` (6 words).\n\nIf the title contains a number (e.g. \"3 AI Tools…\"), use this exact intro format:\n**\"Here are [#] [things] you can [do] with just [X]\"**\n\nUse **numerals (1, 2, 3...)** when listing.\n\nIf there's no number, make sure to turn the video into a list of 3. For instance, turn \"online AI jobs\" into \"top 3 online AI jobs\", so it's a listicle of 3.\n\n---\n\n### Example Input\nTitle: `Top 3 AI Tools for AI Agents in 2026`\n\n### Example Output Format (JSON):\n\n```json\n{\n  \"title\": \"Top 3 AI Tools for AI Agents in 2026\",\n  \"video_script\": \"Create a short viral Instagram Reel (8 seconds max, vertical 9:16).A cute, happy dog reacting excitedly to floating AI tool names.\",\n  \"scene1\": \"0-2s Cute dog appears instantly,Big bold text pops in:“Top 3 AI Tools for AI Agents 🤖”\",\n  \"scene2\": \"2-4s Text pops one by one with bounce animation:“n8n”,“LangChain”,“AutoGen”\",\n  \"scene3\": \"4-6s Dog looks excited / wagging tail, Text flashes: “Build AI Agents Faster 🚀”\"\n  \"scene4\": \"6-8s Final CTA text:“Follow for AI Hacks”\",\n  \"style\": \"style: Bright, playful, viral internet style, High contrast captions, Smooth but fast transitions\"\n  \"music\": \"music: Fast, upbeat reel-style background music\"\n  \"caption\": \"caption: Try these proven 3 AI Tools\"\n  \n  \n}\n\nIMPORTANT: Only generate output if script length is 6-8seconds of prompt. This is mandatory. If not, retry until the script falls in this range. Do not stop early.\n\n\nThis version gives the AI no wiggle room, enforces your strict length range, and includes clear output structure — which should eliminate early stopping. \n"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.8,
+      "position": [
+        576,
+        160
+      ],
+      "id": "6c52450d-2612-46cf-a087-29b332e1a5ce",
+      "name": "Write Video Script",
+      "retryOnFail": true,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "name": "Calculator",
+        "description": "Use this tool to calculate the length of the video_script",
+        "jsCode": "// Example: calculate the length of the incoming query and return it\nreturn query.length"
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolCode",
+      "typeVersion": 1.1,
+      "position": [
+        656,
+        384
+      ],
+      "id": "1c2707ef-7d8c-41b7-bf09-c0254186b3c8",
+      "name": "Calculator Code"
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "b0fee791-6796-4778-87ff-e901f2d86f04",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        96,
+        160
+      ],
+      "id": "a0935806-77b5-4761-9b74-590043414d6b",
+      "name": "Webhook",
+      "webhookId": "b0fee791-6796-4778-87ff-e901f2d86f04"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "5a15fb38-52eb-40be-a63a-c527ef0eda55",
+              "leftValue": "={{ $json.body.range.columnStart }}",
+              "rightValue": 1,
+              "operator": {
+                "type": "number",
+                "operation": "equals"
+              }
+            },
+            {
+              "id": "b2b4620b-8721-457d-94e8-f0c670fecfae",
+              "leftValue": "={{ $json.body.value }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "exists",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2.2,
+      "position": [
+        320,
+        160
+      ],
+      "id": "c8943e57-aacb-4563-bc39-fcae42d6da35",
+      "name": "Filter"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        432,
+        368
+      ],
+      "id": "8f5b2570-56d2-4891-8f5c-6a669f7ac100",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "p5hxeYZcLwpy0hRn",
+          "name": "SG_GoogleGemini_New"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsonSchemaExample": "\n{\n  \"title\": \"The Cafe's Small Big Win\",\n  \"video_script\": \"Jim stacks coffee cups behind the busy counter, the morning rush in full swing. A regular shows him a smartphone screen, Jim squints at it, curious. Jim scans a QR code on a small stand he sets up next to the register. Later, Jim smiles as customers easily pay and leave happy.\",\n  \"scene1\":\"scene1\",\n  \"scene2\":\"scene2\",\n  \"scene3\":\"scene3\",\n  \"scene4\":\"scene4\",\n  \"style\": \"Cafe Business Upgrade\",\n  \"music\": \"Fast, upbeat reel-style background music\",\n  \"caption\": \"One small idea transformed his morning rush.\"\n}\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t"
+      },
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1.2,
+      "position": [
+        880,
+        384
+      ],
+      "id": "ab900792-42b4-4df2-b16b-64d041be3f5b",
+      "name": "Structured Output Parser1"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "5a15fb38-52eb-40be-a63a-c527ef0eda55",
+              "leftValue": "={{ $json.body.range.columnStart }}",
+              "rightValue": 10,
+              "operator": {
+                "type": "number",
+                "operation": "equals"
+              }
+            },
+            {
+              "id": "b2b4620b-8721-457d-94e8-f0c670fecfae",
+              "leftValue": "={{ $json.body.value }}",
+              "rightValue": "To Do",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2.2,
+      "position": [
+        272,
+        752
+      ],
+      "id": "10a4638c-e516-40af-9135-5411e05fe1b4",
+      "name": "Filter1"
+    },
+    {
+      "parameters": {
+        "jsCode": "const item = $input.first(); // Assuming you're working with just one row\nconst prompt = [\n  $('Webhook').first().json.body.rowValues[0]['1'],\n  $('Webhook').first().json.body.rowValues[0]['2'],\n  $('Webhook').first().json.body.rowValues[0]['3'],\n  $('Webhook').first().json.body.rowValues[0]['4'],\n  $('Webhook').first().json.body.rowValues[0]['5'],\n  $('Webhook').first().json.body.rowValues[0]['6'],\n  $('Webhook').first().json.body.rowValues[0]['7'],\n  $('Webhook').first().json.body.rowValues[0]['8']\n];\nreturn prompt.map((scene) => ({\n  json: {\n    scene: `${prompt}`.replace(/[\"']/g, '') // Removes all \" and '\n  }\n}));\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        512,
+        752
+      ],
+      "id": "781c3444-71a7-49e6-963b-7d658fa69c76",
+      "name": "Prompt_to_array"
+    }
+  ],
+  "pinData": {
+    "Write Video Script": [
+      {
+        "json": {
+          "output": {
+            "title": "3 Best AI training companies",
+            "video_script": "Here are 3 AI training companies to upgrade your skills: Coursera, Udacity, and DeepLearning.AI. Start your AI journey today!",
+            "scene1": "0-2s Dynamic intro. Bold text '3 Best AI Training Companies' appears with modern animations.",
+            "scene2": "2-4s Text: '1. Coursera' with a quick visual of diverse AI courses on their platform.",
+            "scene3": "4-6s Text: '2. Udacity' and '3. DeepLearning.AI' appear sequentially, showcasing their interfaces/logos.",
+            "scene4": "6-8s Engaging call to action text: 'Start Your AI Journey Today! Follow for More!'",
+            "style": "Modern, educational, fast-paced, professional, clean design, vibrant text.",
+            "music": "Upbeat, motivational, tech-inspired background music.",
+            "caption": "Upgrade your AI skills today!"
+          }
+        },
+        "pairedItem": {
+          "item": 0
+        }
+      }
+    ],
+    "Generate Video with VEO3": [
+      {
+        "json": {
+          "code": 200,
+          "msg": "success",
+          "data": {
+            "taskId": "f9b20645d12aed32dbc130081080ba9a"
+          }
+        },
+        "pairedItem": {
+          "item": 0
+        }
+      }
+    ],
+    "Download Video from VEO3": [
+      {
+        "json": {
+          "code": 200,
+          "msg": "success",
+          "data": {
+            "taskId": "b1b59a54c0e049f9bdb2ee4cd618ade1",
+            "paramJson": "{\"aspectRatio\":\"16:9\",\"enableFallback\":false,\"enableTranslation\":true,\"model\":\"veo3_fast\",\"prompt\":\"\\\"Create a cinematic 5 second video of A cat dancing in an office\\\"\"}",
+            "response": {
+              "taskId": "b1b59a54c0e049f9bdb2ee4cd618ade1",
+              "resolution": "720p",
+              "originUrls": null,
+              "resultUrls": [
+                "https://tempfile.aiquickdraw.com/v/b1b59a54c0e049f9bdb2ee4cd618ade1_1771829352.mp4"
+              ],
+              "hasAudioList": [
+                true
+              ],
+              "seeds": [
+                59152
+              ]
+            },
+            "successFlag": 1,
+            "fallbackFlag": false,
+            "completeTime": 1771829355000,
+            "createTime": 1771829194000,
+            "errorCode": null,
+            "errorMessage": null
+          }
+        },
+        "pairedItem": {
+          "item": 0
+        }
+      }
+    ]
+  },
+  "connections": {
+    "Generate Video with VEO3": {
+      "main": [
+        [
+          {
+            "node": "Wait for VEO3 Rendering",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait for VEO3 Rendering": {
+      "main": [
+        [
+          {
+            "node": "Download Video from VEO3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Download Video from VEO3": {
+      "main": [
+        [
+          {
+            "node": "Save Caption Video to Google Sheets",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Format Prompt": {
+      "main": [
+        [
+          {
+            "node": "Generate Video with VEO3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Write Video Script": {
+      "main": [
+        [
+          {
+            "node": "Youtube shorts",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Calculator Code": {
+      "ai_tool": [
+        [
+          {
+            "node": "Write Video Script",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Filter",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Filter1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filter": {
+      "main": [
+        [
+          {
+            "node": "Write Video Script",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Write Video Script",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Structured Output Parser1": {
+      "ai_outputParser": [
+        [
+          {
+            "node": "Write Video Script",
+            "type": "ai_outputParser",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filter1": {
+      "main": [
+        [
+          {
+            "node": "Prompt_to_array",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prompt_to_array": {
+      "main": [
+        [
+          {
+            "node": "Format Prompt",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "c372c2ea-8e33-42e0-b26c-9a7ecb3738c4",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "e99e0d1157c9445a053edb1d8bcb3c19869f806f2b50808813faa4f314de9dd4"
+  },
+  "id": "xCr0rozauMLnrBHuVLnkK",
+  "tags": []
+}
