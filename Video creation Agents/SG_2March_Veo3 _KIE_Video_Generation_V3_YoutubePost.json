@@ -1,0 +1,384 @@
+{
+  "name": "SG_2March_Veo3 _KIE_Video_Generation_V3_YoutubePost",
+  "nodes": [
+    {
+      "parameters": {
+        "url": "https://api.kie.ai/api/v1/veo/record-info",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "taskId",
+              "value": "=b1b59a54c0e049f9bdb2ee4cd618ade1"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "1ff0b1b0-f812-4ad0-ab5e-8e1fa68aa083",
+      "name": "Download Video from VEO3",
+      "type": "n8n-nodes-base.httpRequest",
+      "position": [
+        32,
+        1344
+      ],
+      "typeVersion": 4.2,
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "BWkcIgFnKsCzyxRe",
+          "name": "SG KIE VEO3"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "# 📑  Upload Kie Video to YouTube- As Private",
+        "height": 400,
+        "width": 1580
+      },
+      "id": "19df99fe-02f6-43ba-a3fb-c75c1c43a668",
+      "name": "Sticky Note4",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -400,
+        1152
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "resource": "video",
+        "operation": "upload",
+        "title": "={{ $('Through Kie Video').item.json.Prompt }}",
+        "regionCode": "IN",
+        "categoryId": "27",
+        "options": {
+          "description": "={{ $('Through Kie Video').item.json.Description }}",
+          "privacyStatus": "private",
+          "tags": "[\"AI\", \"AI Agents\", \"Automation\", \"IT Careers\"]"
+        }
+      },
+      "type": "n8n-nodes-base.youTube",
+      "typeVersion": 1,
+      "position": [
+        944,
+        1344
+      ],
+      "id": "2037459a-f0dc-48a6-84a2-2771ee6efac3",
+      "name": "Upload a video",
+      "credentials": {
+        "youTubeOAuth2Api": {
+          "id": "fYJNIZ7jeSBhKfBu",
+          "name": "SG Techie YouTube account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "formTitle": "Video Creation",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "Prompt",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Aspect Ratio",
+              "fieldType": "dropdown",
+              "fieldOptions": {
+                "values": [
+                  {
+                    "option": "9:16"
+                  },
+                  {
+                    "option": "16:9"
+                  }
+                ]
+              }
+            },
+            {
+              "fieldLabel": "Model",
+              "fieldType": "dropdown",
+              "fieldOptions": {
+                "values": [
+                  {
+                    "option": "veo3_fast"
+                  },
+                  {
+                    "option": "fast"
+                  }
+                ]
+              }
+            },
+            {
+              "fieldLabel": "Description"
+            }
+          ]
+        },
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.5,
+      "position": [
+        -288,
+        1344
+      ],
+      "id": "58e80d72-846c-47fd-9b82-d74ed914ee61",
+      "name": "Through Kie Video",
+      "webhookId": "51fca621-6713-4c16-9325-0f19bd64339e"
+    },
+    {
+      "parameters": {
+        "url": "={{ $json.data.response.resultUrls[0] }}",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "file"
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        448,
+        1344
+      ],
+      "id": "bc34b054-93f4-4f4a-a851-a0e8a55d8cb0",
+      "name": "Get Binary Data from Video"
+    },
+    {
+      "parameters": {
+        "content": "# 📑  Upload Google Drive Video to YouTube- As Private",
+        "height": 512,
+        "width": 1580
+      },
+      "id": "446cf4c0-28b6-4649-9460-41fa298f1d3d",
+      "name": "Sticky Note",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -400,
+        1600
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "operation": "download",
+        "fileId": {
+          "__rl": true,
+          "value": "1OjwjeNb4H8Wp_dZMJs81Ptg2iymz4uZH",
+          "mode": "list",
+          "cachedResultName": "Video_Generation_With_Automation_Tool.mp4",
+          "cachedResultUrl": "https://drive.google.com/file/d/1OjwjeNb4H8Wp_dZMJs81Ptg2iymz4uZH/view?usp=drivesdk"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        272,
+        1792
+      ],
+      "id": "b9cd13f2-a3c2-4cb2-8717-2608456ee9bc",
+      "name": "Download file",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "BgbeHwrXaNKyzbvh",
+          "name": "SG_Techie_Drive"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "formTitle": "Video Creation",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "Prompt",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Aspect Ratio",
+              "fieldType": "dropdown",
+              "fieldOptions": {
+                "values": [
+                  {
+                    "option": "9:16"
+                  },
+                  {
+                    "option": "16:9"
+                  }
+                ]
+              }
+            },
+            {
+              "fieldLabel": "Model",
+              "fieldType": "dropdown",
+              "fieldOptions": {
+                "values": [
+                  {
+                    "option": "veo3_fast"
+                  },
+                  {
+                    "option": "fast"
+                  }
+                ]
+              }
+            },
+            {
+              "fieldLabel": "Description"
+            }
+          ]
+        },
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.5,
+      "position": [
+        -160,
+        1792
+      ],
+      "id": "144c6ae8-71c1-4434-9427-1d1e70aaeb46",
+      "name": "Through Google Drive",
+      "webhookId": "5b15463c-036e-456e-8778-d81a8c7576bf"
+    },
+    {
+      "parameters": {
+        "resource": "video",
+        "operation": "upload",
+        "title": "={{ $('Through Google Drive').item.json.Prompt }}",
+        "regionCode": "IN",
+        "categoryId": "27",
+        "options": {
+          "description": "={{ $('Through Google Drive').item.json.Description }}",
+          "privacyStatus": "private",
+          "tags": "[\"AI\", \"AI Agents\", \"Automation\", \"IT Careers\"]"
+        }
+      },
+      "type": "n8n-nodes-base.youTube",
+      "typeVersion": 1,
+      "position": [
+        960,
+        1792
+      ],
+      "id": "53804323-5f12-4c0a-b88c-667cbfa624d8",
+      "name": "Upload a video1",
+      "credentials": {
+        "youTubeOAuth2Api": {
+          "id": "fYJNIZ7jeSBhKfBu",
+          "name": "SG Techie YouTube account"
+        }
+      }
+    }
+  ],
+  "pinData": {
+    "Through Kie Video": [
+      {
+        "json": {
+          "Prompt": "Sign up with any of these AI Companies for Upskilling! 🚀",
+          "Aspect Ratio": "16:9",
+          "Model": "veo3_fast",
+          "Description": "👇 Ready to build your first AI Agent? ",
+          "submittedAt": "2026-03-04T07:18:37.681-05:00",
+          "formMode": "test"
+        }
+      }
+    ],
+    "Through Google Drive": [
+      {
+        "json": {
+          "Prompt": "Stop Doing Busy Work: Automate Your Business with n8n! 🚀",
+          "Aspect Ratio": "16:9",
+          "Model": "veo3_fast",
+          "Description": "👇 Ready to build your first AI Agent? I’m hosting a deep-dive session where I show you exactly how to set this up from scratch.  🔗 Join my free AI Agents Workshop for more details",
+          "submittedAt": "2026-03-04T07:18:37.681-05:00",
+          "formMode": "test"
+        }
+      }
+    ]
+  },
+  "connections": {
+    "Download Video from VEO3": {
+      "main": [
+        [
+          {
+            "node": "Get Binary Data from Video",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Through Kie Video": {
+      "main": [
+        [
+          {
+            "node": "Download Video from VEO3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Binary Data from Video": {
+      "main": [
+        [
+          {
+            "node": "Upload a video",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Download file": {
+      "main": [
+        [
+          {
+            "node": "Upload a video1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Through Google Drive": {
+      "main": [
+        [
+          {
+            "node": "Download file",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "7ae126f5-5cbd-4e4e-8eec-ac546fc9265f",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "e99e0d1157c9445a053edb1d8bcb3c19869f806f2b50808813faa4f314de9dd4"
+  },
+  "id": "WM00vhr3aafdsiQ0",
+  "tags": [
+    {
+      "updatedAt": "2025-11-01T17:53:32.390Z",
+      "createdAt": "2025-11-01T17:53:32.390Z",
+      "id": "ng1dgEloOm3KOCuS",
+      "name": "SG"
+    }
+  ]
+}
