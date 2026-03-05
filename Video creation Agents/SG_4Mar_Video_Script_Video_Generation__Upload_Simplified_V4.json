@@ -1,0 +1,1011 @@
+{
+  "name": "SG_4Mar_Video_Script_Video_Generation__Upload_Simplified_V4",
+  "nodes": [
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.kie.ai/api/v1/veo/generate",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "prompt",
+              "value": "={{ $json.prompt }}"
+            },
+            {
+              "name": "model",
+              "value": "={{ $json.model }}"
+            },
+            {
+              "name": "aspectRatio",
+              "value": "={{ $json['aspect ratio'] }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "6b202b86-aaed-491b-ac73-53e8e49ebe54",
+      "name": "Generate Video with VEO3",
+      "type": "n8n-nodes-base.httpRequest",
+      "position": [
+        112,
+        1264
+      ],
+      "typeVersion": 4.2,
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "BWkcIgFnKsCzyxRe",
+          "name": "SG KIE VEO3"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "amount": 30
+      },
+      "id": "654b55ae-4974-4597-952a-b3e2d1ca1122",
+      "name": "Wait for VEO3 Rendering",
+      "type": "n8n-nodes-base.wait",
+      "position": [
+        336,
+        1264
+      ],
+      "webhookId": "da46b69c-0a17-46d3-817b-8605685e0de1",
+      "typeVersion": 1.1
+    },
+    {
+      "parameters": {
+        "url": "https://api.kie.ai/api/v1/veo/record-info",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "taskId",
+              "value": "={{ $json.data.taskId }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "82fa536c-dd5b-4ec8-b510-1b4835f2237f",
+      "name": "Download Video from VEO3",
+      "type": "n8n-nodes-base.httpRequest",
+      "position": [
+        512,
+        1264
+      ],
+      "typeVersion": 4.2,
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "BWkcIgFnKsCzyxRe",
+          "name": "SG KIE VEO3"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "appendOrUpdate",
+        "documentId": {
+          "__rl": true,
+          "value": "1HaO1LDA3oJM-049iZCCjMwD_GhgbVWnrdOdLK70GUuA",
+          "mode": "list",
+          "cachedResultName": "20260209_Youtube_Content",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1HaO1LDA3oJM-049iZCCjMwD_GhgbVWnrdOdLK70GUuA/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "YouTube",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1HaO1LDA3oJM-049iZCCjMwD_GhgbVWnrdOdLK70GUuA/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "videoLink": "={{ $json.data.response.resultUrls[0] }}",
+            "videoStatus": "={{ $json.msg }}",
+            "Title": "={{ $('Format Prompt').item.json.title }}"
+          },
+          "matchingColumns": [
+            "Title"
+          ],
+          "schema": [
+            {
+              "id": "Title",
+              "displayName": "Title",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "video_script",
+              "displayName": "video_script",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Scene 1",
+              "displayName": "Scene 1",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Scene 2",
+              "displayName": "Scene 2",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Scene 3",
+              "displayName": "Scene 3",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Scene 4",
+              "displayName": "Scene 4",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "style",
+              "displayName": "style",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "caption",
+              "displayName": "caption",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "music",
+              "displayName": "music",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "videoStatus",
+              "displayName": "videoStatus",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "publishStatus",
+              "displayName": "publishStatus",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "videoLink",
+              "displayName": "videoLink",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "id": "9a88f58a-90a9-489c-8fe3-24034a65db21",
+      "name": "Save Caption Video to Google Sheets",
+      "type": "n8n-nodes-base.googleSheets",
+      "position": [
+        656,
+        1264
+      ],
+      "typeVersion": 4.6,
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "swHN4rGGgv0MH5qi",
+          "name": "SG Techie Google Sheets account 5"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "return {\n  json: {\n    prompt: JSON.stringify($input.first().json.scene), // this escapes it correctly!\n    model: \"veo3_fast\",\n    aspectRatio: \"9:16\",\n    title: $('Filter1').first().json.Title\n  }\n};\n"
+      },
+      "id": "b1e65c65-a77d-48c1-b9f1-a69294c00585",
+      "name": "Format Prompt",
+      "type": "n8n-nodes-base.code",
+      "position": [
+        752,
+        752
+      ],
+      "typeVersion": 2
+    },
+    {
+      "parameters": {
+        "content": "# 📑 STEP 2 — Generate Full Video Ad Script",
+        "height": 460,
+        "width": 1180
+      },
+      "id": "ed77cd42-c31b-4375-9044-8ee7cff70a3c",
+      "name": "Sticky Note2",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        0,
+        640
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "content": "# 📑 STEP 3 — Generate Video with VEO3 and upload to Youtube",
+        "height": 480,
+        "width": 1180
+      },
+      "id": "5856614d-6955-4cfe-8f79-4d9410efcfb8",
+      "name": "Sticky Note4",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        0,
+        1152
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "content": "# 📑 STEP 1 — Collect Idea & Create script\n",
+        "height": 592,
+        "width": 1184
+      },
+      "id": "05779695-8893-499a-97cd-b6cfc45ca6e8",
+      "name": "Sticky Note",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        0,
+        0
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1HaO1LDA3oJM-049iZCCjMwD_GhgbVWnrdOdLK70GUuA",
+          "mode": "list",
+          "cachedResultName": "20260209_Youtube_Content",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1HaO1LDA3oJM-049iZCCjMwD_GhgbVWnrdOdLK70GUuA/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "YouTube",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1HaO1LDA3oJM-049iZCCjMwD_GhgbVWnrdOdLK70GUuA/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "video_script": "={{ $('Write Video Script').first().json.output.video_script }}",
+            "style": "={{ $('Write Video Script').first().json.output.style }}",
+            "caption": "={{ $('Write Video Script').first().json.output.caption }}",
+            "Scene 1": "={{ $json.output.scene1 }}",
+            "Scene 2": "={{ $json.output.scene2 }}",
+            "Scene 3": "={{ $json.output.scene3 }}",
+            "row_number": 0,
+            "Title": "={{ $('Filter').item.json.Title }}",
+            "music": "={{ $json.output.music }}",
+            "videoStatus": "To Do"
+          },
+          "matchingColumns": [
+            "Title"
+          ],
+          "schema": [
+            {
+              "id": "Title",
+              "displayName": "Title",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "video_script",
+              "displayName": "video_script",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Scene 1",
+              "displayName": "Scene 1",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Scene 2",
+              "displayName": "Scene 2",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Scene 3",
+              "displayName": "Scene 3",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "style",
+              "displayName": "style",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "caption",
+              "displayName": "caption",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "music",
+              "displayName": "music",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "videoStatus",
+              "displayName": "videoStatus",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "publishStatus",
+              "displayName": "publishStatus",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "videoLink",
+              "displayName": "videoLink",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "number",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        976,
+        160
+      ],
+      "id": "d6ff1879-8418-40c2-be55-4914731d0e51",
+      "name": "Youtube shorts",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "swHN4rGGgv0MH5qi",
+          "name": "SG Techie Google Sheets account 5"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.Title }}",
+        "hasOutputParser": true,
+        "options": {
+          "systemMessage": "=You are a professional video scriptwriter.\n\nYour task is to generate a 6-8seconds instagram video script** for the given Instagram Short title. This script must:\n\n1. Be exactly between 6-8seconds long.\n2. Each scene must be exactly 2-3 seconds long\n3. Be formatted as a single line of narration under the field `video_script`.\n4. Clearly explain the concept in the title.\n5. Be spoken naturally under 8 seconds.\n6. Be split into 3 short scene descriptions, one for each visual moment.\n7. Include a `style` (5-10 words), music(5-6words) and a `caption` (6 words).\n\nIf the title contains a number (e.g. \"3 AI Tools…\"), use this exact intro format:\n**\"Here are [#] [things] you can [do] with just [X]\"**\n\nUse **numerals (1, 2, 3...)** when listing.\n\nIf there's no number, make sure to turn the video into a list of 3. For instance, turn \"online AI jobs\" into \"top 3 online AI jobs\", so it's a listicle of 3.\n\n---\n\n### Example Input\nTitle: `Top 3 AI Tools for AI Agents in 2026`\n\n### Example Output Format (JSON):\n\n```json\n{\n  \"video_script\": \"Create a short viral Instagram Reel (8 seconds max, vertical 9:16).A cute, happy dog reacting excitedly to floating AI tool names.\",\n  \"scene1\": \"0-3s Cute dog appears instantly,Big bold text pops in:“Top 3 AI Tools for AI Agents 🤖”\",\n  \"scene2\": \"3-6s Text pops one by one with bounce animation:“n8n”,“LangChain”,“AutoGen”\",\n  \"scene3\": \"6-8s Final CTA text:“Follow for AI Hacks”\",\n  \"style\": \"style: Bright, playful, viral internet style, High contrast captions, Smooth but fast transitions\"\n  \"music\": \"music: Fast, upbeat reel-style background music\"\n  \"caption\": \"caption: Try these proven 3 AI Tools\"\n  \n  \n}\n\nIMPORTANT: Only generate output if script length is 6-8seconds of prompt. This is mandatory. If not, retry until the script falls in this range. Do not stop early."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.8,
+      "position": [
+        576,
+        160
+      ],
+      "id": "0d71f8bf-b919-4107-bae5-ce91953cef86",
+      "name": "Write Video Script",
+      "retryOnFail": true,
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "name": "Calculator",
+        "description": "Use this tool to calculate the length of the video_script",
+        "jsCode": "// Example: calculate the length of the incoming query and return it\nreturn query.length"
+      },
+      "type": "@n8n/n8n-nodes-langchain.toolCode",
+      "typeVersion": 1.1,
+      "position": [
+        656,
+        384
+      ],
+      "id": "03747b52-87f8-4240-993d-18d8171f9397",
+      "name": "Calculator Code"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "b2b4620b-8721-457d-94e8-f0c670fecfae",
+              "leftValue": "={{ $json.Title }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "notEmpty",
+                "singleValue": true
+              }
+            },
+            {
+              "id": "81fe475c-7b44-4017-b412-9edd1d293bf7",
+              "leftValue": "={{ $json.video_script }}",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "empty",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2.2,
+      "position": [
+        320,
+        160
+      ],
+      "id": "62d2202a-f08d-4ae6-8082-3401f7628b07",
+      "name": "Filter"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        432,
+        368
+      ],
+      "id": "169c5750-549f-48f3-952c-32e0bda471fc",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "p5hxeYZcLwpy0hRn",
+          "name": "SG_GoogleGemini_New"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsonSchemaExample": "\n{\n  \"video_script\": \"Jim stacks coffee cups behind the busy counter, the morning rush in full swing. A regular shows him a smartphone screen, Jim squints at it, curious. Jim scans a QR code on a small stand he sets up next to the register. Later, Jim smiles as customers easily pay and leave happy.\",\n  \"scene1\":\"scene1\",\n  \"scene2\":\"scene2\",\n  \"scene3\":\"scene4\",\n  \"style\": \"Cafe Business Upgrade\",\n  \"music\": \"Fast, upbeat reel-style background music\",\n  \"caption\": \"One small idea transformed his morning rush.\"\n}\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t"
+      },
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1.2,
+      "position": [
+        880,
+        384
+      ],
+      "id": "27f7a132-54d5-4bcf-8a17-45373b61558c",
+      "name": "Structured Output Parser1"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "b2b4620b-8721-457d-94e8-f0c670fecfae",
+              "leftValue": "={{ $json.videoStatus }}",
+              "rightValue": "To Do",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2.2,
+      "position": [
+        272,
+        752
+      ],
+      "id": "64588a95-9669-4be1-a33b-ee412a625ac7",
+      "name": "Filter1"
+    },
+    {
+      "parameters": {
+        "jsCode": "const item = $input.first(); // Assuming you're working with just one row\nconst prompt = [\n  $input.first().json.video_script,\n  $input.first().json['Scene 1'],\n  $input.first().json['Scene 2'],\n  $input.first().json['Scene 4'],\n  $input.first().json.style,\n  $input.first().json.caption,\n  $input.first().json.music  \n];\nreturn prompt.map((scene) => ({\n  json: {\n    scene: `${prompt}`.replace(/[\"']/g, '') // Removes all \" and '\n  }\n}));\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        512,
+        752
+      ],
+      "id": "cd739f24-eace-47d5-b174-bb34f85feb6e",
+      "name": "Prompt_to_array"
+    },
+    {
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyMinute"
+            }
+          ]
+        },
+        "documentId": {
+          "__rl": true,
+          "value": "1HaO1LDA3oJM-049iZCCjMwD_GhgbVWnrdOdLK70GUuA",
+          "mode": "list",
+          "cachedResultName": "20260209_Youtube_Content",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1HaO1LDA3oJM-049iZCCjMwD_GhgbVWnrdOdLK70GUuA/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "YouTube",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1HaO1LDA3oJM-049iZCCjMwD_GhgbVWnrdOdLK70GUuA/edit#gid=0"
+        },
+        "options": {
+          "columnsToWatch": [
+            "Title"
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.googleSheetsTrigger",
+      "typeVersion": 1,
+      "position": [
+        64,
+        160
+      ],
+      "id": "492e122f-1adf-40ea-a007-83c15b7e29ba",
+      "name": "Google Sheets Trigger",
+      "credentials": {
+        "googleSheetsTriggerOAuth2Api": {
+          "id": "8xLnKAe8G3e03OyE",
+          "name": "SG Techie Sheet Trigger"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyMinute"
+            }
+          ]
+        },
+        "documentId": {
+          "__rl": true,
+          "value": "1HaO1LDA3oJM-049iZCCjMwD_GhgbVWnrdOdLK70GUuA",
+          "mode": "list",
+          "cachedResultName": "20260209_Youtube_Content",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1HaO1LDA3oJM-049iZCCjMwD_GhgbVWnrdOdLK70GUuA/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "YouTube",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1HaO1LDA3oJM-049iZCCjMwD_GhgbVWnrdOdLK70GUuA/edit#gid=0"
+        },
+        "options": {
+          "columnsToWatch": [
+            "videoStatus"
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.googleSheetsTrigger",
+      "typeVersion": 1,
+      "position": [
+        64,
+        752
+      ],
+      "id": "6c0c4009-dea5-4e4c-9af9-615c62b7bde2",
+      "name": "Google Sheets Trigger1",
+      "credentials": {
+        "googleSheetsTriggerOAuth2Api": {
+          "id": "8xLnKAe8G3e03OyE",
+          "name": "SG Techie Sheet Trigger"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "url": "={{ $('Download Video from VEO3').item.json.data.response.resultUrls[0] }}",
+        "options": {
+          "response": {
+            "response": {
+              "responseFormat": "file"
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        832,
+        1264
+      ],
+      "id": "f4350541-15e3-4020-93cb-f203b8ac037e",
+      "name": "Get Binary Data from Video"
+    },
+    {
+      "parameters": {
+        "resource": "video",
+        "operation": "upload",
+        "title": "={{ $('Through Google Drive').item.json.Prompt }}",
+        "regionCode": "IN",
+        "categoryId": "27",
+        "options": {
+          "description": "={{ $('Through Google Drive').item.json.Description }}",
+          "privacyStatus": "private",
+          "tags": "[\"AI\", \"AI Agents\", \"Automation\", \"IT Careers\"]"
+        }
+      },
+      "type": "n8n-nodes-base.youTube",
+      "typeVersion": 1,
+      "position": [
+        1008,
+        1264
+      ],
+      "id": "e04b7c48-b4d8-4c96-85a2-199549e492c0",
+      "name": "Upload a video1",
+      "credentials": {
+        "youTubeOAuth2Api": {
+          "id": "fYJNIZ7jeSBhKfBu",
+          "name": "SG Techie YouTube account"
+        }
+      }
+    }
+  ],
+  "pinData": {
+    "Generate Video with VEO3": [
+      {
+        "json": {
+          "code": 200,
+          "msg": "success",
+          "data": {
+            "taskId": "f9b20645d12aed32dbc130081080ba9a"
+          }
+        },
+        "pairedItem": {
+          "item": 0
+        }
+      }
+    ],
+    "Download Video from VEO3": [
+      {
+        "json": {
+          "code": 200,
+          "msg": "success",
+          "data": {
+            "taskId": "b1b59a54c0e049f9bdb2ee4cd618ade1",
+            "paramJson": "{\"aspectRatio\":\"16:9\",\"enableFallback\":false,\"enableTranslation\":true,\"model\":\"veo3_fast\",\"prompt\":\"\\\"Create a cinematic 5 second video of A cat dancing in an office\\\"\"}",
+            "response": {
+              "taskId": "b1b59a54c0e049f9bdb2ee4cd618ade1",
+              "resolution": "720p",
+              "originUrls": null,
+              "resultUrls": [
+                "https://tempfile.aiquickdraw.com/v/b1b59a54c0e049f9bdb2ee4cd618ade1_1771829352.mp4"
+              ],
+              "hasAudioList": [
+                true
+              ],
+              "seeds": [
+                59152
+              ]
+            },
+            "successFlag": 1,
+            "fallbackFlag": false,
+            "completeTime": 1771829355000,
+            "createTime": 1771829194000,
+            "errorCode": null,
+            "errorMessage": null
+          }
+        },
+        "pairedItem": {
+          "item": 0
+        }
+      }
+    ]
+  },
+  "connections": {
+    "Generate Video with VEO3": {
+      "main": [
+        [
+          {
+            "node": "Wait for VEO3 Rendering",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait for VEO3 Rendering": {
+      "main": [
+        [
+          {
+            "node": "Download Video from VEO3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Download Video from VEO3": {
+      "main": [
+        [
+          {
+            "node": "Save Caption Video to Google Sheets",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Format Prompt": {
+      "main": [
+        [
+          {
+            "node": "Generate Video with VEO3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Write Video Script": {
+      "main": [
+        [
+          {
+            "node": "Youtube shorts",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Calculator Code": {
+      "ai_tool": [
+        [
+          {
+            "node": "Write Video Script",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filter": {
+      "main": [
+        [
+          {
+            "node": "Write Video Script",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Write Video Script",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Structured Output Parser1": {
+      "ai_outputParser": [
+        [
+          {
+            "node": "Write Video Script",
+            "type": "ai_outputParser",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filter1": {
+      "main": [
+        [
+          {
+            "node": "Prompt_to_array",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prompt_to_array": {
+      "main": [
+        [
+          {
+            "node": "Format Prompt",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Sheets Trigger": {
+      "main": [
+        [
+          {
+            "node": "Filter",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Sheets Trigger1": {
+      "main": [
+        [
+          {
+            "node": "Filter1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Save Caption Video to Google Sheets": {
+      "main": [
+        [
+          {
+            "node": "Get Binary Data from Video",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Binary Data from Video": {
+      "main": [
+        [
+          {
+            "node": "Upload a video1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "3803aa41-559a-4548-9127-29c143ced0ad",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "e99e0d1157c9445a053edb1d8bcb3c19869f806f2b50808813faa4f314de9dd4"
+  },
+  "id": "rFp14CJPdnyzDkeo",
+  "tags": []
+}
