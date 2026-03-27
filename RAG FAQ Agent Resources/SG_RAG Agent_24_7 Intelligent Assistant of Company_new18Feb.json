@@ -1,5 +1,5 @@
 {
-  "name": "SG_RAG Agent_24/7 Intelligent Assistant of Company",
+  "name": "SG_RAG Agent_24_7 Intelligent Assistant of Company_new18Feb",
   "nodes": [
     {
       "parameters": {
@@ -10,10 +10,10 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        0,
-        0
+        1680,
+        192
       ],
-      "id": "0412a56d-f8bc-413f-a320-bceed85c4891",
+      "id": "cfaeeade-d216-441d-a900-ef3eca09f1bb",
       "name": "Sticky Note"
     },
     {
@@ -25,10 +25,10 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        848,
-        0
+        2528,
+        192
       ],
-      "id": "e6c72af2-5211-497f-9d0e-9fcb91fcac99",
+      "id": "47021cc3-ef71-44d7-b624-97879ef0c135",
       "name": "Sticky Note1"
     },
     {
@@ -40,23 +40,24 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        0,
-        464
+        1680,
+        656
       ],
-      "id": "40ce2e1e-1c99-4643-b68c-8ce5f7dbf154",
+      "id": "77cd3a30-32e5-46e5-bc65-78d701679ea4",
       "name": "Sticky Note2"
     },
     {
       "parameters": {
+        "public": true,
         "options": {}
       },
       "type": "@n8n/n8n-nodes-langchain.chatTrigger",
       "typeVersion": 1.1,
       "position": [
-        64,
-        128
+        1744,
+        320
       ],
-      "id": "a587c2ae-58c6-44a6-911c-66b9cc1a1877",
+      "id": "3d88b03d-7881-4477-a59e-9305267e5cf1",
       "name": "When chat message received",
       "webhookId": "376cc252-c831-4033-bced-72aaa33de64f"
     },
@@ -69,10 +70,10 @@
       "type": "@n8n/n8n-nodes-langchain.agent",
       "typeVersion": 2.1,
       "position": [
-        320,
-        96
+        2000,
+        288
       ],
-      "id": "800ad05b-dc6f-4d3f-a881-25e5f9d21826",
+      "id": "873021ec-6410-4eab-8cf9-b5b65d8de0cc",
       "name": "AI Agent"
     },
     {
@@ -82,10 +83,10 @@
       "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
       "typeVersion": 1,
       "position": [
-        224,
-        288
+        1904,
+        480
       ],
-      "id": "df4f449a-6358-4b7b-8b08-cd91fe974216",
+      "id": "41f07d33-cf16-4018-96f7-6a604dfc0797",
       "name": "Google Gemini Chat Model",
       "credentials": {
         "googlePalmApi": {
@@ -99,10 +100,10 @@
       "type": "n8n-nodes-base.manualTrigger",
       "typeVersion": 1,
       "position": [
-        64,
-        640
+        1744,
+        832
       ],
-      "id": "4fdba089-8631-4b97-861a-4a7c26d17d7b",
+      "id": "e9b32370-2c34-471c-9503-bdf32ffb6308",
       "name": "When clicking ‘Execute workflow’"
     },
     {
@@ -121,10 +122,10 @@
       "type": "@n8n/n8n-nodes-langchain.vectorStoreSupabase",
       "typeVersion": 1.3,
       "position": [
-        960,
-        528
+        2640,
+        720
       ],
-      "id": "a5292c20-1707-4f59-b741-40f7442df642",
+      "id": "3ad4a1c1-f24d-4e81-a335-71c6456a9e05",
       "name": "Supabase Vector Store1",
       "credentials": {
         "supabaseApi": {
@@ -140,10 +141,10 @@
       "type": "@n8n/n8n-nodes-langchain.embeddingsGoogleGemini",
       "typeVersion": 1,
       "position": [
-        736,
-        720
+        2416,
+        912
       ],
-      "id": "436f93e0-87de-45b5-a878-a8f3dfcb43cc",
+      "id": "eaa3e1a0-bfa0-40c3-bfcc-ba1458ae0907",
       "name": "Embeddings Google Gemini1",
       "credentials": {
         "googlePalmApi": {
@@ -161,10 +162,10 @@
       "type": "@n8n/n8n-nodes-langchain.documentDefaultDataLoader",
       "typeVersion": 1.1,
       "position": [
-        976,
-        736
+        2656,
+        928
       ],
-      "id": "71aeae05-8632-4b8e-8ad4-d9a76f1507bd",
+      "id": "59445f4f-cb79-45b4-8909-a2b37959e38e",
       "name": "Default Data Loader"
     },
     {
@@ -172,10 +173,10 @@
       "type": "@n8n/n8n-nodes-langchain.toolVectorStore",
       "typeVersion": 1.1,
       "position": [
-        1088,
-        96
+        2768,
+        288
       ],
-      "id": "3e078a3b-9697-489d-8c8c-bb0b50fc1c66",
+      "id": "c9d222f8-f4b6-4daf-9157-ab8afa8cddaf",
       "name": "Answer questions with a vector store"
     },
     {
@@ -191,10 +192,10 @@
       "type": "@n8n/n8n-nodes-langchain.vectorStoreSupabase",
       "typeVersion": 1.3,
       "position": [
-        784,
-        288
+        2464,
+        480
       ],
-      "id": "c076bd53-ad07-4de2-87de-1ac0f51e5f28",
+      "id": "ec139cb1-349a-4726-a2fd-65cb45b53f38",
       "name": "Supabase Vector Store",
       "credentials": {
         "supabaseApi": {
@@ -210,10 +211,10 @@
       "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
       "typeVersion": 1,
       "position": [
-        1200,
-        288
+        2880,
+        480
       ],
-      "id": "50853175-3fbc-472e-a403-fe2de4a099ce",
+      "id": "e75b0923-cca1-4530-acbf-5c8ac727d552",
       "name": "Google Gemini Chat Model1",
       "credentials": {
         "googlePalmApi": {
@@ -223,14 +224,16 @@
       }
     },
     {
-      "parameters": {},
+      "parameters": {
+        "modelName": "models/gemini-embedding-001"
+      },
       "type": "@n8n/n8n-nodes-langchain.embeddingsGoogleGemini",
       "typeVersion": 1,
       "position": [
-        1056,
-        320
+        2736,
+        512
       ],
-      "id": "b81b2934-a2b4-4095-9a82-c502c4eb4696",
+      "id": "9b97e985-be07-47e7-9d70-2e3f9c60a539",
       "name": "Embeddings Google Gemini",
       "credentials": {
         "googlePalmApi": {
@@ -246,10 +249,10 @@
       "type": "@n8n/n8n-nodes-langchain.memoryPostgresChat",
       "typeVersion": 1.3,
       "position": [
-        416,
-        288
+        2096,
+        480
       ],
-      "id": "f23eafe3-14ac-455e-a499-25a389be3e6a",
+      "id": "838baa1a-9802-4da9-b063-3132fe79ac3b",
       "name": "SG Postgres Chat Memory",
       "credentials": {
         "postgres": {
@@ -273,10 +276,10 @@
       "type": "n8n-nodes-base.googleDrive",
       "typeVersion": 3,
       "position": [
-        496,
-        512
+        2176,
+        704
       ],
-      "id": "4527ae3b-3efd-43a6-a00c-8b55458c5958",
+      "id": "f3f15cde-5128-4b10-9895-80da45a254f7",
       "name": "Download file",
       "credentials": {
         "googleDriveOAuth2Api": {
@@ -294,10 +297,10 @@
       "type": "n8n-nodes-base.stickyNote",
       "typeVersion": 1,
       "position": [
-        0,
-        944
+        1680,
+        1136
       ],
-      "id": "02dd19fe-59f5-437f-9ad1-8461b1cedb50",
+      "id": "9ac9dcb0-af04-4046-9ab8-d0f10d9c8b9a",
       "name": "Sticky Note3"
     },
     {
@@ -316,10 +319,10 @@
       "type": "@n8n/n8n-nodes-langchain.vectorStoreSupabase",
       "typeVersion": 1.3,
       "position": [
-        960,
-        1008
+        2640,
+        1200
       ],
-      "id": "ec0bb614-e223-495f-8b35-128c222c084b",
+      "id": "71a79b30-9995-40c9-988b-deddec5cabef",
       "name": "Supabase Vector Store2",
       "credentials": {
         "supabaseApi": {
@@ -335,10 +338,10 @@
       "type": "@n8n/n8n-nodes-langchain.embeddingsGoogleGemini",
       "typeVersion": 1,
       "position": [
-        736,
-        1200
+        2416,
+        1392
       ],
-      "id": "ad273719-c44c-4c7d-9824-6d18753bc53b",
+      "id": "817e4c76-9153-4299-b84c-749cb631a8b7",
       "name": "Embeddings Google Gemini2",
       "credentials": {
         "googlePalmApi": {
@@ -354,10 +357,10 @@
       "type": "@n8n/n8n-nodes-langchain.documentDefaultDataLoader",
       "typeVersion": 1.1,
       "position": [
-        976,
-        1216
+        2656,
+        1408
       ],
-      "id": "b0cbd4a2-2cc2-42c1-8526-2f64af33aac6",
+      "id": "2ff4578f-dc2f-4de0-bb82-e4016ec39e20",
       "name": "Default Data Loader1"
     },
     {
@@ -381,10 +384,10 @@
       "type": "n8n-nodes-base.googleSheets",
       "typeVersion": 4.7,
       "position": [
-        480,
-        1184
+        2160,
+        1376
       ],
-      "id": "994168c7-9cc9-41d5-97a5-52ecaffac4ac",
+      "id": "1850c1da-42ec-4da8-b1a7-4dce0cbc6474",
       "name": "Get row(s) in sheet1",
       "credentials": {
         "googleSheetsOAuth2Api": {
@@ -551,15 +554,16 @@
       ]
     }
   },
-  "active": false,
+  "active": true,
   "settings": {
-    "executionOrder": "v1"
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
   },
-  "versionId": "70d4ebf3-2940-4fe5-ba13-8336cb77228b",
+  "versionId": "82d23732-e7a7-4a91-8e97-d7cc6514adcd",
   "meta": {
-    "templateCredsSetupCompleted": true,
     "instanceId": "e99e0d1157c9445a053edb1d8bcb3c19869f806f2b50808813faa4f314de9dd4"
   },
-  "id": "kO6phmLeAaxi0nlU",
+  "id": "D70J1a2q651Xs788",
   "tags": []
 }
