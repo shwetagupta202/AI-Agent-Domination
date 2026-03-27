@@ -1,0 +1,562 @@
+{
+  "name": "SG_RAG Agent_24_7 Intelligent Assistant of Company_Latest_27March",
+  "nodes": [
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1b9kS7GJr-gcrFW-42Xu8W7ON87q1QA-fhuifDJ87u24",
+          "mode": "list",
+          "cachedResultName": "20251109 - E-commerce FAQs - V1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1b9kS7GJr-gcrFW-42Xu8W7ON87q1QA-fhuifDJ87u24/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "FAQ_Master",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1b9kS7GJr-gcrFW-42Xu8W7ON87q1QA-fhuifDJ87u24/edit#gid=0"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        2192,
+        448
+      ],
+      "id": "221fb1ea-3095-4648-8502-52673c83376e",
+      "name": "Get row(s) in sheet1",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "swHN4rGGgv0MH5qi",
+          "name": "SG Techie Google Sheets account 5"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.documentDefaultDataLoader",
+      "typeVersion": 1.1,
+      "position": [
+        2688,
+        480
+      ],
+      "id": "21bafba6-e764-4f10-9416-4ed529e208c9",
+      "name": "Default Data Loader1"
+    },
+    {
+      "parameters": {
+        "modelName": "models/gemini-embedding-001"
+      },
+      "type": "@n8n/n8n-nodes-langchain.embeddingsGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        2448,
+        464
+      ],
+      "id": "3b617a1f-7540-409b-9dee-299bf1e41955",
+      "name": "Embeddings Google Gemini2",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "p5hxeYZcLwpy0hRn",
+          "name": "SG_GoogleGemini_New"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "mode": "insert",
+        "tableName": {
+          "__rl": true,
+          "value": "documents_google",
+          "mode": "list",
+          "cachedResultName": "documents_google"
+        },
+        "options": {
+          "queryName": "match_documents_google"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.vectorStoreSupabase",
+      "typeVersion": 1.3,
+      "position": [
+        2672,
+        272
+      ],
+      "id": "566b970f-387a-49d0-9897-3477056aa05d",
+      "name": "Supabase Vector Store2",
+      "credentials": {
+        "supabaseApi": {
+          "id": "siamCqmCaH75druk",
+          "name": "SG Supabase account 5Nov"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "## System 2 : Add Google Sheet to Vector DB",
+        "height": 448,
+        "width": 1488
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        1712,
+        208
+      ],
+      "id": "3eee5387-7422-41e5-a31c-d482b7efcde2",
+      "name": "Sticky Note3"
+    },
+    {
+      "parameters": {
+        "operation": "download",
+        "fileId": {
+          "__rl": true,
+          "value": "1G87bGceLzdWOlhnK3y22d2FryoP-oAF8YyM6COfUuqs",
+          "mode": "list",
+          "cachedResultName": "Career Spike Hub",
+          "cachedResultUrl": "https://docs.google.com/document/d/1G87bGceLzdWOlhnK3y22d2FryoP-oAF8YyM6COfUuqs/edit?usp=drivesdk"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        2208,
+        -240
+      ],
+      "id": "667f7cdb-fb95-454c-abe4-ee9e216b7d5b",
+      "name": "Download file",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "BgbeHwrXaNKyzbvh",
+          "name": "SG_Techie_Drive"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "dataType": "binary",
+        "loader": "docxLoader",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.documentDefaultDataLoader",
+      "typeVersion": 1.1,
+      "position": [
+        2688,
+        -16
+      ],
+      "id": "c726c3ea-1edf-4724-9943-90ba620c33b5",
+      "name": "Default Data Loader"
+    },
+    {
+      "parameters": {
+        "modelName": "models/gemini-embedding-001"
+      },
+      "type": "@n8n/n8n-nodes-langchain.embeddingsGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        2448,
+        -32
+      ],
+      "id": "77b5198e-3225-487f-9d6b-7b6109e9bbc3",
+      "name": "Embeddings Google Gemini1",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "p5hxeYZcLwpy0hRn",
+          "name": "SG_GoogleGemini_New"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "mode": "insert",
+        "tableName": {
+          "__rl": true,
+          "value": "documents_google",
+          "mode": "list",
+          "cachedResultName": "documents_google"
+        },
+        "options": {
+          "queryName": "match_documents_google"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.vectorStoreSupabase",
+      "typeVersion": 1.3,
+      "position": [
+        2672,
+        -224
+      ],
+      "id": "293fa240-e752-4c86-9a1d-040105c0290d",
+      "name": "Supabase Vector Store1",
+      "credentials": {
+        "supabaseApi": {
+          "id": "siamCqmCaH75druk",
+          "name": "SG Supabase account 5Nov"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        1776,
+        -112
+      ],
+      "id": "2d34291c-2fe0-450c-97ea-5f3e4b9ac30a",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "content": "## System 1 : Add Google Drive to Vector DB",
+        "height": 448,
+        "width": 1488
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        1712,
+        -288
+      ],
+      "id": "37c6341d-a9f5-4b05-b023-861c0ff7e0c9",
+      "name": "Sticky Note2"
+    },
+    {
+      "parameters": {
+        "public": true,
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.4,
+      "position": [
+        3488,
+        16
+      ],
+      "id": "1738095f-f7a3-4546-b6a4-4c59a624da06",
+      "name": "When chat message received",
+      "webhookId": "ed1fc3fc-156b-4b4d-b992-84143fb59bff"
+    },
+    {
+      "parameters": {
+        "content": "## System3 : Setup Agent with Chat Memory",
+        "height": 448,
+        "width": 832
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        3296,
+        -48
+      ],
+      "id": "e9a23088-977b-4f8d-8ed3-432a98a98e12",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "content": "## System 4 : Retrieval Node",
+        "height": 448,
+        "width": 640
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        4144,
+        -48
+      ],
+      "id": "10af899c-14ec-4027-b1f1-13717f6fbe0d",
+      "name": "Sticky Note1"
+    },
+    {
+      "parameters": {
+        "options": {
+          "systemMessage": "You are a helpful assistant, always use the retriever tools to respond to queries of the user. If its not in the vector db, then say I do not know. "
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        3696,
+        16
+      ],
+      "id": "02792efe-c2af-44e9-a4dc-9cdf04de89c0",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        3568,
+        224
+      ],
+      "id": "f60081a5-62fe-4a9a-8919-32e452fdb298",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "uLLRFyo7JLti0gyO",
+          "name": "SG Techie Embedding"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        3712,
+        224
+      ],
+      "id": "4b229c89-d5c3-474a-96bf-385b4671a55d",
+      "name": "Simple Memory"
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.toolVectorStore",
+      "typeVersion": 1.1,
+      "position": [
+        4448,
+        48
+      ],
+      "id": "fcc1e574-ee26-4154-8374-86a1d614213c",
+      "name": "Answer questions with a vector store"
+    },
+    {
+      "parameters": {
+        "tableName": {
+          "__rl": true,
+          "value": "documents_google",
+          "mode": "list",
+          "cachedResultName": "documents_google"
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.vectorStoreSupabase",
+      "typeVersion": 1.3,
+      "position": [
+        4240,
+        192
+      ],
+      "id": "0c21f83c-82c3-44eb-8729-a0a04458ddf6",
+      "name": "Supabase Vector Store",
+      "credentials": {
+        "supabaseApi": {
+          "id": "siamCqmCaH75druk",
+          "name": "SG Supabase account 5Nov"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "modelName": "models/gemini-embedding-001"
+      },
+      "type": "@n8n/n8n-nodes-langchain.embeddingsGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        4368,
+        288
+      ],
+      "id": "ba1e10fd-a744-4afe-a162-d3facf4e2028",
+      "name": "Embeddings Google Gemini",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "uLLRFyo7JLti0gyO",
+          "name": "SG Techie Embedding"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        4576,
+        208
+      ],
+      "id": "d271dc57-67ef-4ee0-919a-5c38f14c8f58",
+      "name": "Google Gemini Chat Model1",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "uLLRFyo7JLti0gyO",
+          "name": "SG Techie Embedding"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Get row(s) in sheet1": {
+      "main": [
+        [
+          {
+            "node": "Supabase Vector Store2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Default Data Loader1": {
+      "ai_document": [
+        [
+          {
+            "node": "Supabase Vector Store2",
+            "type": "ai_document",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embeddings Google Gemini2": {
+      "ai_embedding": [
+        [
+          {
+            "node": "Supabase Vector Store2",
+            "type": "ai_embedding",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Download file": {
+      "main": [
+        [
+          {
+            "node": "Supabase Vector Store1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Default Data Loader": {
+      "ai_document": [
+        [
+          {
+            "node": "Supabase Vector Store1",
+            "type": "ai_document",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embeddings Google Gemini1": {
+      "ai_embedding": [
+        [
+          {
+            "node": "Supabase Vector Store1",
+            "type": "ai_embedding",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Get row(s) in sheet1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Answer questions with a vector store": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Supabase Vector Store": {
+      "ai_vectorStore": [
+        [
+          {
+            "node": "Answer questions with a vector store",
+            "type": "ai_vectorStore",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Embeddings Google Gemini": {
+      "ai_embedding": [
+        [
+          {
+            "node": "Supabase Vector Store",
+            "type": "ai_embedding",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Answer questions with a vector store",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "cc72a991-85ce-4c31-a12c-18d22db3a902",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "e99e0d1157c9445a053edb1d8bcb3c19869f806f2b50808813faa4f314de9dd4"
+  },
+  "id": "AXAvTJ2h8OKaLbbj",
+  "tags": []
+}
