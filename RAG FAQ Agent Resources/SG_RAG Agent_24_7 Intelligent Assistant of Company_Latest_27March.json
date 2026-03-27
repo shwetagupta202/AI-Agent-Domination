@@ -461,7 +461,7 @@
       "main": [
         [
           {
-            "node": "Get row(s) in sheet1",
+            "node": "Download file",
             "type": "main",
             "index": 0
           }
@@ -552,7 +552,7 @@
     "binaryMode": "separate",
     "availableInMCP": false
   },
-  "versionId": "cc72a991-85ce-4c31-a12c-18d22db3a902",
+  "versionId": "8a338aba-539d-4a51-a4ef-df77667fbe71",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "e99e0d1157c9445a053edb1d8bcb3c19869f806f2b50808813faa4f314de9dd4"
