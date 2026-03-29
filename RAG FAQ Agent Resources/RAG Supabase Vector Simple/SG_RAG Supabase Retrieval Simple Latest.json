@@ -18,7 +18,7 @@
     },
     {
       "parameters": {
-        "content": "## System3 : Setup Agent with Chat Memory",
+        "content": "## System1 : Setup Agent with Chat Memory",
         "height": 592,
         "width": 832
       },
@@ -33,7 +33,7 @@
     },
     {
       "parameters": {
-        "content": "## System 4 : Retrieval Node",
+        "content": "## System 2 : Retrieval Node",
         "height": 608,
         "width": 688
       },
@@ -155,6 +155,44 @@
           "name": "SG OpenRouter account"
         }
       }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        3664,
+        320
+      ],
+      "id": "ca4f0b0d-2620-4073-8810-95c157ed8f72",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "uLLRFyo7JLti0gyO",
+          "name": "SG Techie Embedding"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        4576,
+        400
+      ],
+      "id": "a2b059bd-51dd-4b6d-a091-d64515659a90",
+      "name": "Google Gemini Chat Model1",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "uLLRFyo7JLti0gyO",
+          "name": "SG Techie Embedding"
+        }
+      }
     }
   ],
   "pinData": {},
@@ -205,6 +243,16 @@
     },
     "OpenRouter Chat Model": {
       "ai_languageModel": [
+        []
+      ]
+    },
+    "OpenRouter Chat Model1": {
+      "ai_languageModel": [
+        []
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
         [
           {
             "node": "AI Agent",
@@ -214,7 +262,7 @@
         ]
       ]
     },
-    "OpenRouter Chat Model1": {
+    "Google Gemini Chat Model1": {
       "ai_languageModel": [
         [
           {
@@ -232,7 +280,7 @@
     "binaryMode": "separate",
     "availableInMCP": false
   },
-  "versionId": "43bfe5d7-5700-4ceb-9042-b442292187a0",
+  "versionId": "c3fc4d00-0e3c-4a8e-93ab-f101762f6337",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "e99e0d1157c9445a053edb1d8bcb3c19869f806f2b50808813faa4f314de9dd4"
