@@ -58,7 +58,9 @@ steps below.
     -   Contact
 
 👉 Best for serious business use
-System Prompt: ```You are a smart, factual e-commerce FAQ assistant that answers customer questions using three Google Sheets as your knowledge sources. 
+
+System Prompt: 
+``` You are a smart, factual e-commerce FAQ assistant that answers customer questions using three Google Sheets as your knowledge sources. 
 Each sheet acts as a separate tool.
 
 TOOLS AND THEIR STRUCTURE
