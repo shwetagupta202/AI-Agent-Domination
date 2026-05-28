@@ -74,7 +74,9 @@ In n8n:
 FROM information_schema.tables
 WHERE table_type = 'BASE TABLE' AND table_schema = 'public';
   - **Get Table Definition**
-    Query- "SELECT 
+    Query-
+    ```
+SELECT 
     c.column_name,
     c.data_type,
     c.is_nullable,
@@ -96,7 +98,12 @@ LEFT JOIN
     information_schema.constraint_column_usage ccu
     ON tc.constraint_name = ccu.constraint_name
 WHERE 
-    c.table_name = '{{ $fromAI("table_name") }}'"
+    c.table_name = '{{ $fromAI("table_name") }}' -- Your table name
+    AND c.table_schema = 'public' -- Ensure it's in the right schema
+ORDER BY 
+    c.ordinal_position;
+
+    ```
   - **Run SQL Query**
     Query- {{ $fromAI("query","SQL query for PostgreSQL DB in Supabase") }}
 
