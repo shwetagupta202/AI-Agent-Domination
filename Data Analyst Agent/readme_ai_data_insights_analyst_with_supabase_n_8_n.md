@@ -75,8 +75,7 @@ FROM information_schema.tables
 WHERE table_type = 'BASE TABLE' AND table_schema = 'public';
   - **Get Table Definition**
     Query-
-    ```
-SELECT 
+    ``` SELECT 
     c.column_name,
     c.data_type,
     c.is_nullable,
@@ -102,7 +101,6 @@ WHERE
     AND c.table_schema = 'public' -- Ensure it's in the right schema
 ORDER BY 
     c.ordinal_position;
-
     ```
   - **Run SQL Query**
     Query- {{ $fromAI("query","SQL query for PostgreSQL DB in Supabase") }}
