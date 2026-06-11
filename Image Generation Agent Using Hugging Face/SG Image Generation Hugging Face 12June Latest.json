@@ -1,0 +1,202 @@
+{
+  "name": "SG Image Generation Hugging Face 12June Latest",
+  "nodes": [
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://router.huggingface.co/nscale/v1/images/generations",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Bearer <Bearer>"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "name": "Accept",
+              "value": "image/png"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"prompt\": \"{{ $json.prompt }}\",\n\"model\": \"black-forest-labs/FLUX.1-schnell\"\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        -48,
+        -16
+      ],
+      "id": "af49a4a4-2e20-4873-ba41-d3541d1d465c",
+      "name": "Image generation by Hugging Face1"
+    },
+    {
+      "parameters": {
+        "name": "test",
+        "driveId": {
+          "__rl": true,
+          "value": "My Drive",
+          "mode": "list",
+          "cachedResultName": "My Drive",
+          "cachedResultUrl": "https://drive.google.com/drive/my-drive"
+        },
+        "folderId": {
+          "__rl": true,
+          "value": "16azLrr71MswoKLQyd47IiArf-O92o0_A",
+          "mode": "list",
+          "cachedResultName": "AI Agents Material New",
+          "cachedResultUrl": "https://drive.google.com/drive/folders/16azLrr71MswoKLQyd47IiArf-O92o0_A"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        400,
+        -16
+      ],
+      "id": "1bd56395-4b56-4d05-9a09-20d19862a14b",
+      "name": "Upload file",
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "BgbeHwrXaNKyzbvh",
+          "name": "SG_Techie_Drive"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "fdef8d2e-3608-4405-89cc-b1d27576189e",
+              "name": "prompt",
+              "value": "AI Agent confusion",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -272,
+        -16
+      ],
+      "id": "6b3d6781-8495-4496-b338-7db77a1b2f4e",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -496,
+        -16
+      ],
+      "id": "1b18fc45-b3bd-46bb-bdc2-fddc7aa170af",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "operation": "toBinary",
+        "sourceProperty": "data[0].b64_json",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.convertToFile",
+      "typeVersion": 1.1,
+      "position": [
+        176,
+        -16
+      ],
+      "id": "a49ba20f-6214-4815-b0c4-dabf7ca42fbc",
+      "name": "Convert to File"
+    },
+    {
+      "parameters": {
+        "content": "## Image Generation using Black Forest Hugging face\n\nhttps://huggingface.co/black-forest-labs/FLUX.1-schnell?inference_api=true&inference_provider=nscale&language=js&client=fetch\n",
+        "height": 384,
+        "width": 1408
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -704,
+        -240
+      ],
+      "typeVersion": 1,
+      "id": "7b7ee1b7-cdf3-4330-bb05-3aa7c531329f",
+      "name": "Sticky Note"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Image generation by Hugging Face1": {
+      "main": [
+        [
+          {
+            "node": "Convert to File",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Upload file": {
+      "main": [
+        []
+      ]
+    },
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Image generation by Hugging Face1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Convert to File": {
+      "main": [
+        [
+          {
+            "node": "Upload file",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "19aaa765-7bf0-44d6-8989-5a5674b63a5d",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "e99e0d1157c9445a053edb1d8bcb3c19869f806f2b50808813faa4f314de9dd4"
+  },
+  "id": "uYX7zR61kxKOL9Xc",
+  "tags": []
+}
