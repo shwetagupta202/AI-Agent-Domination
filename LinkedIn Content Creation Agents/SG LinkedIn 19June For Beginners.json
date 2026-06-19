@@ -1,0 +1,178 @@
+{
+  "name": "SG LinkedIn 19June For Beginners",
+  "nodes": [
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json['Post Idea'] }}",
+        "options": {
+          "systemMessage": "=You are an elite LinkedIn post writer trained to produce crisp, no-fluff, systems-driven content in a {{ $json.Style }} voice.\n\nOBJECTIVE:\nWrite a high-impact LinkedIn post that challenges conventional thinking, delivers clear insight, and drives meaningful discussion.\n\nCONTENT REQUIREMENTS:\n\nBegin with a bold, pattern-breaking hook that immediately creates curiosity or tension.\nUse storytelling to illustrate a real problem, insight, or shift in thinking (personal, observed, or realistic).\nDeliver a clear takeaway rooted in logic, systems thinking, or first principles.\nAvoid generic motivation; focus on specific, thought-provoking ideas.\nKeep language simple, human, and natural. It should feel written by a sharp thinker, not AI.\n\nSTRUCTURE RULES:\n\nUse a MAXIMUM of 4 paragraphs (can be fewer if impactful).\nEach paragraph must contain 1–3 sentences (not fixed).\nMaintain a strong narrative flow: Hook → Context/Story → Insight → Conclusion + Question.\n\nENGAGEMENT RULES:\n\nEnd with a sharp, open-ended question that invites serious, professional discussion (avoid generic engagement bait).\nAdd 4–6 relevant, non-generic hashtags on the final line after the question.\nLightly incorporate 1–3 subtle emoticons where they enhance tone (e.g., 🙂, ⚡, 🤔). Do not overuse.\n\nSTYLE RULES:\n\nPrioritize clarity, logic, and insight over fluff or inspiration.\nChallenge broken systems, lazy thinking, or widely accepted norms when appropriate.\nDo not seek validation or sound agreeable.\nAvoid buzzwords, clichés, and overused LinkedIn phrases.\nUse single quotes if necessary. Do NOT use double quotes.\nDo NOT use markdown or backticks.\n\nTITLE ALIGNMENT:\n\nEnsure the post strongly reflects and delivers on the given title/topic.\n\n\nSELF-CHECK BEFORE RESPONDING:\n\nEach paragraph has 1–3 sentences.\nLast line includes 4–6 hashtags.\nNo double quotes anywhere inside post or imageprompt.\nTotal character count is under 3000.\nWriting feels natural, sharp, and non-robotic.\nEmoticons are used sparingly and appropriately.\n\nNow post it on LinkedIn"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 1.8,
+      "position": [
+        576,
+        -112
+      ],
+      "id": "5616e87c-917d-4107-8021-f31f8b70fdfb",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "formTitle": "LinkedIn Content Creation",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "Post Idea"
+            },
+            {
+              "fieldLabel": "Style",
+              "fieldType": "dropdown",
+              "fieldOptions": {
+                "values": [
+                  {
+                    "option": "Funny"
+                  },
+                  {
+                    "option": "Contrary"
+                  },
+                  {
+                    "option": "Informative"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.5,
+      "position": [
+        352,
+        -112
+      ],
+      "id": "1ee3e0ba-5d12-4d96-8fd5-46c84753b178",
+      "name": "On form submission",
+      "webhookId": "febc91ab-4886-4f20-9084-f6c5ecac88eb"
+    },
+    {
+      "parameters": {
+        "content": "## LinkedIn Content Creation Beginner\n\n**Assignment 1**: Enhance this workflow to Generate 30ideas for 30days content and store in a sheet. \nTake ideas from sheet every day and generate posts and update the status in google sheet\n\n",
+        "height": 544,
+        "width": 1328
+      },
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -88,
+        -288
+      ],
+      "typeVersion": 1,
+      "id": "2b7bc51d-2c3c-425c-83ec-a350852e6b1b",
+      "name": "Sticky Note"
+    },
+    {
+      "parameters": {
+        "model": "nvidia/nemotron-3-nano-30b-a3b:free",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
+      "typeVersion": 1,
+      "position": [
+        584,
+        112
+      ],
+      "id": "5b5b8d5f-260e-4db1-ad38-d4cb9f16cf07",
+      "name": "OpenRouter Chat Model",
+      "credentials": {
+        "openRouterApi": {
+          "id": "3aTZ2WWqyMZk5JGs",
+          "name": "SG OpenRouter account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "person": "5BqnCFNpig",
+        "text": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Text', ``, 'string') }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.linkedInTool",
+      "typeVersion": 1,
+      "position": [
+        832,
+        96
+      ],
+      "id": "e381a16f-94ab-4387-9687-e62a98427e37",
+      "name": "Create a post in LinkedIn",
+      "credentials": {
+        "linkedInOAuth2Api": {
+          "id": "LGGEp9OGUtbV8n0s",
+          "name": "SG LinkedIn account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "AI Agent": {
+      "main": [
+        []
+      ]
+    },
+    "On form submission": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenRouter Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create a post in LinkedIn": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "91fa526c-567f-4350-a7c1-afb353c004d4",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "e99e0d1157c9445a053edb1d8bcb3c19869f806f2b50808813faa4f314de9dd4"
+  },
+  "id": "97cAf4MqGRhfGgyn",
+  "tags": [
+    {
+      "updatedAt": "2025-12-14T03:05:03.434Z",
+      "createdAt": "2025-12-14T03:05:03.434Z",
+      "id": "zxsnVdtgBqzZnOQi",
+      "name": "Linkedin Post Generator"
+    }
+  ]
+}
