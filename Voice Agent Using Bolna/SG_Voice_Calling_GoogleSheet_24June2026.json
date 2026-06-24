@@ -1,0 +1,584 @@
+{
+  "name": "SG_Voice_Calling_GoogleSheet_24June2026",
+  "nodes": [
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1HsBnI0a2tQJ1-U0KtG9SVhaHYcbzkBOc6E3VRIcD-Ww",
+          "mode": "list",
+          "cachedResultName": "SG AI Agents Calling sheet sample",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1HsBnI0a2tQJ1-U0KtG9SVhaHYcbzkBOc6E3VRIcD-Ww/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Calls_24June",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1HsBnI0a2tQJ1-U0KtG9SVhaHYcbzkBOc6E3VRIcD-Ww/edit#gid=0"
+        },
+        "filtersUI": {
+          "values": [
+            {
+              "lookupColumn": "status",
+              "lookupValue": "pending"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.6,
+      "position": [
+        272,
+        736
+      ],
+      "id": "c6b3266d-0874-4b31-87ed-6865fc4e88c4",
+      "name": "Google Sheets",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "swHN4rGGgv0MH5qi",
+          "name": "SG Techie Google Sheets account 5"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.limit",
+      "typeVersion": 1,
+      "position": [
+        496,
+        664
+      ],
+      "id": "bf3916ba-5799-4c97-9e88-017d01733099",
+      "name": "Limit"
+    },
+    {
+      "parameters": {
+        "url": "=https://api.bolna.ai/agent/c471be3f-85b6-489c-859b-b5d4917f42e2/execution/{{ $json.execution_id }}",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1392,
+        512
+      ],
+      "id": "4ea9d09f-7fa0-401b-af22-58aac44a02ce",
+      "name": "Transcript",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "9syDrSLoOUJ5Jjlw",
+          "name": "SG voice agent"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentId": {
+          "__rl": true,
+          "value": "1HsBnI0a2tQJ1-U0KtG9SVhaHYcbzkBOc6E3VRIcD-Ww",
+          "mode": "list",
+          "cachedResultName": "SG AI Agents Calling sheet sample",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1HsBnI0a2tQJ1-U0KtG9SVhaHYcbzkBOc6E3VRIcD-Ww/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Calls_24June",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1HsBnI0a2tQJ1-U0KtG9SVhaHYcbzkBOc6E3VRIcD-Ww/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "execution ID": "={{ $('Calling the agent').item.json.execution_id }}",
+            "status": "={{ $('Transcript').item.json.status }}",
+            "Summary": "={{ $json.output.summary }}",
+            "row_number": "={{ $('Google Sheets').item.json.row_number }}"
+          },
+          "matchingColumns": [
+            "row_number"
+          ],
+          "schema": [
+            {
+              "id": "First name",
+              "displayName": "First name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "phone number",
+              "displayName": "phone number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "status",
+              "displayName": "status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "execution ID",
+              "displayName": "execution ID",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Summary",
+              "displayName": "Summary",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "row_number",
+              "displayName": "row_number",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "readOnly": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.5,
+      "position": [
+        2352,
+        672
+      ],
+      "id": "e76322d6-0cf6-4a9f-be72-af5f2a0da46e",
+      "name": "update sheet4",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "swHN4rGGgv0MH5qi",
+          "name": "SG Techie Google Sheets account 5"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "5f4e0f28-2041-4ebb-b31f-0a3ad1c2446a",
+              "leftValue": "={{ $json.status }}",
+              "rightValue": "completed",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            },
+            {
+              "id": "3cfb6586-7bf8-4e0e-83bd-122ded65154a",
+              "leftValue": "={{ $json.status }}",
+              "rightValue": "busy",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            },
+            {
+              "id": "ee20313b-70fd-4e45-a87a-b13e7f80afdc",
+              "leftValue": "={{ $json.status }}",
+              "rightValue": "dropped",
+              "operator": {
+                "type": "string",
+                "operation": "equals"
+              }
+            }
+          ],
+          "combinator": "or"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1616,
+        512
+      ],
+      "id": "6a2ac1be-35c0-45f4-aa8c-f78af8ee2c35",
+      "name": "If"
+    },
+    {
+      "parameters": {
+        "amount": 30
+      },
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        1976,
+        864
+      ],
+      "id": "81d572b3-01bd-4c37-b88e-840560d4e9b5",
+      "name": "Wait",
+      "webhookId": "c49fc38f-8bfb-4ee9-814d-b79eb2ef7351"
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        48,
+        736
+      ],
+      "id": "ccdb8082-fa0e-48e2-8443-49783b8772b0",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.bolna.ai/call",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "agent_id",
+              "value": "0cf79d74-e5ba-4eef-b935-378e9529d68b"
+            },
+            {
+              "name": "recipient_phone_number",
+              "value": "=+91{{ $json['phone number'] }}"
+            },
+            {
+              "name": "callback_url",
+              "value": "https://n8n.coachshwetagupta.com/webhook/bolna-callback"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        720,
+        664
+      ],
+      "id": "8d836d82-0179-41e4-a4b4-3be9904adc9a",
+      "name": "Calling the agent",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "9syDrSLoOUJ5Jjlw",
+          "name": "SG voice agent"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=You are a structured data extractor for sales calls.\n\nGiven the following call summary, extract and return the following fields in JSON:\n- summary\n\nUse plain values and infer where necessary. Format output as a clean JSON object.\n\nCALL SUMMARY:\n{{ $json.transcript }}\n\nOutput format should be \n{\n  \"summary\": summary\n}",
+        "hasOutputParser": true,
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2,
+      "position": [
+        1872,
+        256
+      ],
+      "id": "5f582afa-39e3-446f-afae-6806561f4570",
+      "name": "AI Agent1"
+    },
+    {
+      "parameters": {
+        "jsCode": "const data = $getWorkflowStaticData('global');\ndata.execution_id = $input.first().json.execution_id;\nreturn [{ json: { stored: true, execution_id: $input.first().json.execution_id } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        944,
+        664
+      ],
+      "id": "6854538e-4974-4c6f-9054-878c356bb393",
+      "name": "Store execution id"
+    },
+    {
+      "parameters": {
+        "jsCode": "const data = $getWorkflowStaticData('global');\nreturn [{ json: { execution_id: data.execution_id } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1168,
+        664
+      ],
+      "id": "da272013-a764-4aa7-9984-e6d1a41c3a1b",
+      "name": "get stored execution id"
+    },
+    {
+      "parameters": {
+        "model": "nvidia/nemotron-3-super-120b-a12b:free",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
+      "typeVersion": 1,
+      "position": [
+        1840,
+        480
+      ],
+      "id": "f86838a3-a464-48a3-ab48-e2ee2a37096c",
+      "name": "OpenRouter Chat Model",
+      "credentials": {
+        "openRouterApi": {
+          "id": "3aTZ2WWqyMZk5JGs",
+          "name": "SG OpenRouter account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsonSchemaExample": "{\n  \"summary\": \"Person is interested\"\n}",
+        "autoFix": true
+      },
+      "type": "@n8n/n8n-nodes-langchain.outputParserStructured",
+      "typeVersion": 1.3,
+      "position": [
+        1968,
+        480
+      ],
+      "id": "64d69def-620c-40df-b62f-8fbc78f23f27",
+      "name": "Structured Output Parser"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        2048,
+        688
+      ],
+      "id": "ac1272d2-f9e5-46a7-9dcd-6d3b5bd43141",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "p5hxeYZcLwpy0hRn",
+          "name": "SG_GoogleGemini_New"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Google Sheets": {
+      "main": [
+        [
+          {
+            "node": "Limit",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Limit": {
+      "main": [
+        [
+          {
+            "node": "Calling the agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Transcript": {
+      "main": [
+        [
+          {
+            "node": "If",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If": {
+      "main": [
+        [
+          {
+            "node": "AI Agent1",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Wait",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "update sheet4": {
+      "main": [
+        [
+          {
+            "node": "Google Sheets",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait": {
+      "main": [
+        [
+          {
+            "node": "get stored execution id",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Google Sheets",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Calling the agent": {
+      "main": [
+        [
+          {
+            "node": "Store execution id",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent1": {
+      "main": [
+        [
+          {
+            "node": "update sheet4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Store execution id": {
+      "main": [
+        [
+          {
+            "node": "get stored execution id",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "get stored execution id": {
+      "main": [
+        [
+          {
+            "node": "Transcript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenRouter Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent1",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Structured Output Parser",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Structured Output Parser": {
+      "ai_outputParser": [
+        [
+          {
+            "node": "AI Agent1",
+            "type": "ai_outputParser",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "f4c75ffd-8931-45ee-9942-63aa8428fddb",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "e99e0d1157c9445a053edb1d8bcb3c19869f806f2b50808813faa4f314de9dd4"
+  },
+  "id": "uuip2AFFnoLITvH8",
+  "tags": [
+    {
+      "updatedAt": "2025-11-01T17:53:32.390Z",
+      "createdAt": "2025-11-01T17:53:32.390Z",
+      "id": "ng1dgEloOm3KOCuS",
+      "name": "SG"
+    }
+  ]
+}
