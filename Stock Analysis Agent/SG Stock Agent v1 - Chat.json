@@ -1,0 +1,295 @@
+{
+  "name": "SG Stock Agent v1 - Chat",
+  "nodes": [
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.4,
+      "position": [
+        0,
+        0
+      ],
+      "id": "996e87cc-896a-48c5-87f0-17784bcbc4c8",
+      "name": "When chat message received",
+      "webhookId": "655fa49b-640f-407c-b35d-4e4bce2b346c"
+    },
+    {
+      "parameters": {
+        "options": {
+          "systemMessage": "You are an Orchestrator Agent.\n\nYour role:\n1. Send the user query to:\n   - Fundamental Analysis Agent\n   - Technical Analysis Agent\n2. Ensure both agents use their search tools before responding.\n3. Collect both outputs.\n4. Combine them into one clear, structured response.\n\nOutput format:\n- Fundamental Insights:\n- Technical Insights:\n- Final Summary:\n\nBe concise, no assumptions, only use agent outputs."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 3.1,
+      "position": [
+        368,
+        0
+      ],
+      "id": "088530bd-6e9f-45d4-854f-2871914686c8",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "toolDescription": "Use this Fundamental Analysis Tool Only once per user request",
+        "text": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Prompt__User_Message_', ``, 'string') }}",
+        "options": {
+          "systemMessage": "You are a Fundamental Analysis Agent.\n\nYour role:\n1. Use the search tool to find recent data (news, earnings, macro trends).\n2. Analyze factors like revenue, growth, industry, sentiment.\n3. Do not answer without using search.\n\nOutput format:\n- Key Findings:\n- Market Sentiment:\n- Fundamental View (Bullish/Bearish/Neutral):\n\nBe concise and insight-driven."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agentTool",
+      "typeVersion": 3,
+      "position": [
+        560,
+        240
+      ],
+      "id": "93310004-0e1c-4294-b4ce-7d4ec3007a81",
+      "name": "Fundamental Analysis Agent"
+    },
+    {
+      "parameters": {
+        "toolDescription": "Use this Technical Analysis Tool Only once per user request",
+        "text": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Prompt__User_Message_', ``, 'string') }}",
+        "options": {
+          "systemMessage": "You are a Technical Analysis Agent.\n\nYour role:\n1. Use the search tool to find recent price/indicator data.\n2. Analyze trends, support/resistance, momentum.\n3. Do not answer without using search.\n\nOutput format:\n- Trend:\n- Key Levels (Support/Resistance):\n- Indicator Signals:\n- Technical View (Bullish/Bearish/Neutral):\n\nKeep it short and precise."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agentTool",
+      "typeVersion": 3,
+      "position": [
+        848,
+        240
+      ],
+      "id": "a114ca1f-cdee-4abb-9904-bd0a4e519ea7",
+      "name": "Technical Analysis Agent"
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.memoryBufferWindow",
+      "typeVersion": 1.3,
+      "position": [
+        320,
+        240
+      ],
+      "id": "3b0b5df1-6bfd-4e66-b1b2-9139ec1ff76f",
+      "name": "Simple Memory"
+    },
+    {
+      "parameters": {
+        "model": "deepseek/deepseek-v3.2",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
+      "typeVersion": 1,
+      "position": [
+        192,
+        208
+      ],
+      "id": "0ad4a160-c8a2-4001-840a-6df3e7656684",
+      "name": "OpenRouter Chat Model",
+      "credentials": {
+        "openRouterApi": {
+          "id": "3aTZ2WWqyMZk5JGs",
+          "name": "SG OpenRouter account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": "deepseek/deepseek-v3.2",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
+      "typeVersion": 1,
+      "position": [
+        544,
+        448
+      ],
+      "id": "75f2e76b-3481-4c61-a204-ffbb42490f23",
+      "name": "OpenRouter Chat Model1",
+      "credentials": {
+        "openRouterApi": {
+          "id": "3aTZ2WWqyMZk5JGs",
+          "name": "SG OpenRouter account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "model": "deepseek/deepseek-v3.2",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
+      "typeVersion": 1,
+      "position": [
+        848,
+        448
+      ],
+      "id": "c3bd9bd3-8054-450a-82ef-d2dde19bc214",
+      "name": "OpenRouter Chat Model2",
+      "credentials": {
+        "openRouterApi": {
+          "id": "3aTZ2WWqyMZk5JGs",
+          "name": "SG OpenRouter account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "q": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Search_Query__q_', ``, 'string') }}",
+        "additionalFields": {},
+        "requestOptions": {}
+      },
+      "type": "n8n-nodes-serpapi.serpApiTool",
+      "typeVersion": 1,
+      "position": [
+        720,
+        448
+      ],
+      "id": "29b3a393-7a19-412f-ac27-660d255f2160",
+      "name": "Google search in SerpApi",
+      "credentials": {
+        "serpApi": {
+          "id": "wJvQmV937IU2BAYR",
+          "name": "SG Techie SerpApi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "q": "={{ /*n8n-auto-generated-fromAI-override*/ $fromAI('Search_Query__q_', ``, 'string') }}",
+        "additionalFields": {},
+        "requestOptions": {}
+      },
+      "type": "n8n-nodes-serpapi.serpApiTool",
+      "typeVersion": 1,
+      "position": [
+        1024,
+        464
+      ],
+      "id": "fcb11344-96aa-4055-a04a-fa922101ba3f",
+      "name": "Google search in SerpApi1",
+      "credentials": {
+        "serpApi": {
+          "id": "wJvQmV937IU2BAYR",
+          "name": "SG Techie SerpApi account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Fundamental Analysis Agent": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Technical Analysis Agent": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenRouter Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenRouter Chat Model1": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Fundamental Analysis Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenRouter Chat Model2": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "Technical Analysis Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google search in SerpApi": {
+      "ai_tool": [
+        [
+          {
+            "node": "Fundamental Analysis Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google search in SerpApi1": {
+      "ai_tool": [
+        [
+          {
+            "node": "Technical Analysis Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "27a61eb7-952a-402d-8499-62e6737bc838",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "e99e0d1157c9445a053edb1d8bcb3c19869f806f2b50808813faa4f314de9dd4"
+  },
+  "id": "YeNDfCSXP14SzMKo",
+  "tags": []
+}
