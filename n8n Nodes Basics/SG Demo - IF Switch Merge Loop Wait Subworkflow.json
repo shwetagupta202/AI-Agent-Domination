@@ -1,0 +1,467 @@
+{
+  "name": "SG Demo - IF Switch Merge Loop Wait Subworkflow",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "c37773b1-a60b-45a1-92a9-bc971d5d52cf",
+      "name": "Manual Trigger",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -944,
+        24
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "lead1",
+              "name": "name",
+              "value": "Rahul Sharma",
+              "type": "string"
+            },
+            {
+              "id": "lead2",
+              "name": "email",
+              "value": "rahul@example.com",
+              "type": "string"
+            },
+            {
+              "id": "lead3",
+              "name": "lead_score",
+              "value": 85,
+              "type": "number"
+            },
+            {
+              "id": "lead4",
+              "name": "lead_type",
+              "value": "hot",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "d2d22aad-7b35-4919-9f0f-8096be6bf1ea",
+      "name": "Sample Lead",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -720,
+        24
+      ]
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "condition1",
+              "leftValue": "={{ $json.lead_score }}",
+              "rightValue": 50,
+              "operator": {
+                "type": "number",
+                "operation": "gte"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "id": "ce9b46f2-f1cf-4d14-b1eb-edf291600e5f",
+      "name": "IF - Qualified?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        -496,
+        24
+      ]
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.lead_type }}",
+                    "rightValue": "hot",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "05d2daf7-6843-4a60-b6bf-5961fda77526"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Hot Lead"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.lead_type }}",
+                    "rightValue": "warm",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "3ebe34f8-cb8e-4147-92d9-a3cde8fc346a"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Warm Lead"
+            },
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.lead_type }}",
+                    "rightValue": "cold",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "492e18c6-d39d-47ea-b027-a9506c4ff14a"
+                  }
+                ],
+                "combinator": "and"
+              },
+              "renameOutput": true,
+              "outputKey": "Cold Lead"
+            }
+          ]
+        },
+        "options": {
+          "fallbackOutput": "extra"
+        }
+      },
+      "id": "7d0ff29f-5679-40e7-a8aa-a27ef34c0b46",
+      "name": "Switch - Lead Type",
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        -272,
+        160
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "hot",
+              "name": "priority",
+              "value": "HIGH",
+              "type": "string"
+            },
+            {
+              "id": "hot2",
+              "name": "action",
+              "value": "Call immediately",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "d294d021-5870-47eb-a10e-5e451c0823e8",
+      "name": "Hot Lead",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -48,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "warm",
+              "name": "priority",
+              "value": "MEDIUM",
+              "type": "string"
+            },
+            {
+              "id": "warm2",
+              "name": "action",
+              "value": "Send WhatsApp message",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "51bed37c-d5dd-4e7c-b9e4-eeaef6a3e457",
+      "name": "Warm Lead",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -48,
+        192
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "cold",
+              "name": "priority",
+              "value": "LOW",
+              "type": "string"
+            },
+            {
+              "id": "cold2",
+              "name": "action",
+              "value": "Add to nurture campaign",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "10efadb8-677b-4f94-bb6d-946684e95982",
+      "name": "Cold Lead",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -48,
+        384
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "6b9093df-4df9-43f7-b6ae-5bc63d39177b",
+      "name": "Merge Branches",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        176,
+        112
+      ]
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "88c7e6c8-6d2a-4479-9f5f-c9918d97b1c3",
+      "name": "Loop Over Items",
+      "type": "n8n-nodes-base.splitInBatches",
+      "typeVersion": 3,
+      "position": [
+        400,
+        112
+      ]
+    },
+    {
+      "parameters": {
+        "workflowId": {
+          "__rl": true,
+          "value": "REPLACE_WITH_SUBWORKFLOW_ID",
+          "mode": "id"
+        },
+        "options": {}
+      },
+      "id": "5f1b11a0-507d-4c7d-a747-4de5f364e65c",
+      "name": "Execute Sub-workflow",
+      "type": "n8n-nodes-base.executeWorkflow",
+      "typeVersion": 1.2,
+      "position": [
+        624,
+        112
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "7dcdfa76-7443-4e79-bede-fe5c96aae334",
+      "name": "Wait 5 Seconds",
+      "type": "n8n-nodes-base.wait",
+      "typeVersion": 1.1,
+      "position": [
+        848,
+        112
+      ],
+      "webhookId": "6ae7d841-8022-436f-964b-dc9bc1856eb8"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Manual Trigger": {
+      "main": [
+        [
+          {
+            "node": "Sample Lead",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Sample Lead": {
+      "main": [
+        [
+          {
+            "node": "IF - Qualified?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "IF - Qualified?": {
+      "main": [
+        [
+          {
+            "node": "Switch - Lead Type",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Merge Branches",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Switch - Lead Type": {
+      "main": [
+        [
+          {
+            "node": "Hot Lead",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Warm Lead",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Cold Lead",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Hot Lead": {
+      "main": [
+        [
+          {
+            "node": "Merge Branches",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Warm Lead": {
+      "main": [
+        [
+          {
+            "node": "Merge Branches",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Cold Lead": {
+      "main": [
+        [
+          {
+            "node": "Merge Branches",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge Branches": {
+      "main": [
+        [
+          {
+            "node": "Loop Over Items",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Loop Over Items": {
+      "main": [
+        [
+          {
+            "node": "Execute Sub-workflow",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Execute Sub-workflow": {
+      "main": [
+        [
+          {
+            "node": "Wait 5 Seconds",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "1d95a133-6c9f-45b6-922b-10bb9f7ac4eb",
+  "meta": {
+    "instanceId": "e99e0d1157c9445a053edb1d8bcb3c19869f806f2b50808813faa4f314de9dd4"
+  },
+  "id": "EJpeUCCCuoihfhLY",
+  "tags": []
+}

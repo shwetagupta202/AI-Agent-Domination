@@ -1,0 +1,288 @@
+{
+  "name": "SG Data Transformation Demo",
+  "nodes": [
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "66cad39c-0e1c-4625-b7b2-bbe77f93b627",
+              "leftValue": "",
+              "rightValue": "",
+              "operator": {
+                "type": "string",
+                "operation": "equals",
+                "name": "filter.operator.equals"
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.filter",
+      "typeVersion": 2.3,
+      "position": [
+        64,
+        864
+      ],
+      "id": "b20de7ee-5d8d-41d7-8390-d95747c662d9",
+      "name": "Filter"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "1PSURjqcVnyZdrjTeOwMqpz8W27-AXRzV-UoTrScZO3s",
+          "mode": "list",
+          "cachedResultName": "LeadCaptureSheet",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1PSURjqcVnyZdrjTeOwMqpz8W27-AXRzV-UoTrScZO3s/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1PSURjqcVnyZdrjTeOwMqpz8W27-AXRzV-UoTrScZO3s/edit#gid=0"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        -160,
+        864
+      ],
+      "id": "d965ed85-6617-461c-a93a-221c7e204921",
+      "name": "Get row(s) in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "swHN4rGGgv0MH5qi",
+          "name": "SG Techie Google Sheets account 5"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -160,
+        1088
+      ],
+      "id": "0848fc98-fc8b-47d8-b456-92c185e2f467",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "jsCode": "const customer = $json.customer_name;\nconst city = $json.city;\n\nconst orders = $json.orders;\n\nreturn orders.map(order => ({\n  json: {\n    customer_name: customer,\n    city: city,\n    order_id: order.order_id,\n    product: order.product,\n    amount: order.amount,\n    order_date: order.order_date,\n    amount_with_tax: Math.round(order.amount * 1.18),\n    customer_city: `${customer} - ${city}`\n  }\n}));"
+      },
+      "id": "31a4a32f-763d-4289-a9d5-30533f209ac6",
+      "name": "Code",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        288,
+        1088
+      ]
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "a3bdabda-6293-460a-9ddc-e7001ace102a",
+      "name": "Remove Duplicates",
+      "type": "n8n-nodes-base.removeDuplicates",
+      "typeVersion": 2,
+      "position": [
+        736,
+        1088
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "formatDate",
+        "date": "={{ $('Edit Fields2').item.json.orders[0].order_date }}",
+        "outputFieldName": "formatted_date",
+        "options": {}
+      },
+      "id": "e6e3e197-a088-44e1-b074-c56a07ad9b85",
+      "name": "Date & Time",
+      "type": "n8n-nodes-base.dateTime",
+      "typeVersion": 2,
+      "position": [
+        960,
+        1088
+      ]
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "a1",
+              "name": "customer_name",
+              "value": "Rahul Sharma",
+              "type": "string"
+            },
+            {
+              "id": "a2",
+              "name": "email",
+              "value": "rahul@example.com",
+              "type": "string"
+            },
+            {
+              "id": "a3",
+              "name": "city",
+              "value": "Hyderabad",
+              "type": "string"
+            },
+            {
+              "id": "a4",
+              "name": "orders",
+              "value": "[{\"order_id\":\"ORD001\",\"product\":\"Laptop\",\"amount\":75000,\"order_date\":\"2026-08-10T10:30:00Z\"},{\"order_id\":\"ORD002\",\"product\":\"Mouse\",\"amount\":1500,\"order_date\":\"2026-08-11T12:00:00Z\"},{\"order_id\":\"ORD002\",\"product\":\"Mouse\",\"amount\":1500,\"order_date\":\"2026-08-11T12:00:00Z\"}]",
+              "type": "array"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "79ded281-6a22-43cc-a48d-b05cb1d77a7b",
+      "name": "Edit Fields2",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        64,
+        1088
+      ]
+    },
+    {
+      "parameters": {
+        "fieldToSplitOut": "order_id",
+        "options": {}
+      },
+      "id": "3540d872-931d-4f3f-a02f-d5498e60d629",
+      "name": "Split Out1",
+      "type": "n8n-nodes-base.splitOut",
+      "typeVersion": 1,
+      "position": [
+        512,
+        1088
+      ]
+    },
+    {
+      "parameters": {
+        "aggregate": "aggregateAllItemData",
+        "destinationFieldName": "all_orders",
+        "options": {}
+      },
+      "id": "81482cb1-2594-4a45-9a68-a6baccc95e90",
+      "name": "Aggregate1",
+      "type": "n8n-nodes-base.aggregate",
+      "typeVersion": 1,
+      "position": [
+        1184,
+        1088
+      ]
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Get row(s) in sheet": {
+      "main": [
+        [
+          {
+            "node": "Filter",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code": {
+      "main": [
+        [
+          {
+            "node": "Split Out1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Remove Duplicates": {
+      "main": [
+        [
+          {
+            "node": "Date & Time",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Date & Time": {
+      "main": [
+        [
+          {
+            "node": "Aggregate1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields2": {
+      "main": [
+        [
+          {
+            "node": "Code",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Out1": {
+      "main": [
+        [
+          {
+            "node": "Remove Duplicates",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "b40210da-c14b-4a5b-861a-365e46cda3ef",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "e99e0d1157c9445a053edb1d8bcb3c19869f806f2b50808813faa4f314de9dd4"
+  },
+  "id": "sndpBupTjZsIIcvc",
+  "tags": []
+}
