@@ -46,6 +46,11 @@ growth intelligence.
     -   Fetches top videos based on keyword
 4.  **Google Sheets**
     -   Appends video & channel data automatically
+  
+## YouTube Scraper
+- Google Sheet Link (Copy) https://docs.google.com/spreadsheets/d/1WJ19g43YFDRi72kMPUiL_aCSsPcPVV1ZGC0xK__jL5k/edit?gid=0#gid=0
+
+- Apify Actor - https://console.apify.com/actors/h7sDV53CddomktSi5/input
 
 ------------------------------------------------------------------------
 
