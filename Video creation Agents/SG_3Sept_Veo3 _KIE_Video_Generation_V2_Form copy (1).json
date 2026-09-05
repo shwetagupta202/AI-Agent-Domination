@@ -1,0 +1,430 @@
+{
+  "name": "SG_3Sept_Veo3 _KIE_Video_Generation_V2_Form copy",
+  "nodes": [
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.kie.ai/api/v1/veo/generate",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "prompt",
+              "value": "={{ $json.Prompt }}"
+            },
+            {
+              "name": "model",
+              "value": "={{ $json.Model }}"
+            },
+            {
+              "name": "aspectRatio",
+              "value": "={{ $json['Aspect Ratio'] }}"
+            },
+            {
+              "name": "resolution",
+              "value": "={{ $json.Resolution }}"
+            },
+            {
+              "name": "duration",
+              "value": "={{ $json.Duration }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "031901e0-7f4d-4f7e-bb22-f9dc4f899e33",
+      "name": "Generate Video with VEO3",
+      "type": "n8n-nodes-base.httpRequest",
+      "position": [
+        112,
+        1264
+      ],
+      "typeVersion": 4.2,
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "BWkcIgFnKsCzyxRe",
+          "name": "SG KIE VEO3"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "amount": 60
+      },
+      "id": "ca69f525-e0b3-4f91-9076-2e6fa13743b6",
+      "name": "Wait for VEO3 Rendering",
+      "type": "n8n-nodes-base.wait",
+      "position": [
+        336,
+        1264
+      ],
+      "webhookId": "92e7701e-0ac6-4942-8ae4-afb98a07484e",
+      "typeVersion": 1.1
+    },
+    {
+      "parameters": {
+        "url": "https://api.kie.ai/api/v1/veo/record-info",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "taskId",
+              "value": "={{ $json.data.taskId }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "97858109-ef83-49a8-9d70-00e398593798",
+      "name": "Download Video from VEO3",
+      "type": "n8n-nodes-base.httpRequest",
+      "position": [
+        608,
+        1264
+      ],
+      "typeVersion": 4.2,
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "BWkcIgFnKsCzyxRe",
+          "name": "SG KIE VEO3"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "# 📑  Generate & Download Video with VEO3- Dynamic entries using form",
+        "height": 368,
+        "width": 1580
+      },
+      "id": "ea8c62c7-6577-4bf6-976a-121cc73e3838",
+      "name": "Sticky Note4",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        -400,
+        1152
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "formTitle": "Video Creation",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "Prompt",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Aspect Ratio",
+              "fieldType": "dropdown",
+              "fieldOptions": {
+                "values": [
+                  {
+                    "option": "9:16"
+                  },
+                  {
+                    "option": "16:9"
+                  }
+                ]
+              }
+            },
+            {
+              "fieldLabel": "Model",
+              "fieldType": "dropdown",
+              "fieldOptions": {
+                "values": [
+                  {
+                    "option": "veo3_fast"
+                  },
+                  {
+                    "option": "fast"
+                  },
+                  {
+                    "option": "veo3_lite"
+                  }
+                ]
+              }
+            },
+            {
+              "fieldLabel": "Resolution",
+              "fieldType": "dropdown",
+              "fieldOptions": {
+                "values": [
+                  {
+                    "option": "720p"
+                  },
+                  {
+                    "option": "1080p"
+                  },
+                  {
+                    "option": "4k"
+                  }
+                ]
+              }
+            },
+            {
+              "fieldLabel": "Duration",
+              "fieldType": "dropdown",
+              "fieldOptions": {
+                "values": [
+                  {
+                    "option": "4"
+                  },
+                  {
+                    "option": "6"
+                  },
+                  {
+                    "option": "8"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.5,
+      "position": [
+        -144,
+        1264
+      ],
+      "id": "6878495a-b257-47da-94c3-1f58b3bacf3a",
+      "name": "On form submission",
+      "webhookId": "865e83b8-ca8f-4544-97a3-580886bdc783"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1HaO1LDA3oJM-049iZCCjMwD_GhgbVWnrdOdLK70GUuA",
+          "mode": "list",
+          "cachedResultName": "20260209_Youtube_Content",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1HaO1LDA3oJM-049iZCCjMwD_GhgbVWnrdOdLK70GUuA/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "YouTube",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1HaO1LDA3oJM-049iZCCjMwD_GhgbVWnrdOdLK70GUuA/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "videoLink": "={{ $json.data.response.originUrls[0] }}",
+            "videoStatus": "={{ $json.msg }}",
+            "Title": "={{ $('On form submission').item.json.Prompt }}"
+          },
+          "matchingColumns": [
+            "Title"
+          ],
+          "schema": [
+            {
+              "id": "Title",
+              "displayName": "Title",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "video_script",
+              "displayName": "video_script",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Scene 1",
+              "displayName": "Scene 1",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Scene 2",
+              "displayName": "Scene 2",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Scene 3",
+              "displayName": "Scene 3",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "style",
+              "displayName": "style",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "caption",
+              "displayName": "caption",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "music",
+              "displayName": "music",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "videoStatus",
+              "displayName": "videoStatus",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "publishStatus",
+              "displayName": "publishStatus",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "videoLink",
+              "displayName": "videoLink",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "id": "d5b1e64b-5dad-4c5f-bc39-780d1b949f38",
+      "name": "Save Video to Google Sheets",
+      "type": "n8n-nodes-base.googleSheets",
+      "position": [
+        816,
+        1264
+      ],
+      "typeVersion": 4.6,
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "swHN4rGGgv0MH5qi",
+          "name": "SG Techie Google Sheets account 5"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Generate Video with VEO3": {
+      "main": [
+        [
+          {
+            "node": "Wait for VEO3 Rendering",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Wait for VEO3 Rendering": {
+      "main": [
+        [
+          {
+            "node": "Download Video from VEO3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Download Video from VEO3": {
+      "main": [
+        [
+          {
+            "node": "Save Video to Google Sheets",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "On form submission": {
+      "main": [
+        [
+          {
+            "node": "Generate Video with VEO3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "bd3becd6-7fce-45d3-a941-b59199df5229",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "e99e0d1157c9445a053edb1d8bcb3c19869f806f2b50808813faa4f314de9dd4"
+  },
+  "nodeGroups": [],
+  "id": "Qd9u7WanY7ArJmFP",
+  "tags": [
+    {
+      "updatedAt": "2025-11-01T17:53:32.390Z",
+      "createdAt": "2025-11-01T17:53:32.390Z",
+      "id": "ng1dgEloOm3KOCuS",
+      "name": "SG"
+    }
+  ]
+}
