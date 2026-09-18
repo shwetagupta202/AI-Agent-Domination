@@ -65,7 +65,7 @@
       },
       "type": "n8n-nodes-base.stickyNote",
       "position": [
-        -88,
+        -96,
         -288
       ],
       "typeVersion": 1,
@@ -74,13 +74,13 @@
     },
     {
       "parameters": {
-        "model": "nvidia/nemotron-3-nano-30b-a3b:free",
+        "model": "nvidia/nemotron-3-nano-30b-a3b",
         "options": {}
       },
       "type": "@n8n/n8n-nodes-langchain.lmChatOpenRouter",
       "typeVersion": 1,
       "position": [
-        584,
+        592,
         112
       ],
       "id": "5b5b8d5f-260e-4db1-ad38-d4cb9f16cf07",
@@ -161,11 +161,12 @@
     "binaryMode": "separate",
     "availableInMCP": false
   },
-  "versionId": "91fa526c-567f-4350-a7c1-afb353c004d4",
+  "versionId": "0e082107-8add-49cc-9eca-5f6c8d7064f2",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "e99e0d1157c9445a053edb1d8bcb3c19869f806f2b50808813faa4f314de9dd4"
   },
+  "nodeGroups": [],
   "id": "97cAf4MqGRhfGgyn",
   "tags": [
     {
